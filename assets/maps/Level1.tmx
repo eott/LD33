@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" nextobjectid="12">
  <tileset firstgid="1" name="labyrinth_spritesheet" tilewidth="64" tileheight="64" tilecount="100">
   <image source="../images/background/labyrinth_spritesheet.png" width="640" height="640"/>
+ </tileset>
+ <tileset firstgid="101" name="game_objects" tilewidth="64" tileheight="64" tilecount="25">
+  <image source="../images/objects/game_objects.png" width="320" height="320"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="player_start"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="gold"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Walls" width="100" height="100">
   <data encoding="base64" compression="zlib">
@@ -13,4 +26,15 @@
    eJzt2MsKxCAMBdDW///oWRVCiM4sfBTmHBBKdFG8NEqvC/hFC+NOo1e/j7zpf2jhudrnVtTksU4vj7uoVeuYK+5t7l15Pq5jjZxHrstjr6pH9eZHNeb4dm+K96w2WMc8oz229/vF8zuTx37tqu9WnPGcEZzzZFD9C/F97Pf0pkweZ/R6VC8n1qr6VTzTOUePAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADe7gMPJAB6
   </data>
  </layer>
+ <objectgroup name="Game objects">
+  <object id="3" gid="101" x="193" y="193" width="64" height="64"/>
+  <object id="4" gid="102" x="395" y="202" width="64" height="64"/>
+  <object id="5" gid="102" x="1022" y="370" width="64" height="64"/>
+  <object id="6" gid="102" x="192" y="574" width="64" height="64"/>
+  <object id="7" gid="102" x="514" y="770" width="64" height="64"/>
+  <object id="8" gid="102" x="573" y="384" width="64" height="64"/>
+  <object id="9" gid="102" x="273" y="890" width="64" height="64"/>
+  <object id="10" gid="102" x="704" y="679" width="64" height="64"/>
+  <object id="11" gid="102" x="261" y="1149" width="64" height="64"/>
+ </objectgroup>
 </map>
