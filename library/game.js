@@ -3,6 +3,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload
 var cursors;
 var buttonWasDown = false;
 var treasures = [];
+var visitors = [];
 
 // Meta globals
 var timeOfStart = Date.now();
@@ -53,16 +54,16 @@ function create() {
 
     // Visitors
     var visitorStart = findObjectsByType('visitor_start', map, 'Game objects');
-    visitorStart = visitorStart.pop();
-
-    visitor = game.add.sprite(visitorStart.x, visitorStart.y, 'visitor');
-    visitor.anchor.setTo(0.5, 0.5);
-    visitor.scale.setTo(0.5, 0.5);
-    visitor.bringToTop();
-
-
-    game.physics.arcade.enable(visitor);
-    visitor.body.collideWorldBounds = true;
+    for (var i = 0; i < visitorStart.length; i++) {
+        var start = visitorStart[i];
+        var visitor = game.add.sprite(start.x, start.y, 'visitor');
+        visitor.anchor.setTo(0.5, 0.5);
+        visitor.scale.setTo(0.5, 0.5);
+        visitor.bringToTop();
+        game.physics.arcade.enable(visitor);
+        visitor.body.collideWorldBounds = true;
+        visitors.push(visitor);
+    }
 
     // Treasures
     var treasureStart = findObjectsByType('treasure', map, 'Game objects');
@@ -123,50 +124,53 @@ function update() {
     player.rotation = getRotationForVelocity(player.body.velocity.x, player.body.velocity.y, "player");
 
     // Visitor Movement
-    this.game.physics.arcade.collide(visitor, wallsLayer);
-    this.game.physics.arcade.collide(visitor, decorationLayer);
+    for (var i = 0; i < visitors.length; i++) {
+        var visitor = visitors[i];
+        this.game.physics.arcade.collide(visitor, wallsLayer);
+        this.game.physics.arcade.collide(visitor, decorationLayer);
 
-    var blocked = visitor.body.blocked.up || visitor.body.blocked.down || visitor.body.blocked.left || visitor.body.blocked.right;
-    var moving = visitor.body.velocity.x || visitor.body.velocity.y;
-    var seesMinotaur = Phaser.Point.distance(visitor.body.position, player.body.position, 0) < 50;
-    if (blocked || !moving || seesMinotaur) {
-        visitor.body.velocity.x = 0;
-        visitor.body.velocity.y = 0;
+        var blocked = visitor.body.blocked.up || visitor.body.blocked.down || visitor.body.blocked.left || visitor.body.blocked.right;
+        var moving = visitor.body.velocity.x || visitor.body.velocity.y;
+        var seesMinotaur = Phaser.Point.distance(visitor.body.position, player.body.position, 0) < 50;
+        if (blocked || !moving || seesMinotaur) {
+            visitor.body.velocity.x = 0;
+            visitor.body.velocity.y = 0;
 
-        if (seesMinotaur) {
-            var angle = Phaser.Point.angle(visitor.body.position, player.body.position);
-            visitor.body.velocity.y = visitorSpeed * Math.sin(angle) * 10;
-            visitor.body.velocity.x = visitorSpeed * Math.cos(angle) * 10;
-        } else {
-            switch (Math.floor(Math.random() * 9)) {
-                case 1:
-                    visitor.body.velocity.x -= visitorSpeed; // West
-                    break;
-                case 2:
-                    visitor.body.velocity.x += visitorSpeed; // East
-                    break;
-                case 3:
-                    visitor.body.velocity.y -= visitorSpeed; // South
-                    break;
-                case 4:
-                    visitor.body.velocity.y += visitorSpeed; // North
-                    break;
-                case 5:
-                    visitor.body.velocity.x -= Math.sqrt(visitorSpeed * visitorSpeed / 2); // South-West
-                    visitor.body.velocity.y -= Math.sqrt(visitorSpeed * visitorSpeed / 2);
-                    break;
-                case 6:
-                    visitor.body.velocity.x += Math.sqrt(visitorSpeed * visitorSpeed / 2); // South-East
-                    visitor.body.velocity.y -= Math.sqrt(visitorSpeed * visitorSpeed / 2);
-                    break;
-                case 7:
-                    visitor.body.velocity.x -= Math.sqrt(visitorSpeed * visitorSpeed / 2); // North-West
-                    visitor.body.velocity.y += Math.sqrt(visitorSpeed * visitorSpeed / 2);
-                    break;
-                case 8:
-                    visitor.body.velocity.x += Math.sqrt(visitorSpeed * visitorSpeed / 2); // North-East
-                    visitor.body.velocity.y += Math.sqrt(visitorSpeed * visitorSpeed / 2);
-                    break;
+            if (seesMinotaur) {
+                var angle = Phaser.Point.angle(visitor.body.position, player.body.position);
+                visitor.body.velocity.y = visitorSpeed * Math.sin(angle) * 10;
+                visitor.body.velocity.x = visitorSpeed * Math.cos(angle) * 10;
+            } else {
+                switch (Math.floor(Math.random() * 9)) {
+                    case 1:
+                        visitor.body.velocity.x -= visitorSpeed; // West
+                        break;
+                    case 2:
+                        visitor.body.velocity.x += visitorSpeed; // East
+                        break;
+                    case 3:
+                        visitor.body.velocity.y -= visitorSpeed; // South
+                        break;
+                    case 4:
+                        visitor.body.velocity.y += visitorSpeed; // North
+                        break;
+                    case 5:
+                        visitor.body.velocity.x -= Math.sqrt(visitorSpeed * visitorSpeed / 2); // South-West
+                        visitor.body.velocity.y -= Math.sqrt(visitorSpeed * visitorSpeed / 2);
+                        break;
+                    case 6:
+                        visitor.body.velocity.x += Math.sqrt(visitorSpeed * visitorSpeed / 2); // South-East
+                        visitor.body.velocity.y -= Math.sqrt(visitorSpeed * visitorSpeed / 2);
+                        break;
+                    case 7:
+                        visitor.body.velocity.x -= Math.sqrt(visitorSpeed * visitorSpeed / 2); // North-West
+                        visitor.body.velocity.y += Math.sqrt(visitorSpeed * visitorSpeed / 2);
+                        break;
+                    case 8:
+                        visitor.body.velocity.x += Math.sqrt(visitorSpeed * visitorSpeed / 2); // North-East
+                        visitor.body.velocity.y += Math.sqrt(visitorSpeed * visitorSpeed / 2);
+                        break;
+                }
             }
         }
     }
