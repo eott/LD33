@@ -9,7 +9,7 @@ function gfxPreload() {
 }
 
 function gfxCreate() {
-    map = this.game.add.tilemap('level');
+    map = game.add.tilemap('level');
 
     // Add the tileset images. The first parameter is the tileset name as
     // specified in Tiled, the second is the key to the asset.

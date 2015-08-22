@@ -125,7 +125,7 @@ function update() {
 
     // Visitor Movement
     this.game.physics.arcade.collide(visitor, wallsLayer);
-    this.game.physics.arcade.collide(visitor, furnitureLayer);
+    this.game.physics.arcade.collide(visitor, decorationLayer);
 
     var blocked = visitor.body.blocked.up || visitor.body.blocked.down || visitor.body.blocked.left || visitor.body.blocked.right;
     var moving = visitor.body.velocity.x || visitor.body.velocity.y;
