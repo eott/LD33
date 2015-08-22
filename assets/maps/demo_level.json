@@ -52,7 +52,35 @@
                  "width":0,
                  "x":141.5,
                  "y":161
-                }],
+                },{
+                 "gid":5,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                 {
+
+                 },
+                 "rotation":0,
+                 "type":"visitor_start",
+                 "visible":true,
+                 "width":0,
+                 "x":211.5,
+                 "y":161
+             },{
+                 "gid":6,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                 {
+
+                 },
+                 "rotation":0,
+                 "type":"treasure_start",
+                 "visible":true,
+                 "width":0,
+                 "x":211.5,
+                 "y":161
+             }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
