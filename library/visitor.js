@@ -1,8 +1,6 @@
 /**
- * A Visitor object represent a NPC walking on the map, searching for gold and interact with
+ * A Visitor object represents a NPC walking on the map, searching for gold and interact with
  * the minotaur.
- *
- * Sets and enables the sprite {@link http://phaser.io/docs/2.4.2/Phaser.Physics.html#enable}
  *
  * @class Visitor
  * @constructor
@@ -12,9 +10,7 @@
 Visitor = function (game, sprite) {
     this.game = game;
     this.sprite = sprite;
-    this.game.physics.arcade.enable(this.sprite);
-    this.body = this._sprite.body;
-    this.body.collideWorldBounds = true;
+    this.body = this.sprite.body;
 }
 
 
@@ -25,29 +21,45 @@ Visitor = function (game, sprite) {
  * @return {boolean}
  */
 Visitor.prototype.blocked = function () {
-    return this.body.blocked.up || this.body.blocked.down || this.body.blocked.left || this.body.blocked.right
+    return this.body.blocked.up || this.body.blocked.down || this.body.blocked.left || this.body.blocked.right;
 }
 
 /**
  * Absconds from Minotaur into reverse direction accelerated by factor 10
+ *
  * @method Visitor#flee
  * @param {Minotaur} minotaur
- *
  */
 Visitor.prototype.flee = function (minotaur) {
-    var panic = 10;
-    var angle = Phaser.Point.angle(this.body.position, minotaur.body.position);
-    this.body.velocity.y = visitorSpeed * Math.sin(angle) * panic;
-    this.body.velocity.x = visitorSpeed * Math.cos(angle) * panic;
+    this.changeDirection(Phaser.Point.angle(this.body.position, minotaur.body.position), 10);
 }
 
 /**
- * Walks randomly around
+ * Starts walking randomly around
+ *
+ * @method Visitor#startWalking
  */
-Visitor.prototype.walk = function () {
-    var angle = Math.random() * Math.PI * 2;
-    this.body.velocity.y = visitorSpeed * Math.sin(angle);
-    this.body.velocity.x = visitorSpeed * Math.cos(angle);
+Visitor.prototype.startWalking = function () {
+    this.changeDirection(Math.random() * Math.PI * 2);
+}
+
+/**
+ * Changes the Visitor's direction relative to the given target. Or changes
+ * the direction by a given angle. Accepts an optional acceleration parameter.
+ *
+ * @method Visitor#changeDirection
+ * @param {Phaser.Point|number} targetOrAngle - The treasure to chase and grab
+ * @param {number} [acceleration] - The factor to accelerate the velocity
+ */
+Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
+    if (target instanceof Phaser.Point) {
+        targetOrAngle = Phaser.Point.angle(target, this.body.position);
+    }
+    if (typeof acceleration === 'undefined') {
+        acceleration = 1;
+    }
+    this.body.velocity.y = visitorSpeed * Math.sin(targetOrAngle) * acceleration;
+    this.body.velocity.x = visitorSpeed * Math.cos(targetOrAngle) * acceleration;
 }
 
 /**
@@ -61,9 +73,11 @@ Visitor.prototype.grab = function (treasure) {
 }
 
 /**
+ * Loops the treasure collection. Returns the nearest treasure found
  *
  * @method Visitor#findNearestTreasure
  * @param {Array.<Treasure>} treasures - The treasure collection
+ * @return {Treasure|undefined} Nearest treasure found
  */
 Visitor.prototype.findNearestTreasure = function (treasures) {
     var maxRange = 50;
@@ -80,40 +94,57 @@ Visitor.prototype.findNearestTreasure = function (treasures) {
 }
 
 /**
- * Updates the Visitor each cycle
+ * Updates the Visitor each cycle. Contains the Visitor's KI-circuits.
  *
  * @method Visitor#update
  * @param {Minotaur} minotaur - The player object
  * @param {Array.<Treasure>} treasures - The treasure collection
  */
 Visitor.prototype.update = function (minotaur, treasures) {
-    var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < 50;
+    var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < 200;
     var isMoving = visitor.body.velocity.x || visitor.body.velocity.y;
     var blocked = this.blocked();
     var foundTreasure = this.findNearestTreasure(treasures);
+    var standsOnTreasure = Phaser.Point.distance(this.body.position, foundTreasure.body.position, 0) < 5;
 
     switch (true) {
         case (seesMinotaur):
             this.flee(minotaur);
             break;
-        case(foundTreasure):
+        case (standsOnTreasure):
+            this.grab(foundTreasure);
             break;
-        case(!isMoving):
-        case(blocked):
+        case (foundTreasure):
+            this.changeDirection(foundTreasure.body.position);
+            break;
+        case (blocked):
+        case (!isMoving):
         default:
-            this.walk();
+            this.startWalking();
     }
 }
 
 /**
- * Creates and returns a new visitor
+ * Creates and returns a new visitor. Consumes an 'Game Object' with
+ * type 'visitor_start'. Creates a sprite for the loaded visitor image.
+ * Enables the physics and returns the newly created Visitor.
+ *
+ * {@link http://phaser.io/docs/2.4.2/Phaser.Physics.html#enable}
+ *
  * @method Visitor.create
  * @static
+ * @param {Phaser.Game} game
+ * @param {object} gameObject
+ * @return {Visitor}
  */
 Visitor.create = function (game, gameObject) {
     var sprite = game.add.sprite(gameObject.x, gameObject.y, 'visitor');
     sprite.anchor.setTo(0.5, 0.5);
     sprite.scale.setTo(0.5, 0.5);
     sprite.bringToTop();
+
+    game.physics.arcade.enable(sprite);
+    sprite.body.collideWorldBounds = true;
+
     return new Visitor(game, sprite);
 }
