@@ -12,7 +12,12 @@
   </tile>
   <tile id="1">
    <properties>
-    <property name="type" value="gold"/>
+    <property name="type" value="treasure"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="visitor_start"/>
    </properties>
   </tile>
  </tileset>
@@ -28,7 +33,7 @@
  </layer>
  <layer name="Decoration" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1MEJgDAMQNGuZNXq/pPZCdpDLBF8D3IKgX9KKQCwRs0OgA87sgMAACBgG+z2ye3Zp73YQszV586OgIUi/woAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgH97AOziAgk=
+   eJzt2MsJwCAQQEFbyj8dpf8OYgEhEZSs4AzsSRbeycOmBLRwRQdAh+boAOjYGh0AAAAVppe35WN3y7M3bKHc0/3qyHP+HTIAt8J+1PxXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACM7QbsWQM+
   </data>
  </layer>
  <objectgroup name="Game objects">
