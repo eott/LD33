@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="labyrinth_spritesheet" tilewidth="64" tileheight="64" tilecount="100">
+  <image source="../images/background/labyrinth_spritesheet.png" width="640" height="640"/>
+ </tileset>
+ <layer name="Walls" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2M1KAzEUBtCB1p/WhaJ2V1y58/3fz4Q2+FFSKBpnip4DF4ZJBoZ+5CadaeIavZa6/WbtFnjfv+7mB8+uhr0FTcvjvtQmrvelHku9x731sdo8eYzX8ljF9V2p7fH6KcZ7zzBWL48kj3n18sjeJY959XpU/Z1fpsNe8Rbj7VyV8xir16N6a6FHHuPVdVB7Uzs71V71HOPZw9YnlfMYJ9dA9qXdZK9YwrmelPuItfC78jvJNu4/TIf/gbU+Fniv/+qS7yR61Hwyj963kEoe8zm3h2fvksd89Kvr0s5Npz0qe5cz1TIyGxkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwJdPK/cEQQ==
+  </data>
+ </layer>
+ <layer name="Floor" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2MsKxCAMBdDW///oWRVCiM4sfBTmHBBKdFG8NEqvC/hFC+NOo1e/j7zpf2jhudrnVtTksU4vj7uoVeuYK+5t7l15Pq5jjZxHrstjr6pH9eZHNeb4dm+K96w2WMc8oz229/vF8zuTx37tqu9WnPGcEZzzZFD9C/F97Pf0pkweZ/R6VC8n1qr6VTzTOUePAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADe7gMPJAB6
+  </data>
+ </layer>
+</map>
