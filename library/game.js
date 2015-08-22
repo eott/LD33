@@ -46,6 +46,10 @@ function create() {
     game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
 
+    // Change the size of the Collision Box
+    player.body.width = 30;
+    player.body.height = 30;
+
     // Visitors
     var visitorStart = findObjectsByType('visitor_start', map, 'Game Objects');
     visitorStart = visitorStart.pop();
