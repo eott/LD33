@@ -2,6 +2,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: create, update: update });
 var cursors;
 var buttonWasDown = false;
+var treasures = [];
 
 // Meta globals
 var timeOfStart = Date.now();
@@ -65,16 +66,14 @@ function create() {
 
     // Treasures
     var treasureStart = findObjectsByType('treasure', map, 'Game objects');
-    console.log(treasureStart);
-    treasureStart = treasureStart.pop();
-
-    treasure = game.add.sprite(treasureStart.x, treasureStart.y, 'game_objects');
-    treasure.frame = 1;
-    treasure.anchor.setTo(0.5, 0.5);
-    treasure.scale.setTo(0.5, 0.5);
-    treasure.bringToTop();
-
-    game.physics.arcade.enable(treasure);
+    for (var i = 0; i < treasureStart.length; i++) {
+        var start     = treasureStart[i];
+        var treasure  = game.add.sprite(start.x, start.y, 'game_objects');
+        treasure.frame = 1;
+        game.physics.arcade.enable(treasure);
+        treasure.bringToTop();
+        treasures.push(treasure);
+    }
 }
 
 function update() {
@@ -173,35 +172,38 @@ function update() {
     }
 
     // Treasure behaviour
-    var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < 50;
+    for (var i = 0; i < treasures.length; i++) {
+        var treasure = treasures[i];
+        var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < 50;
 
-    if (foundGold) {
-        /*
-            ToDos:
-            - GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
-            - Animation / Sound etc.
-            - Maybe: Add dynamic gold amount from treasure object
-         */
+        if (foundGold) {
+            /*
+                ToDos:
+                - GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
+                - Animation / Sound etc.
+                - Maybe: Add dynamic gold amount from treasure object
+             */
 
-        var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
+            var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
 
-        // Add text
-        text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, '+500G', style);
-        text.anchor.set(0.5);
+            // Add text
+            text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, '+500G', style);
+            text.anchor.set(0.5);
 
-        // Animate text
-        var tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
+            // Animate text
+            var tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
 
-        // Remove text after animation is done
-        tween.onComplete.add(function() {
-            text.destroy();
-        }, this);
+            // Remove text after animation is done
+            tween.onComplete.add(function() {
+                text.destroy();
+            }, this);
 
-        // Remove the treasure object (currently just moves the treasure really far away...)
-        treasure.position.x = - -1000000;
-        treasure.position.y = - -1000000;
+            // Remove the treasure object (currently just moves the treasure really far away...)
+            treasure.position.x = - -1000000;
+            treasure.position.y = - -1000000;
 
-        // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
+            // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
+        }
     }
 
     gfxUpdate();
