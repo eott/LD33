@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" nextobjectid="12">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" nextobjectid="15">
  <tileset firstgid="1" name="labyrinth_spritesheet" tilewidth="64" tileheight="64" tilecount="100">
   <image source="../images/background/labyrinth_spritesheet.png" width="640" height="640"/>
  </tileset>
@@ -16,14 +16,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Walls" width="100" height="100">
-  <data encoding="base64" compression="zlib">
-   eJzt2M1KAzEUBtCB1p/WhaJ2V1y58/3fz4Q2+FFSKBpnip4DF4ZJBoZ+5CadaeIavZa6/WbtFnjfv+7mB8+uhr0FTcvjvtQmrvelHku9x731sdo8eYzX8ljF9V2p7fH6KcZ7zzBWL48kj3n18sjeJY959XpU/Z1fpsNe8Rbj7VyV8xir16N6a6FHHuPVdVB7Uzs71V71HOPZw9YnlfMYJ9dA9qXdZK9YwrmelPuItfC78jvJNu4/TIf/gbU+Fniv/+qS7yR61Hwyj963kEoe8zm3h2fvksd89Kvr0s5Npz0qe5cz1TIyGxkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwJdPK/cEQQ==
-  </data>
- </layer>
  <layer name="Floor" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2MsKxCAMBdDW///oWRVCiM4sfBTmHBBKdFG8NEqvC/hFC+NOo1e/j7zpf2jhudrnVtTksU4vj7uoVeuYK+5t7l15Pq5jjZxHrstjr6pH9eZHNeb4dm+K96w2WMc8oz229/vF8zuTx37tqu9WnPGcEZzzZFD9C/F97Pf0pkweZ/R6VC8n1qr6VTzTOUePAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADe7gMPJAB6
+   eJzt2NEKwyAMBVDr/3/0ngohRFeGtYWdA4UtWhjeNbq1BlzRw3Wka1Q/Hvmk/6GH19U696Imj/uM8jiKWjWPteLa5t6Vx+M87pHzyHV57FX1qNH4rMYa385N8ZzVJ/NYZ7bG1n6/uH9n8tivt/ps1Zo8nnDuEaOx/N7v9PXODKr/QmbPh2fnHmdvyqo8rmbF70Y9apRTvE+/Wq/qV3FP5zm+6wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA230AFzYAjQ==
+  </data>
+ </layer>
+ <layer name="Walls" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2FtLwzAYBuDA5mHzQlF3J1555///f7ZswZeaMWnDKvI88EEPKZS8bdK0FP6i16FuZ9Zhhfv9724WXLvpdhdUNY/7oXax/TbU41AfcWx7qtpOHv3VPDaxfTfU/rT9FOdb19BXK48kj+tq5ZFjlzyuqzVGjf38Uo5zxXucr99V2Y6+WmNU611okUd/43uwi/1xrHqO/RzDtpPKdvST70COS4dirljDuTEp5/iaR2s9b52+XPbrPo4/lOM6cKzP8jOPS/MN8/zmP8l0jTjNLtuxTObR+hcyOrdGnJLHcufm8Hz+cx3Syivbsczc536aj+/ePrJfp+sP/byuzEYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPDtC7JoBPA=
+  </data>
+ </layer>
+ <layer name="Decoration" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1MEJgDAMQNGuZNXq/pPZCdpDLBF8D3IKgX9KKQCwRs0OgA87sgMAACBgG+z2ye3Zp73YQszV586OgIUi/woAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgH97AOziAgk=
   </data>
  </layer>
  <objectgroup name="Game objects">
@@ -36,5 +41,7 @@
   <object id="9" gid="102" x="273" y="890" width="64" height="64"/>
   <object id="10" gid="102" x="704" y="679" width="64" height="64"/>
   <object id="11" gid="102" x="261" y="1149" width="64" height="64"/>
+  <object id="13" gid="102" x="983" y="834" width="64" height="64"/>
+  <object id="14" gid="102" x="1139" y="1019" width="64" height="64"/>
  </objectgroup>
 </map>
