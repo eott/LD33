@@ -11,8 +11,8 @@ var lastRotations = {"player": 0};
 
 function preload() {
     game.load.image('player', 'assets/images/player/player.png');
-    game.load.image('visitor', 'assets/images/player/visitor.png');
-    game.load.image('treasure', 'assets/images/player/treasure.png');
+    game.load.image('visitor', 'assets/images/objects/visitor.png');
+    game.load.spritesheet('game_objects', 'assets/images/objects/game_objects.png', 64, 64);
 
     gfxPreload();
     sfxPreload();
@@ -30,7 +30,7 @@ function create() {
     }
 
     // Player
-    var start = findObjectsByType('player_start', map, 'Game Objects');
+    var start = findObjectsByType('player_start', map, 'Game objects');
     start = start.pop();
 
     player = game.add.sprite(start.x, start.y, 'player');
@@ -51,7 +51,7 @@ function create() {
     player.body.height = 30;
 
     // Visitors
-    var visitorStart = findObjectsByType('visitor_start', map, 'Game Objects');
+    var visitorStart = findObjectsByType('visitor_start', map, 'Game objects');
     visitorStart = visitorStart.pop();
 
     visitor = game.add.sprite(visitorStart.x, visitorStart.y, 'visitor');
@@ -64,11 +64,12 @@ function create() {
     visitor.body.collideWorldBounds = true;
 
     // Treasures
-    var treasureStart = findObjectsByType('treasure_start', map, 'Game Objects');
+    var treasureStart = findObjectsByType('treasure', map, 'Game objects');
     console.log(treasureStart);
     treasureStart = treasureStart.pop();
 
-    treasure = game.add.sprite(treasureStart.x, treasureStart.y, 'treasure');
+    treasure = game.add.sprite(treasureStart.x, treasureStart.y, 'game_objects');
+    treasure.frame = 1;
     treasure.anchor.setTo(0.5, 0.5);
     treasure.scale.setTo(0.5, 0.5);
     treasure.bringToTop();
@@ -88,7 +89,7 @@ function update() {
 
     // Collision
     this.game.physics.arcade.collide(player, wallsLayer);
-    this.game.physics.arcade.collide(player, furnitureLayer);
+    this.game.physics.arcade.collide(player, decorationLayer);
 
     // Movement
     player.body.velocity.x = 0;
