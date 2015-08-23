@@ -247,7 +247,7 @@ Visitor.create = function (game, gameObject) {
 /**
  * Sets the orientation of the visitor image.
  * Takes an orientation short cut as argument:
- * n, ne, e, ...
+ * n, ne, e, ... or degree.
  *
  * @param {string} orientation
  * @returns {number}
@@ -255,27 +255,35 @@ Visitor.create = function (game, gameObject) {
 Visitor.prototype.setSpriteOrientation = function (orientation) {
     switch (orientation) {
         case ('n'):
+        case (90):
             this.rotationIndex = 1;
             break;
         case ('ne'):
+        case (45):
             this.rotationIndex = 2;
             break;
         case ('e'):
+        case (0):
             this.rotationIndex = 3;
             break;
         case ('se'):
+        case (315):
             this.rotationIndex = 4;
             break;
         case ('s'):
+        case (270):
             this.rotationIndex = 5;
             break;
         case ('sw'):
+        case (225):
             this.rotationIndex = 6;
             break;
         case ('w'):
+        case (180):
             this.rotationIndex = 7;
             break;
         case ('nw'):
+        case (135):
             this.rotationIndex = 8;
             break;
         default:
@@ -286,15 +294,13 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
 };
 
 /**
- *
- * @returns {number}
+ * Splits a group in single people.
  */
 Visitor.prototype.splitGroup = function () {
-//    for ($v = 0; $v < this.groupSize(); $v++) {
-//        var visitor = Visitor.create(game, this);
-//        visitor.position = this.position;
-//        visitor.
-//    }
-    return 1;
-
+    for ($v = 0; $v < this.groupSize(); $v++) {
+        var visitor = Visitor.create(game, this);
+        visitor.position = this.position;
+        visitor.changeDirection(45 * $v); // stray them in different directions
+        visitor.setOrientation(45 * $v);  // change image
+    }
 };
