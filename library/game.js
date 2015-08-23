@@ -8,7 +8,6 @@ var visitors = [];
 // Meta globals
 var timeOfStart = Date.now();
 var playerSpeed = 400;
-var visitorSpeed = 50;
 var lastRotations = {"player": 0};
 
 function preload() {
