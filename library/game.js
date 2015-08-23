@@ -149,7 +149,7 @@ function getRotationForVelocity(x, y, key) {
  * @returns {boolean}
  */
 function checkWinOrLose() {
-    if (player.wallet == 5000) {
+    if (player.wallet >= 5000) {
         // Player won! Show win screen and stop the game.
         var style = { font: "50px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
         this.text = this.game.add.text(this.game.width / 2 - 130, this.game.height / 2 - 50, 'YOU WIN! :)', style);
@@ -162,7 +162,7 @@ function checkWinOrLose() {
             visitorWallet += visitors[idx].wallet;
         }
 
-        if (visitorWallet == 5000) {
+        if (visitorWallet >= 5000) {
             // Player won! Show win screen and stop the game.
             var style = { font: "50px Arial", fill: "red", stroke: "black", strokeThickness: 7, align: "center" };
             this.text = this.game.add.text(this.game.width / 2 - 140, this.game.height / 2 - 50, 'YOU LOSE! :(', style);
