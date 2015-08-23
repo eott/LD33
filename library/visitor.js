@@ -226,7 +226,7 @@ Visitor.prototype.transferTreasure = function (minotaur) {
         this.updateGem();
         this.flee(minotaur);
     } else { // minotaur meet a strong group
-        wantedTreasure = this.groupSize() * 500;
+        wantedTreasure = this.groupsize * 500;
 
         if (minotaur.wallet >= wantedTreasure) {
             minotaur.wallet -= wantedTreasure; // every visitor picks one treasure
@@ -268,7 +268,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
 
     var nearestTreasure  = this.findNearestTreasure(treasures);
     var foundTreasure    = typeof nearestTreasure !== 'undefined';
-    var seesTreasure     = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
+    var seesTreasure     = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < iCanSeeYouDistance;
     var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < catchReach;
 
     var foundVisitor = this.findNearestVisitor(visitors);
