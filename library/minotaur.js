@@ -40,7 +40,7 @@ Minotaur.prototype.findNearestTreasure = function (treasures) {
 /**
  * Indicates if user tells to move
  *
- * @method Visitor#move
+ * @method Minotaur#move
  * @retrun {boolean}
  */
 Minotaur.prototype.isMoving = function () {
@@ -51,7 +51,7 @@ Minotaur.prototype.isMoving = function () {
 /**
  * Moves the Minotaur by cursors input
  *
- * @method Visitor#move
+ * @method Minotaur#move
  */
 Minotaur.prototype.move = function () {
     var playerSpeed = 400;
@@ -89,7 +89,7 @@ Minotaur.prototype.move = function () {
 /**
  * Rotates Minotaur towards moving direction
  *
- * @method Visitor#rotate
+ * @method Minotaur#rotate
  */
 Minotaur.prototype.rotate = function () {
     var rotation = getRotationForVelocity(this.body.velocity.x, this.body.velocity.y, "player");
@@ -99,7 +99,7 @@ Minotaur.prototype.rotate = function () {
 /**
  * Grabs treasure
  *
- * @method Visitor#grab
+ * @method Minotaur#grab
  * @param {Treasure} treasure - The treasure to chase and grab
  */
 Minotaur.prototype.grab = function (treasure) {
