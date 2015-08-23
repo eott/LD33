@@ -52,8 +52,8 @@ Visitor.prototype.startWalking = function () {
  * @param {number} [acceleration] - The factor to accelerate the velocity
  */
 Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
-    if (target instanceof Phaser.Point) {
-        targetOrAngle = Phaser.Point.angle(target, this.body.position);
+    if (targetOrAngle instanceof Phaser.Point) {
+        targetOrAngle = Phaser.Point.angle(targetOrAngle, this.body.position);
     }
     if (typeof acceleration === 'undefined') {
         acceleration = 1;
@@ -83,10 +83,10 @@ Visitor.prototype.findNearestTreasure = function (treasures) {
     var maxRange = 50;
     var shortestDistance = 0;
     var nearestTreasure;
-    for (var treasure in treasures) {
-        var distance = Phaser.Point.distance(this.body.position, treasure.body.position, 0);
+    for (var idx in treasures) {
+        var distance = Phaser.Point.distance(this.body.position, treasures[idx].body.position, 0);
         if (distance < maxRange && (!shortestDistance || distance < shortestDistance)) {
-            nearestTreasure = treasure;
+            nearestTreasure = treasures[idx];
             shortestDistance = distance;
         }
     }
@@ -102,18 +102,20 @@ Visitor.prototype.findNearestTreasure = function (treasures) {
  */
 Visitor.prototype.update = function (minotaur, treasures) {
     var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < 200;
-    var isMoving = visitor.body.velocity.x || visitor.body.velocity.y;
+    var isMoving = this.body.velocity.x || this.body.velocity.y;
     var blocked = this.blocked();
     var foundTreasure = this.findNearestTreasure(treasures);
-    var standsOnTreasure = Phaser.Point.distance(this.body.position, foundTreasure.body.position, 0) < 5;
 
     switch (true) {
         case (seesMinotaur):
             this.flee(minotaur);
             break;
-        case (standsOnTreasure):
-            this.grab(foundTreasure);
-            break;
+        case (foundTreasure):
+            var standsOnTreasure = Phaser.Point.distance(this.body.position, foundTreasure.body.position, 0) < 5;
+            if (standsOnTreasure){
+                this.grab(foundTreasure);
+                break;
+            }
         case (foundTreasure):
             this.changeDirection(foundTreasure.body.position);
             break;
