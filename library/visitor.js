@@ -268,7 +268,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
 
     var nearestTreasure  = this.findNearestTreasure(treasures);
     var foundTreasure    = typeof nearestTreasure !== 'undefined';
-    var seesTreasure     = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
+    var seesTreasure     = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 75;
     var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < catchReach;
 
     var foundVisitor = this.findNearestVisitor(visitors);
