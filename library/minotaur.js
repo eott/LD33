@@ -98,9 +98,13 @@ Minotaur.prototype.move = function () {
  */
 Minotaur.prototype.rotate = function () {
     if (this.body.velocity.x == 0 && this.body.velocity.y == 0) return;
-
-    var rotation = getRotationForVelocity(this.body.velocity.x, this.body.velocity.y, "player");
-    game.add.tween(this.sprite).to({rotation: rotation}, 40, Phaser.Easing.Linear.Out, true);
+    var rotation = getRotationForVelocity(this.body.velocity.x, this.body.velocity.y, "player");    
+    if (rotation > (Math.Pi - .5) && rotation < (Math.PI + .5)) rotation = Math.PI - .1 ;
+    if (Math.abs(rotation) > Math.PI - .2 && Math.abs(rotation) < Math.PI + .2) {
+        this.sprite.rotation = Math.PI;
+        return;
+    }
+    game.add.tween(this.sprite).to({ rotation: rotation }, 40, Phaser.Easing.Linear.Out, true);
 };
 
 /**
