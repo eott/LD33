@@ -272,7 +272,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
     var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < catchReach;
 
     var foundVisitor = this.findNearestVisitor(visitors);
-    var meetVisitor  = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < catchReach;
+    var meetVisitor  = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < catchReach * 2;
 
     switch (true) {
         case (meetMinotaur):
