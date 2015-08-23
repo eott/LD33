@@ -226,7 +226,7 @@ Visitor.prototype.transferTreasure = function (minotaur) {
         this.updateGem();
         this.flee(minotaur);
     } else { // minotaur meet a strong group
-        wantedTreasure = this.groupSize() * 500;
+        wantedTreasure = this.groupsize * 500;
 
         if (minotaur.wallet >= wantedTreasure) {
             minotaur.wallet -= wantedTreasure; // every visitor picks one treasure
