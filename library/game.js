@@ -1,5 +1,5 @@
 // Game related objects
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: create, update: update });
+var game;
 var cursors;
 var buttonWasDown = false;
 var treasures = [];
@@ -8,8 +8,16 @@ var player;
 
 // Meta globals
 var timeOfStart = Date.now();
-
 var lastRotations = {"player": 0};
+
+function startGame() {
+    document.getElementById('menu').remove();
+    initGame();
+}
+
+function initGame() {
+    game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: create, update: update });
+}
 
 function preload() {
     game.load.image('player', 'assets/images/player/player.png');
@@ -172,4 +180,13 @@ function checkWinOrLose() {
     }
 
     return false;
+}
+
+function evilStuff() {
+    somethingSinister("Mode: ULTRA-EVIL, Countdown: 5 seconds");
+    worldDestroyed = true;
+}
+
+function somethingSinister() {
+    // TODO: Implement doomsday device
 }
