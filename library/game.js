@@ -58,12 +58,8 @@ function create() {
 
     // Treasures
     var treasureStart = findObjectsByType('treasure', map, 'Game objects');
-    for (var i = 0; i < treasureStart.length; i++) {
-        var start = treasureStart[i];
-        var treasure = game.add.sprite(start.x, start.y, 'game_objects');
-        treasure.frame = 1;
-        game.physics.arcade.enable(treasure);
-        treasure.bringToTop();
+    for(var idx in treasureStart){
+        var treasure = Treasure.create(game, treasureStart[idx],500);
         treasures.push(treasure);
     }
 }
