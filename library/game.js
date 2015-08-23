@@ -7,6 +7,7 @@ var buttonWasDown = false;
 var timeOfStart = Date.now();
 var playerSpeed = 400;
 var visitorSpeed = 50;
+var lastRotations = {"player": 0};
 
 function preload() {
     game.load.image('player', 'assets/images/player/player.png');
@@ -44,6 +45,10 @@ function create() {
     // How about some physics?
     game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
+
+    // Change the size of the Collision Box
+    player.body.width = 30;
+    player.body.height = 30;
 
     // Visitors
     var visitorStart = findObjectsByType('visitor_start', map, 'Game Objects');
@@ -114,6 +119,9 @@ function update() {
         player.body.velocity.x /= Math.sqrt(2);
     }
 
+    // Rotate player towards movement
+    player.rotation = getRotationForVelocity(player.body.velocity.x, player.body.velocity.y, "player");
+
     // Visitor Movement
     this.game.physics.arcade.collide(visitor, wallsLayer);
     this.game.physics.arcade.collide(visitor, furnitureLayer);
@@ -163,10 +171,36 @@ function update() {
         }
     }
 
-    var foundGold = Phaser.Point.distance(visitor.body.position, treasure.body.position, 0) < 250;
+    // Treasure behaviour
+    var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < 50;
 
     if (foundGold) {
-        //@TODO
+        /*
+            ToDos:
+            - GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
+            - Animation / Sound etc.
+            - Maybe: Add dynamic gold amount from treasure object
+         */
+
+        var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
+
+        // Add text
+        text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, '+500G', style);
+        text.anchor.set(0.5);
+
+        // Animate text
+        var tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
+
+        // Remove text after animation is done
+        tween.onComplete.add(function() {
+            text.destroy();
+        }, this);
+
+        // Remove the treasure object (currently just moves the treasure really far away...)
+        treasure.position.x = - -1000000;
+        treasure.position.y = - -1000000;
+
+        // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
     }
 
     gfxUpdate();
@@ -204,3 +238,19 @@ function shuffle(o) { //v1.0
     for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 };
+
+function getRotationForVelocity(x, y, key) {
+    var rot = 0;
+    var signs = [Math.sign(x), Math.sign(y)];
+    if (signs[1] == -1) {
+        rot = 0 + 0.25 * Math.PI * signs[0];
+    } else if (signs[1] == 1) {
+        rot = Math.PI - 0.25 * Math.PI * signs[0];
+    } else if (signs[0] == 0) {
+        rot = lastRotations[key];
+    } else {
+        rot = 0.5 * Math.PI * signs[0];
+    }
+    lastRotations[key] = rot;
+    return rot;
+}
