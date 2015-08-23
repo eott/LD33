@@ -97,6 +97,8 @@ Minotaur.prototype.move = function () {
  * @method Minotaur#rotate
  */
 Minotaur.prototype.rotate = function () {
+    if (this.body.velocity.x == 0 && this.body.velocity.y == 0) return;
+
     var rotation = getRotationForVelocity(this.body.velocity.x, this.body.velocity.y, "player");
     game.add.tween(this.sprite).to({rotation: rotation}, 40, Phaser.Easing.Linear.Out, true);
 };
