@@ -161,15 +161,18 @@ Visitor.prototype.findNearestVisitor = function (visitors) {
  * @param {Array.<Treasure>} treasures - The treasure collection
  */
 Visitor.prototype.update = function (minotaur, treasures) {
+    // Within this distance a visitor (e.g.) recognises the minotaur.
+    var iCanSeeYouDistance = 150;
+    
     //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
     this.game.physics.arcade.collide(this.sprite, decorationLayer);
 
-    var seesMinotaur    = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < iCanSeeYouDistance;
-    var isMoving        = this.body.velocity.x || this.body.velocity.y;
-    var blocked         = this.blocked();
+    var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < iCanSeeYouDistance;
+    var isMoving = this.body.velocity.x || this.body.velocity.y;
+    var blocked = this.blocked();
     var nearestTreasure = this.findNearestTreasure(treasures);
-    var foundTreasure   = typeof nearestTreasure !== 'undefined';
+    var foundTreasure = typeof nearestTreasure !== 'undefined';
 
     var seesTreasure = false;
     if (foundTreasure) {
@@ -184,7 +187,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
             break;
         case (foundTreasure):
             var standsOnTreasure = Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
-            if (standsOnTreasure){
+            if (standsOnTreasure) {
                 this.grab(nearestTreasure);
                 break;
             }

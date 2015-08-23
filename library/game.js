@@ -9,8 +9,6 @@ var player;
 // Meta globals
 var timeOfStart = Date.now();
 
-var iCanSeeYouDistance = 150; // Within this distance a visitor (e.g.) recognises the minotaur.
-
 var lastRotations = {"player": 0};
 
 function preload() {
