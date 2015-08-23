@@ -10,7 +10,6 @@ var player;
 var timeOfStart = Date.now();
 
 var iCanSeeYouDistance = 150; // Within this distance a visitor (e.g.) recognises the minotaur.
-var catchReach         = 50;  // Within this distance the minotaur (e.g.) picks up a treasure.
 
 var lastRotations = {"player": 0};
 
