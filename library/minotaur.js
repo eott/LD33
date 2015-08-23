@@ -126,9 +126,13 @@ Minotaur.prototype.update = function (treasures) {
 
     // Interact with world
     var foundTreasure = this.findNearestTreasure(treasures);
+    var foundGold = typeof foundTreasure !== 'undefined' && Phaser.Point.distance(this.body.position, foundTreasure.body.position, 0) < catchReach;
 
-    if (typeof foundTreasure !== 'undefined') {
-        this.grab(foundTreasure);
+    switch (true) {
+        case (foundGold):
+            this.grab(foundTreasure);
+            break;
+        default:
     }
 
     // Move and rotate
