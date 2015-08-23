@@ -250,6 +250,7 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
             break;
         case ('e'):
         case (0):
+        case (360):
             this.rotationIndex = 3;
             break;
         case ('se'):
