@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" nextobjectid="41">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" nextobjectid="49">
  <tileset firstgid="1" name="labyrinth_spritesheet" tilewidth="64" tileheight="64" tilecount="100">
   <image source="../images/background/labyrinth_spritesheet.png" width="640" height="640"/>
  </tileset>
@@ -335,27 +335,87 @@
  </layer>
  <objectgroup name="Game objects">
   <object id="3" type="player_start" gid="101" x="222" y="223" width="64" height="64"/>
-  <object id="4" type="treasure" gid="102" x="395" y="202" width="64" height="64"/>
   <object id="16" type="visitor_start" gid="103" x="706" y="196" width="64" height="64"/>
   <object id="20" type="visitor_start" gid="103" x="705" y="960" width="64" height="64"/>
   <object id="21" type="visitor_start" gid="103" x="95" y="992" width="64" height="64"/>
-  <object id="22" type="treasure" gid="102" x="570" y="390" width="64" height="64"/>
-  <object id="23" type="treasure" gid="102" x="1014" y="572" width="64" height="64"/>
-  <object id="24" type="treasure" gid="102" x="703" y="726" width="64" height="64"/>
-  <object id="25" type="treasure" gid="102" x="975" y="843" width="64" height="64"/>
-  <object id="26" type="treasure" gid="102" x="1133" y="1016" width="64" height="64"/>
-  <object id="27" type="treasure" gid="102" x="285" y="1135" width="64" height="64"/>
-  <object id="28" type="treasure" gid="102" x="490" y="944" width="64" height="64"/>
-  <object id="29" type="treasure" gid="102" x="195" y="574" width="64" height="64"/>
-  <object id="30" type="treasure" gid="102" x="499" y="769" width="64" height="64"/>
-  <object id="31" type="treasure" gid="102" x="1168" y="221" width="64" height="64"/>
-  <object id="33" type="treasure" gid="102" x="1182" y="351" width="64" height="64"/>
-  <object id="34" type="treasure" gid="102" x="1278" y="693" width="64" height="64"/>
+  <object id="22" type="treasure" gid="102" x="570" y="390" width="64" height="64">
+   <properties>
+    <property name="frame" value="1"/>
+   </properties>
+  </object>
+  <object id="23" type="treasure" gid="102" x="1014" y="572" width="64" height="64">
+   <properties>
+    <property name="frame" value="1"/>
+   </properties>
+  </object>
+  <object id="25" type="treasure" gid="102" x="975" y="843" width="64" height="64">
+   <properties>
+    <property name="frame" value="1"/>
+   </properties>
+  </object>
+  <object id="28" type="treasure" gid="102" x="490" y="944" width="64" height="64">
+   <properties>
+    <property name="frame" value="1"/>
+   </properties>
+  </object>
+  <object id="29" type="treasure" gid="102" x="195" y="574" width="64" height="64">
+   <properties>
+    <property name="frame" value="1"/>
+   </properties>
+  </object>
+  <object id="33" type="treasure" gid="102" x="1253" y="393" width="64" height="64">
+   <properties>
+    <property name="frame" value="1"/>
+   </properties>
+  </object>
   <object id="35" type="visitor_start" gid="103" x="1191" y="478" width="64" height="64"/>
   <object id="36" type="visitor_start" gid="103" x="1244" y="224" width="64" height="64"/>
   <object id="37" type="visitor_start" gid="103" x="1128" y="852" width="64" height="64"/>
   <object id="38" type="visitor_start" gid="103" x="273" y="714" width="64" height="64"/>
-  <object id="39" type="treasure" gid="102" x="1023" y="192" width="64" height="64"/>
-  <object id="40" type="treasure" gid="102" x="705" y="353" width="64" height="64"/>
+  <object id="40" type="treasure" gid="102" x="705" y="353" width="64" height="64">
+   <properties>
+    <property name="frame" value="1"/>
+   </properties>
+  </object>
+  <object id="41" type="treasure" gid="109" x="1168" y="223" width="64" height="64">
+   <properties>
+    <property name="frame" value="8"/>
+   </properties>
+  </object>
+  <object id="42" type="treasure" gid="109" x="705" y="728" width="64" height="64">
+   <properties>
+    <property name="frame" value="8"/>
+   </properties>
+  </object>
+  <object id="43" type="treasure" gid="110" x="1140" y="1016" width="64" height="64">
+   <properties>
+    <property name="frame" value="9"/>
+   </properties>
+  </object>
+  <object id="44" type="treasure" gid="105" x="1280" y="708" width="64" height="64">
+   <properties>
+    <property name="frame" value="4"/>
+   </properties>
+  </object>
+  <object id="45" type="treasure" gid="108" x="507" y="768" width="64" height="64">
+   <properties>
+    <property name="frame" value="7"/>
+   </properties>
+  </object>
+  <object id="46" type="treasure" gid="105" x="287" y="1151" width="64" height="64">
+   <properties>
+    <property name="frame" value="4"/>
+   </properties>
+  </object>
+  <object id="47" type="treasure" gid="112" x="388" y="194" width="64" height="64">
+   <properties>
+    <property name="frame" value="11"/>
+   </properties>
+  </object>
+  <object id="48" type="treasure" gid="111" x="1023" y="193" width="64" height="64">
+   <properties>
+    <property name="frame" value="10"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

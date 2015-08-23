@@ -66,7 +66,7 @@ Treasure.prototype.grab = function () {
  */
 Treasure.create = function (game, gameObject, value) {
     var sprite = game.add.sprite(gameObject.x, gameObject.y, 'game_objects');
-    sprite.frame = 1;
+    sprite.frame = parseInt(gameObject.properties.frame);
     sprite.bringToTop();
 
     // How about some physics?

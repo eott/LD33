@@ -55,22 +55,6 @@
                  "y":223
                 }, 
                 {
-                 "gid":102,
-                 "height":64,
-                 "id":4,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":395,
-                 "y":202
-                }, 
-                {
                  "gid":103,
                  "height":64,
                  "id":16,
@@ -125,7 +109,7 @@
                  "name":"",
                  "properties":
                     {
-
+                     "frame":"1"
                     },
                  "rotation":0,
                  "type":"treasure",
@@ -141,7 +125,7 @@
                  "name":"",
                  "properties":
                     {
-
+                     "frame":"1"
                     },
                  "rotation":0,
                  "type":"treasure",
@@ -153,27 +137,11 @@
                 {
                  "gid":102,
                  "height":64,
-                 "id":24,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":703,
-                 "y":726
-                }, 
-                {
-                 "gid":102,
-                 "height":64,
                  "id":25,
                  "name":"",
                  "properties":
                     {
-
+                     "frame":"1"
                     },
                  "rotation":0,
                  "type":"treasure",
@@ -185,43 +153,11 @@
                 {
                  "gid":102,
                  "height":64,
-                 "id":26,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":1133,
-                 "y":1016
-                }, 
-                {
-                 "gid":102,
-                 "height":64,
-                 "id":27,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":285,
-                 "y":1135
-                }, 
-                {
-                 "gid":102,
-                 "height":64,
                  "id":28,
                  "name":"",
                  "properties":
                     {
-
+                     "frame":"1"
                     },
                  "rotation":0,
                  "type":"treasure",
@@ -237,7 +173,7 @@
                  "name":"",
                  "properties":
                     {
-
+                     "frame":"1"
                     },
                  "rotation":0,
                  "type":"treasure",
@@ -249,66 +185,18 @@
                 {
                  "gid":102,
                  "height":64,
-                 "id":30,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":499,
-                 "y":769
-                }, 
-                {
-                 "gid":102,
-                 "height":64,
-                 "id":31,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":1168,
-                 "y":221
-                }, 
-                {
-                 "gid":102,
-                 "height":64,
                  "id":33,
                  "name":"",
                  "properties":
                     {
-
+                     "frame":"1"
                     },
                  "rotation":0,
                  "type":"treasure",
                  "visible":true,
                  "width":64,
-                 "x":1182,
-                 "y":351
-                }, 
-                {
-                 "gid":102,
-                 "height":64,
-                 "id":34,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":1278,
-                 "y":693
+                 "x":1253,
+                 "y":393
                 }, 
                 {
                  "gid":103,
@@ -377,27 +265,11 @@
                 {
                  "gid":102,
                  "height":64,
-                 "id":39,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "rotation":0,
-                 "type":"treasure",
-                 "visible":true,
-                 "width":64,
-                 "x":1023,
-                 "y":192
-                }, 
-                {
-                 "gid":102,
-                 "height":64,
                  "id":40,
                  "name":"",
                  "properties":
                     {
-
+                     "frame":"1"
                     },
                  "rotation":0,
                  "type":"treasure",
@@ -405,6 +277,134 @@
                  "width":64,
                  "x":705,
                  "y":353
+                }, 
+                {
+                 "gid":109,
+                 "height":64,
+                 "id":41,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"8"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":1168,
+                 "y":223
+                }, 
+                {
+                 "gid":109,
+                 "height":64,
+                 "id":42,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"8"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":705,
+                 "y":728
+                }, 
+                {
+                 "gid":110,
+                 "height":64,
+                 "id":43,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"9"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":1140,
+                 "y":1016
+                }, 
+                {
+                 "gid":105,
+                 "height":64,
+                 "id":44,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"4"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":1280,
+                 "y":708
+                }, 
+                {
+                 "gid":108,
+                 "height":64,
+                 "id":45,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"7"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":507,
+                 "y":768
+                }, 
+                {
+                 "gid":105,
+                 "height":64,
+                 "id":46,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"4"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":287,
+                 "y":1151
+                }, 
+                {
+                 "gid":112,
+                 "height":64,
+                 "id":47,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"11"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":388,
+                 "y":194
+                }, 
+                {
+                 "gid":111,
+                 "height":64,
+                 "id":48,
+                 "name":"",
+                 "properties":
+                    {
+                     "frame":"10"
+                    },
+                 "rotation":0,
+                 "type":"treasure",
+                 "visible":true,
+                 "width":64,
+                 "x":1023,
+                 "y":193
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -413,7 +413,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":41,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "properties":
     {
