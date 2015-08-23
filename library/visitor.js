@@ -144,7 +144,7 @@ Visitor.prototype.meet = function (visitor) {
     if (this.groupsize < maxGroupSize) {
         this.groupsize += 1;
 
-        if (this.groupSize() > maxGroupSize) {
+        if (this.groupsize > maxGroupSize) {
             this.splitGroup();
         }
 
@@ -180,10 +180,10 @@ Visitor.prototype.update = function (minotaur, treasures) {
     var blocked = this.blocked();
     var nearestTreasure = this.findNearestTreasure(treasures);
     var foundTreasure = typeof nearestTreasure !== 'undefined';
-    var seesTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < iCanSeeYouDistance;
-    var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
+    var seesTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
+    var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 5;
     var foundVisitor = this.findNearestVisitor(visitors);
-    var meetVisitor = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 25;
+    var meetVisitor = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 5;
 
     switch (true) {
         case (seesMinotaur):
