@@ -11,7 +11,8 @@ Minotaur = function (game, sprite) {
     this.sprite = sprite;
     this.body = this.sprite.body;
     this.wallet = 0;
-}
+    this.treasures = 0;
+};
 
 /**
  * Loops the treasure collection. Returns the nearest treasure found
@@ -32,7 +33,7 @@ Minotaur.prototype.findNearestTreasure = function (treasures) {
         }
     }
     return nearestTreasure;
-}
+};
 
 /**
  * Indicates if user tells to move
@@ -43,7 +44,7 @@ Minotaur.prototype.findNearestTreasure = function (treasures) {
 Minotaur.prototype.isMoving = function () {
     return cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown
     || cursors.a.isDown || cursors.d.isDown || cursors.w.isDown || cursors.s.isDown;
-}
+};
 
 /**
  * Moves the Minotaur by cursors input
@@ -81,7 +82,7 @@ Minotaur.prototype.move = function () {
         this.body.velocity.y /= Math.sqrt(2);
         this.body.velocity.x /= Math.sqrt(2);
     }
-}
+};
 
 /**
  * Rotates Minotaur towards moving direction
@@ -91,7 +92,7 @@ Minotaur.prototype.move = function () {
 Minotaur.prototype.rotate = function () {
     var rotation = getRotationForVelocity(this.body.velocity.x, this.body.velocity.y, "player");
     game.add.tween(this.sprite).to({rotation: rotation}, 40, Phaser.Easing.Linear.Out, true);
-}
+};
 
 /**
  * Grabs treasure
@@ -121,12 +122,14 @@ Minotaur.prototype.grab = function (treasure) {
         text.destroy();
     }, this);
 
+    this.treasures++; // assume every treasure is worth 500G
+
     // Remove the treasure object (currently just moves the treasure really far away...)
     treasure.position.x = - -1000000;
     treasure.position.y = - -1000000;
 
     // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
-}
+};
 
 /**
  * Updates the Minotaur each cycle.
@@ -152,7 +155,7 @@ Minotaur.prototype.update = function (treasures) {
     // Move and rotate
     this.move();
     this.rotate();
-}
+};
 
 /**
  * Creates and returns a new Minotaur. Consumes an 'Game Object' with
@@ -182,4 +185,4 @@ Minotaur.create = function (game, gameObject) {
     sprite.body.height = 30;
 
     return new Minotaur(game, sprite);
-}
+};
