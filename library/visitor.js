@@ -24,6 +24,11 @@ Visitor = function (game, sprite) {
      * @type {number} rotationIndex
      */
     this.rotationIndex = 1;
+
+    // Add the text for the visitor gold amount
+    var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
+    this.text = this.game.add.text(0, 0, this.wallet + ' G', style);
+    sprite.addChild(this.text);
 };
 
 /**
@@ -73,6 +78,32 @@ Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
     }
     this.body.velocity.y = visitorSpeed * Math.sin(targetOrAngle) * acceleration;
     this.body.velocity.x = visitorSpeed * Math.cos(targetOrAngle) * acceleration;
+
+    // Set orientation of sprite based on movement, ignore small sideways velocities
+    var x = this.body.velocity.x;
+    var y = this.body.velocity.y;
+    var s = Math.sqrt(x * x + y * y);
+    x = Math.round(x / s);
+    y = Math.round(y / s);
+    var orientation = 'n';
+    if (x == 0 && y < 0) {
+        orientation = 'n';
+    } else if (x > 0 && y < 0) {
+        orientation = 'ne';
+    } else if (x > 0 && y == 0) {
+        orientation = 'e';
+    } else if (x > 0 && y > 0) {
+        orientation = 'se';
+    } else if (x == 0 && y > 0) {
+        orientation = 's';
+    } else if (x < 0 && y > 0) {
+        orientation = 'sw';
+    } else if (x < 0 && y == 0) {
+        orientation = 'w';
+    } else if (x < 0 && y < 0) {
+        orientation = 'nw';
+    }
+    this.setSpriteOrientation(orientation);
 };
 
 /**
@@ -84,6 +115,7 @@ Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
 Visitor.prototype.grab = function (treasure) {
     // Add the treasure value to the wallet
     this.wallet += treasure.value;
+    this.text.setText(this.wallet + ' G');
 
     // Run the grab function on the treasure
     treasure.grab();
@@ -240,6 +272,11 @@ Visitor.create = function (game, gameObject) {
     game.physics.arcade.enable(sprite);
     sprite.body.collideWorldBounds = true;
 
+    // Change the size of the Collision Box
+    sprite.body.width = 50;
+    sprite.body.height = 50;
+
+    // Initialize and return the new Visitor object
     return new Visitor(game, sprite);
 };
 
@@ -255,41 +292,41 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
     switch (orientation) {
         case ('n'):
         case (90):
-            this.rotationIndex = 1;
+            this.rotationIndex = 0;
             break;
         case ('ne'):
         case (45):
-            this.rotationIndex = 2;
+            this.rotationIndex = 1;
             break;
         case ('e'):
         case (0):
-        case (360):
-            this.rotationIndex = 3;
+            this.rotationIndex = 2;
             break;
         case ('se'):
         case (315):
-            this.rotationIndex = 4;
+            this.rotationIndex = 3;
             break;
         case ('s'):
         case (270):
-            this.rotationIndex = 5;
+            this.rotationIndex = 4;
             break;
         case ('sw'):
         case (225):
-            this.rotationIndex = 6;
+            this.rotationIndex = 5;
             break;
         case ('w'):
         case (180):
-            this.rotationIndex = 7;
+            this.rotationIndex = 6;
             break;
         case ('nw'):
         case (135):
-            this.rotationIndex = 8;
+            this.rotationIndex = 7;
             break;
         default:
-            this.rotationIndex = 1;
+            this.rotationIndex = 0;
             break;
     }
+    this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
     return this.rotationIndex;
 };
 
