@@ -36,9 +36,12 @@ function gfxCreate() {
     var grid = map.layers[0].data;
     walkables = [];
 
-    for (var idx in grid){
-        if(grid[idx] > 0){
-            walkables.push(idx);
+    for (var row in grid){
+        walkables[row] = [];
+        for (var col in grid[row]){
+            var tile = grid[row][col];
+
+            walkables[row][col] = tile.index > 0;
         }
     }
 
