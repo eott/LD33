@@ -204,6 +204,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
         case (foundVisitor):
             var meetVisitor = Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 25;
             if (meetVisitor) {
+                this.meet();
             }
             break;
         case (blocked):
