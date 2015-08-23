@@ -11,7 +11,6 @@ Minotaur = function (game, sprite) {
     this.sprite = sprite;
     this.body = this.sprite.body;
     this.wallet = 0;
-    this.treasures = 0;
 };
 
 /**
@@ -109,8 +108,6 @@ Minotaur.prototype.grab = function (treasure) {
 
     // Run the grab function on the treasure
     treasure.grab();
-
-    this.treasures++;
 };
 
 /**

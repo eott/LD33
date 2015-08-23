@@ -11,7 +11,6 @@ Visitor = function (game, sprite) {
     this.game = game;
     this.sprite = sprite;
     this.body = this.sprite.body;
-    this.treasures = [];
     this.groupsize = 1;
     this.wallet = 0;
 
@@ -100,8 +99,6 @@ Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
  * @param {Treasure} treasure - The treasure to chase and grab
  */
 Visitor.prototype.grab = function (treasure) {
-    this.treasures.push(treasure);
-
     // Add the treasure value to the wallet
     this.wallet += treasure.value;
 
@@ -204,11 +201,10 @@ Visitor.prototype.update = function (minotaur, treasures) {
                 }
 
                 // select a new image for the current view-direction
-                this.sprite.frame = this.groupsize + 10 * this.rotationIndex;
+                this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
 
                 // transfer the treasures
-                groupTreasures = this.treasures.concat(foundVisitor.treasures);
-                this.treasures = groupTreasures;
+                this.wallet += foundVisitor.wallet;
                 foundVisitor.destroy();
             }
             break;
@@ -233,7 +229,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
  * @return {Visitor}
  */
 Visitor.create = function (game, gameObject) {
-    var sprite = game.add.sprite(gameObject.x, gameObject.y, 'visitor');
+    var sprite = game.add.sprite(gameObject.x, gameObject.y, 'visitor_spritesheet');
     sprite.anchor.setTo(0.5, 0.5);
     sprite.scale.setTo(0.5, 0.5);
     sprite.bringToTop();
