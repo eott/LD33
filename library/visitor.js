@@ -253,6 +253,8 @@ Visitor.prototype.update = function (minotaur, treasures) {
     // Within this distance a visitor (e.g.) recognises the minotaur.
     var iCanSeeYouDistance = 150;
     var catchReach         = 15;
+    var maxGroupSize       = 6;
+    var strongGroup        = Math.ceil(maxGroupSize / 2);
 
     //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
@@ -277,7 +279,11 @@ Visitor.prototype.update = function (minotaur, treasures) {
             this.transferTreasure(minotaur);
             break;
         case (seesMinotaur):
-            this.flee(minotaur);
+            if (this.groupsize < strongGroup) {
+                this.flee(minotaur);
+            } else {
+                this.changeDirection(minotaur.body.position);
+            }
             break;
         case (standsOnTreasure):
             this.grab(nearestTreasure);
