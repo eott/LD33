@@ -124,10 +124,12 @@ Visitor.prototype.findNearestVisitor = function (visitors) {
     var shortestDistance = 0;
     var nearestTreasure;
     for (var idx in visitors) {
-        var distance = Phaser.Point.distance(this.body.position, visitors[idx].body.position, 0);
-        if (distance < maxRange && (!shortestDistance || distance < shortestDistance)) {
-            nearestTreasure = visitors[idx];
-            shortestDistance = distance;
+        if ( visitors[idx] !== this){
+            var distance = Phaser.Point.distance(this.body.position, visitors[idx].body.position, 0);
+            if (distance < maxRange && (!shortestDistance || distance < shortestDistance)) {
+                nearestTreasure = visitors[idx];
+                shortestDistance = distance;
+            }
         }
     }
     return nearestTreasure;
