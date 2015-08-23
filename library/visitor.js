@@ -13,6 +13,7 @@ Visitor = function (game, sprite) {
     this.body = this.sprite.body;
     this.treasures = 0;
     this.groupsize = 1;
+    this.wallet = 0;
 
     /**
      * 1 = north
@@ -100,7 +101,12 @@ Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
  */
 Visitor.prototype.grab = function (treasure) {
     this.treasures.push(treasure);
-    treasure.visible = false;
+
+    // Add the treasure value to the wallet
+    this.wallet += treasure.value;
+
+    // Run the grab function on the treasure
+    treasure.grab();
 };
 
 /**
