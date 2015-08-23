@@ -1,6 +1,7 @@
 body {
     background-color: #E6EAC0;
-    font-family: 'PT Mono', sanserif;
+    font-family: 'Amatic SC', sanserif;
+    font-size: 25px;
 }
 
 div[id=gameView] {
@@ -32,6 +33,29 @@ div[id="footer"] {
 span[id="title"] {
     font-size: 20px;
     font-weight: 700;
+}
+
+#menu {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+}
+
+#menu .title {
+    font-size: 80px;
+}
+
+#menu .menuItems {
+    margin-left: -35px;
+}
+
+#menu .menuItem {
+    font-size: 30px;
+    list-style: none;
+    cursor: pointer;
 }
 
 div[id="credits"] {
