@@ -46,7 +46,7 @@ Minotaur.prototype.findNearestTreasure = function (treasures) {
  */
 Minotaur.prototype.isMoving = function () {
     return cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown
-    || cursors.a.isDown || cursors.d.isDown || cursors.w.isDown || cursors.s.isDown;
+        || cursors.a.isDown || cursors.d.isDown || cursors.w.isDown || cursors.s.isDown;
 };
 
 /**
@@ -119,15 +119,22 @@ Minotaur.prototype.grab = function (treasure) {
  * @param {Array.<Treasure>} treasures - The treasure collection
  */
 Minotaur.prototype.update = function (treasures) {
+    // Within this distance the minotaur (e.g.) picks up a treasure.
+    var catchReach = 50;
+
     // Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
     this.game.physics.arcade.collide(this.sprite, decorationLayer);
 
     // Interact with world
     var foundTreasure = this.findNearestTreasure(treasures);
+    var foundGold = typeof foundTreasure !== 'undefined' && Phaser.Point.distance(this.body.position, foundTreasure.body.position, 0) < catchReach;
 
-    if (typeof foundTreasure !== 'undefined') {
-        this.grab(foundTreasure);
+    switch (true) {
+        case (foundGold):
+            this.grab(foundTreasure);
+            break;
+        default:
     }
 
     // Move and rotate
