@@ -24,6 +24,11 @@ Visitor = function (game, sprite) {
      * @type {number} rotationIndex
      */
     this.rotationIndex = 1;
+
+    // Add the text for the visitor gold amount
+    var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
+    this.text = this.game.add.text(0, 0, this.wallet + ' G', style);
+    sprite.addChild(this.text);
 };
 
 /**
@@ -110,6 +115,7 @@ Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
 Visitor.prototype.grab = function (treasure) {
     // Add the treasure value to the wallet
     this.wallet += treasure.value;
+    this.text.setText(this.wallet + ' G');
 
     // Run the grab function on the treasure
     treasure.grab();
@@ -259,6 +265,7 @@ Visitor.create = function (game, gameObject) {
     sprite.body.width = 50;
     sprite.body.height = 50;
 
+    // Initialize and return the new Visitor object
     return new Visitor(game, sprite);
 };
 

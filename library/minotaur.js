@@ -11,6 +11,11 @@ Minotaur = function (game, sprite) {
     this.sprite = sprite;
     this.body = this.sprite.body;
     this.wallet = 0;
+
+    // Add the text for the player gold amount
+    var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
+    this.text = this.game.add.text(20, 20, this.wallet + ' G', style);
+    this.text.fixedToCamera = true;
 };
 
 /**
@@ -92,6 +97,8 @@ Minotaur.prototype.move = function () {
  * @method Minotaur#rotate
  */
 Minotaur.prototype.rotate = function () {
+    if (this.body.velocity.x == 0 && this.body.velocity.y == 0) return;
+
     var rotation = getRotationForVelocity(this.body.velocity.x, this.body.velocity.y, "player");
     game.add.tween(this.sprite).to({rotation: rotation}, 40, Phaser.Easing.Linear.Out, true);
 };
@@ -105,6 +112,7 @@ Minotaur.prototype.rotate = function () {
 Minotaur.prototype.grab = function (treasure) {
     // Add the treasure value to the wallet
     this.wallet += treasure.value;
+    this.text.setText(this.wallet + ' G');
 
     // Run the grab function on the treasure
     treasure.grab();
@@ -166,5 +174,6 @@ Minotaur.create = function (game, gameObject) {
     sprite.body.width = 30;
     sprite.body.height = 30;
 
+    // Initialize and return the new Minotaur object
     return new Minotaur(game, sprite);
 };
