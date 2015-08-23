@@ -286,7 +286,7 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
  * Splits a group in single people.
  */
 Visitor.prototype.splitGroup = function () {
-    size = this.groupSize();
+    size = this.groupSize;
 
     for (var $v = 1; $v < size; $v++) {
         var visitor = Visitor.create(game, this);
@@ -299,7 +299,7 @@ Visitor.prototype.splitGroup = function () {
     }
 
     // at last: modify this visitor:
-    this.groupSize(1);
+    this.groupSize = 1;
     this.wallet = Math.floor(this.wallet / size);
     this.changeDirection(0); // stray them in different directions
     this.setOrientation(0);  // prepare change image
