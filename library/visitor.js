@@ -120,8 +120,19 @@ Visitor.prototype.grab = function (treasure) {
     // Run the grab function on the treasure
     treasure.grab();
 
+    this.updateGem();
+};
+
+/**
+ * update (if neccessary the Gem-Symbol)
+ *
+ * @method Visitor#updateGem
+ */
+Visitor.prototype.updateGem = function () {
     if (this.wallet > 0) {
         this.gem.visible = true;
+    } else {
+        this.gem.visible = false;
     }
 };
 
@@ -212,6 +223,7 @@ Visitor.prototype.transferTreasure = function (minotaur) {
         treasure = this.wallet;
         minotaur.wallet += treasure;
         this.wallet = 0;
+        this.updateGem();
         this.flee(minotaur);
     } else { // minotaur meet a strong group
         wantedTreasure = this.groupSize() * 500;
@@ -226,6 +238,8 @@ Visitor.prototype.transferTreasure = function (minotaur) {
 
         minotaur.flee(this);
     }
+
+    minotaur.updateCounter(minotaur.wallet);
 };
 
 /**

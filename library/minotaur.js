@@ -112,10 +112,21 @@ Minotaur.prototype.rotate = function () {
 Minotaur.prototype.grab = function (treasure) {
     // Add the treasure value to the wallet
     this.wallet += treasure.value;
-    this.text.setText(this.wallet + ' G');
+    this.updateCounter(this.wallet);
 
     // Run the grab function on the treasure
     treasure.grab();
+};
+
+/**
+ * updates treasure counter
+ *
+ * @method Minotaur#updateCounter
+ * @param {number} value - The value to display
+ */
+Minotaur.prototype.updateCounter = function (value) {
+    // Add the treasure value to the wallet
+    this.text.setText(value + ' G');
 };
 
 /**
