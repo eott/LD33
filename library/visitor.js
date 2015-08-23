@@ -255,6 +255,10 @@ Visitor.create = function (game, gameObject) {
     game.physics.arcade.enable(sprite);
     sprite.body.collideWorldBounds = true;
 
+    // Change the size of the Collision Box
+    sprite.body.width = 50;
+    sprite.body.height = 50;
+
     return new Visitor(game, sprite);
 };
 
