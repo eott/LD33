@@ -41,7 +41,8 @@ Minotaur.prototype.findNearestTreasure = function (treasures) {
  * @retrun {boolean}
  */
 Minotaur.prototype.isMoving = function () {
-    return cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown;
+    return cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown
+    || cursors.a.isDown || cursors.d.isDown || cursors.w.isDown || cursors.s.isDown;
 }
 
 /**
@@ -56,19 +57,19 @@ Minotaur.prototype.move = function () {
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
 
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown || cursors.a.isDown) {
         this.body.velocity.x -= playerSpeed;
     }
 
-    if (cursors.right.isDown) {
+    if (cursors.right.isDown || cursors.d.isDown) {
         this.body.velocity.x += playerSpeed;
     }
 
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown || cursors.w.isDown) {
         this.body.velocity.y -= playerSpeed;
     }
 
-    if (cursors.down.isDown) {
+    if (cursors.down.isDown || cursors.s.isDown) {
         this.body.velocity.y += playerSpeed;
     }
 

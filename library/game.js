@@ -25,7 +25,17 @@ function create() {
     sfxCreate();
 
     // Init inputs
-    cursors = game.input.keyboard.createCursorKeys();
+    cursors = game.input.keyboard.addKeys({
+        'up': Phaser.Keyboard.UP,
+        'down': Phaser.Keyboard.DOWN,
+        'left': Phaser.Keyboard.LEFT,
+        'right': Phaser.Keyboard.RIGHT,
+        'w': Phaser.Keyboard.W,
+        's': Phaser.Keyboard.S,
+        'a': Phaser.Keyboard.A,
+        'd': Phaser.Keyboard.D
+    });
+
     game.canvas.oncontextmenu = function (e) {
         e.preventDefault();
     }
@@ -41,7 +51,7 @@ function create() {
 
     // Visitors
     var visitorStart = findObjectsByType('visitor_start', map, 'Game objects');
-    for (var idx in visitorStart){
+    for (var idx in visitorStart) {
         var visitor = Visitor.create(game, visitorStart[idx]);
         visitors.push(visitor);
     }
@@ -49,8 +59,8 @@ function create() {
     // Treasures
     var treasureStart = findObjectsByType('treasure', map, 'Game objects');
     for (var i = 0; i < treasureStart.length; i++) {
-        var start     = treasureStart[i];
-        var treasure  = game.add.sprite(start.x, start.y, 'game_objects');
+        var start = treasureStart[i];
+        var treasure = game.add.sprite(start.x, start.y, 'game_objects');
         treasure.frame = 1;
         game.physics.arcade.enable(treasure);
         treasure.bringToTop();
@@ -72,7 +82,7 @@ function update() {
     player.update(treasures);
 
     // Visitor movement
-    for (var idx in visitors){
+    for (var idx in visitors) {
         visitors[idx].update(player, treasures);
     }
 
