@@ -144,6 +144,52 @@ Minotaur.prototype.flee = function (person) {
 };
 
 /**
+ * Changes the Minotaur's direction relative to the given target. Or changes
+ * the direction by a given angle. Accepts an optional acceleration parameter.
+ *
+ * @method Minotaur#changeDirection
+ * @param {Phaser.Point|number} targetOrAngle - The treasure to chase and grab
+ * @param {number} [acceleration] - The factor to accelerate the velocity
+ */
+Minotaur.prototype.changeDirection = function (targetOrAngle, acceleration) {
+    var visitorSpeed = 50;
+    if (targetOrAngle instanceof Phaser.Point) {
+        targetOrAngle = Phaser.Point.angle(targetOrAngle, this.body.position);
+    }
+    if (typeof acceleration === 'undefined') {
+        acceleration = 1;
+    }
+    this.body.velocity.y = visitorSpeed * Math.sin(targetOrAngle) * acceleration;
+    this.body.velocity.x = visitorSpeed * Math.cos(targetOrAngle) * acceleration;
+
+    // Set orientation of sprite based on movement, ignore small sideways velocities
+    var x = this.body.velocity.x;
+    var y = this.body.velocity.y;
+    var s = Math.sqrt(x * x + y * y);
+    x = Math.round(x / s);
+    y = Math.round(y / s);
+    var orientation = 'n';
+    if (x == 0 && y < 0) {
+        orientation = 'n';
+    } else if (x > 0 && y < 0) {
+        orientation = 'ne';
+    } else if (x > 0 && y == 0) {
+        orientation = 'e';
+    } else if (x > 0 && y > 0) {
+        orientation = 'se';
+    } else if (x == 0 && y > 0) {
+        orientation = 's';
+    } else if (x < 0 && y > 0) {
+        orientation = 'sw';
+    } else if (x < 0 && y == 0) {
+        orientation = 'w';
+    } else if (x < 0 && y < 0) {
+        orientation = 'nw';
+    }
+//    this.setSpriteOrientation(orientation);
+};
+
+/**
  * Updates the Minotaur each cycle.
  *
  * @param {Array.<Treasure>} treasures - The treasure collection
