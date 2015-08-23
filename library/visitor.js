@@ -103,23 +103,23 @@ Visitor.prototype.findNearestTreasure = function (treasures) {
  * @param {Array.<Treasure>} treasures - The treasure collection
  */
 Visitor.prototype.update = function (minotaur, treasures) {
+    //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
     this.game.physics.arcade.collide(this.sprite, decorationLayer);
+
     var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < 200;
     var isMoving = this.body.velocity.x || this.body.velocity.y;
     var blocked = this.blocked();
     var foundTreasure = this.findNearestTreasure(treasures);
+    var foundGold = typeof foundTreasure !== 'undefined' && Phaser.Point.distance(this.body.position, foundTreasure.body.position, 0) < 5
 
     switch (true) {
         case (seesMinotaur):
             this.flee(minotaur);
             break;
-        case (foundTreasure):
-            var standsOnTreasure = Phaser.Point.distance(this.body.position, foundTreasure.body.position, 0) < 5;
-            if (standsOnTreasure){
-                this.grab(foundTreasure);
-                break;
-            }
+        case (foundGold):
+            this.grab(foundTreasure);
+            break;
         case (foundTreasure):
             this.changeDirection(foundTreasure.body.position);
             break;

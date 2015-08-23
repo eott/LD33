@@ -4,10 +4,10 @@ var cursors;
 var buttonWasDown = false;
 var treasures = [];
 var visitors = [];
+var player;
 
 // Meta globals
 var timeOfStart = Date.now();
-var playerSpeed = 400;
 var lastRotations = {"player": 0};
 
 function preload() {
@@ -33,23 +33,11 @@ function create() {
     // Player
     var start = findObjectsByType('player_start', map, 'Game objects');
     start = start.pop();
-
-    player = game.add.sprite(start.x, start.y, 'player');
-    player.anchor.setTo(0.5, 0.5);
-    player.scale.setTo(0.5, 0.5);
-    player.bringToTop();
+    player = Minotaur.create(game, start);
 
     // Camera and game world
-    game.camera.follow(player);
+    game.camera.follow(player.sürite);
     game.world.setBounds(0, 0, 1500, 1500);
-
-    // How about some physics?
-    game.physics.arcade.enable(player);
-    player.body.collideWorldBounds = true;
-
-    // Change the size of the Collision Box
-    player.body.width = 30;
-    player.body.height = 30;
 
     // Visitors
     var visitorStart = findObjectsByType('visitor_start', map, 'Game objects');
@@ -80,81 +68,12 @@ function update() {
     }
     buttonWasDown = game.input.mousePointer.isDown;
 
-    // Collision
-    this.game.physics.arcade.collide(player, wallsLayer);
-    this.game.physics.arcade.collide(player, decorationLayer);
+    // Player's interactions
+    player.update(treasures);
 
-    // Movement
-    player.body.velocity.x = 0;
-    player.body.velocity.y = 0;
-
-    if (cursors.left.isDown) {
-        player.body.velocity.x -= playerSpeed;
-    }
-
-    if (cursors.right.isDown) {
-        player.body.velocity.x += playerSpeed;
-    }
-
-    if (cursors.up.isDown) {
-        player.body.velocity.y -= playerSpeed;
-    }
-
-    if (cursors.down.isDown) {
-        player.body.velocity.y += playerSpeed;
-    }
-
-    // Slow down diagonal movement to playerSpeed
-    if (
-        player.body.velocity.y != 0
-            && player.body.velocity.x != 0
-        ) {
-        player.body.velocity.y /= Math.sqrt(2);
-        player.body.velocity.x /= Math.sqrt(2);
-    }
-
-    // Rotate player towards movement
-    var rot = getRotationForVelocity(player.body.velocity.x, player.body.velocity.y, "player");
-    var tween = game.add.tween(player).to({rotation: rot}, 40, Phaser.Easing.Linear.Out, true);
-
-    // Visitor Movement
+    // Visitor movement
     for (var idx in visitors){
         visitors[idx].update(player, treasures);
-    }
-
-    // Treasure behaviour
-    for (var i = 0; i < treasures.length; i++) {
-        var treasure = treasures[i];
-        var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < 50;
-
-        if (foundGold) {
-            /*
-                ToDos:
-                - GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
-                - Animation / Sound etc.
-                - Maybe: Add dynamic gold amount from treasure object
-             */
-
-            var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
-
-            // Add text
-            text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, '+500G', style);
-            text.anchor.set(0.5);
-
-            // Animate text
-            var tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
-
-            // Remove text after animation is done
-            tween.onComplete.add(function() {
-                text.destroy();
-            }, this);
-
-            // Remove the treasure object (currently just moves the treasure really far away...)
-            treasure.position.x = - -1000000;
-            treasure.position.y = - -1000000;
-
-            // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
-        }
     }
 
     gfxUpdate();
