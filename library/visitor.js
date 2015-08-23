@@ -204,7 +204,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
                 }
 
                 // select a new image for the current view-direction
-                this.sprite.frame = this.groupsize + 10 * this.rotationIndex;
+                this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
 
                 // transfer the treasures
                 groupTreasures = this.treasures.concat(foundVisitor.treasures);
@@ -233,7 +233,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
  * @return {Visitor}
  */
 Visitor.create = function (game, gameObject) {
-    var sprite = game.add.sprite(gameObject.x, gameObject.y, 'visitor');
+    var sprite = game.add.sprite(gameObject.x, gameObject.y, 'visitor_spritesheet');
     sprite.anchor.setTo(0.5, 0.5);
     sprite.scale.setTo(0.5, 0.5);
     sprite.bringToTop();
