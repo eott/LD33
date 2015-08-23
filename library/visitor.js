@@ -195,6 +195,36 @@ Visitor.prototype.meet = function (visitor) {
 };
 
 /**
+ * Transfere treasure between the visitor(-goup) and the minotaur.
+ *
+ * @method Visitor#transferTreasure
+ * @param {Minotaur} visitor
+ */
+Visitor.prototype.transferTreasure = function (minotaur) {
+    var maxGroupSize = 6;
+    var strongGroup  = Math.ceil(maxGroupSize / 2);
+
+    if (this.groupsize < strongGroup) { // minotaur caught a weak group
+        treasure = this.wallet;
+        minotaur.wallet += treasure;
+        this.wallet = 0;
+        this.flee(minotaur);
+    } else { // minotaur meet a strong group
+        wantedTreasure = this.groupSize() * 500;
+
+        if (minotaur.wallet >= wantedTreasure) {
+            minotaur.wallet -= wantedTreasure; // every visitor picks one treasure
+            this.wallet     += wantedTreasure;
+        } else {
+            this.wallet += minotaur.wallet; // the take all the rest
+            minotaur.wallet = 0;
+        }
+
+        minotaur.flee(this);
+    }
+};
+
+/**
  * Updates the Visitor each cycle. Contains the Visitor's KI-circuits.
  *
  * @method Visitor#update
@@ -204,7 +234,7 @@ Visitor.prototype.meet = function (visitor) {
 Visitor.prototype.update = function (minotaur, treasures) {
     // Within this distance a visitor (e.g.) recognises the minotaur.
     var iCanSeeYouDistance = 150;
-    var catchReach         = 5;
+    var catchReach         = 15;
 
     //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
@@ -226,10 +256,7 @@ Visitor.prototype.update = function (minotaur, treasures) {
 
     switch (true) {
         case (meetMinotaur):
-            treasure = this.wallet;
-            minotaur.wallet += treasure;
-            this.wallet = 0;
-            this.flee(minotaur);
+            this.transferTreasure(minotaur);
             break;
         case (seesMinotaur):
             this.flee(minotaur);

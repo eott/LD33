@@ -119,6 +119,16 @@ Minotaur.prototype.grab = function (treasure) {
 };
 
 /**
+ * Absconds from Visitor into reverse direction accelerated by factor 10
+ *
+ * @method Minotaur#flee
+ * @param {Visitor} person
+ */
+Minotaur.prototype.flee = function (person) {
+    this.changeDirection(Phaser.Point.angle(this.body.position, person.body.position), 10);
+};
+
+/**
  * Updates the Minotaur each cycle.
  *
  * @param {Array.<Treasure>} treasures - The treasure collection
