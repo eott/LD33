@@ -58,6 +58,30 @@ span[id="title"] {
     cursor: pointer;
 }
 
+#tutorialMenu {
+    position: absolute;
+    right: 0;
+    min-width: 150px;
+    width: 10%;
+    height: 100%;
+    background-color: #ccc;
+    display: none;
+}
+
+#tutorialPrevious {
+    float: left;
+    cursor: pointer;
+}
+
+#tutorialNext {
+    float: right;
+    cursor: pointer;
+}
+
+#tutorialText {
+    padding: 5px;
+}
+
 div[id="credits"] {
     float: left;
 }
