@@ -4,6 +4,7 @@ var cursors;
 var buttonWasDown = false;
 var treasures = [];
 var visitors = [];
+var player;
 
 // Meta globals
 var timeOfStart = Date.now();
@@ -30,7 +31,17 @@ function create() {
     sfxCreate();
 
     // Init inputs
-    cursors = game.input.keyboard.createCursorKeys();
+    cursors = game.input.keyboard.addKeys({
+        'up': Phaser.Keyboard.UP,
+        'down': Phaser.Keyboard.DOWN,
+        'left': Phaser.Keyboard.LEFT,
+        'right': Phaser.Keyboard.RIGHT,
+        'w': Phaser.Keyboard.W,
+        's': Phaser.Keyboard.S,
+        'a': Phaser.Keyboard.A,
+        'd': Phaser.Keyboard.D
+    });
+
     game.canvas.oncontextmenu = function (e) {
         e.preventDefault();
     };
@@ -40,32 +51,18 @@ function create() {
      */
     var start = findObjectsByType('player_start', map, 'Game objects');
     start = start.pop();
-
-    player = game.add.sprite(start.x, start.y, 'player');
-    player.anchor.setTo(0.5, 0.5);
-    player.scale.setTo(0.5, 0.5);
-    player.bringToTop();
-
-    // Camera and game world
-    game.camera.follow(player);
-    game.world.setBounds(0, 0, 1500, 1500);
-
-    // How about some physics?
-    game.physics.arcade.enable(player);
-    player.body.collideWorldBounds = true;
-
-    // Change the size of the Collision Box
-    player.body.width = 30;
-    player.body.height = 30;
+    player = Minotaur.create(game, start);
 
     // further initialisations
     player.treasures = 0;
+    
+    // Camera and game world
+    game.camera.follow(player.sprite);
+    game.world.setBounds(0, 0, 1500, 1500);
 
-    /**
-     * Visitors
-     */
+    // Visitors
     var visitorStart = findObjectsByType('visitor_start', map, 'Game objects');
-    for (var idx in visitorStart){
+    for (var idx in visitorStart) {
         var visitor = Visitor.create(game, visitorStart[idx]);
         visitors.push(visitor);
     }
@@ -74,12 +71,8 @@ function create() {
      * Treasures
      */
     var treasureStart = findObjectsByType('treasure', map, 'Game objects');
-    for (i = 0; i < treasureStart.length; i++) {
-        start     = treasureStart[i];
-        var treasure  = game.add.sprite(start.x, start.y, 'game_objects');
-        treasure.frame = 1;
-        game.physics.arcade.enable(treasure);
-        treasure.bringToTop();
+    for(var idx in treasureStart){
+        var treasure = Treasure.create(game, treasureStart[idx],500);
         treasures.push(treasure);
     }
 }
@@ -94,80 +87,35 @@ function update() {
     }
     buttonWasDown = game.input.mousePointer.isDown;
 
-    // Collision
-    this.game.physics.arcade.collide(player, wallsLayer);
-    this.game.physics.arcade.collide(player, decorationLayer);
+    // Player's interactions
+    player.update(treasures);
 
-    // Movement
-    player.body.velocity.x = 0;
-    player.body.velocity.y = 0;
-
-    if (cursors.left.isDown) {
-        player.body.velocity.x -= playerSpeed;
-    }
-
-    if (cursors.right.isDown) {
-        player.body.velocity.x += playerSpeed;
-    }
-
-    if (cursors.up.isDown) {
-        player.body.velocity.y -= playerSpeed;
-    }
-
-    if (cursors.down.isDown) {
-        player.body.velocity.y += playerSpeed;
-    }
-
-    // Slow down diagonal movement to playerSpeed
-    if (
-        player.body.velocity.y != 0
-            && player.body.velocity.x != 0
-        ) {
-        player.body.velocity.y /= Math.sqrt(2);
-        player.body.velocity.x /= Math.sqrt(2);
-    }
-
-    // Rotate player towards movement
-    var rot = getRotationForVelocity(player.body.velocity.x, player.body.velocity.y, "player");
-    var tween = game.add.tween(player).to({rotation: rot}, 40, Phaser.Easing.Linear.Out, true);
-
-    // Visitor Movement
-    for (var idx in visitors){
+    // Visitor movement
+    for (var idx in visitors) {
         visitors[idx].update(player, treasures);
     }
 
     // Treasure behaviour
-    for (i = 0; i < treasures.length; i++) {
+    for (var i = 0; i < treasures.length; i++) {
         var treasure = treasures[i];
-        var visitor = visitors[0]; // just for testing
-        
-	    var visitorSeesTreasure  = Phaser.Point.distance(visitor.body.position, treasure.body.position, 0) < iCanSeeYouDistance;
-	    var visitorFoundTreasure = Phaser.Point.distance(visitor.body.position, treasure.body.position, 0) < catchReach;
-	    var playerFoundTreasure  = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < catchReach;
+        var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < 50;
 
-		if (playerFoundTreasure || visitorFoundTreasure) {
-			/*
-				ToDos:
-				- GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
-				- Animation / Sound etc.
-				- Maybe: Add dynamic gold amount from treasure object
-			 */
+        if (foundGold) {
+            /*
+                ToDos:
+                - GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
+                - Animation / Sound etc.
+                - Maybe: Add dynamic gold amount from treasure object
+             */
 
             var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
 
-			// Add text
-            var info;
-            if (playerFoundTreasure) {
-			    info = '+500G';
-            } else if (visitorFoundTreasure) {
-				info = 'GOLD!';
-			}
-
-			text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, info, style);
-			text.anchor.set(0.5);
+            // Add text
+            text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, '+500G', style);
+            text.anchor.set(0.5);
 
             // Animate text
-            tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
+            var tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
 
             // Remove text after animation is done
             tween.onComplete.add(function() {
@@ -178,20 +126,8 @@ function update() {
             treasure.position.x = - -1000000;
             treasure.position.y = - -1000000;
 
-			if (visitorFoundTreasure) {
-                visitor.treasures += 1;
-			} else if (playerFoundTreasure) {
-				player.treasures += 1;
-                // @todo: call updateMinotaurTreasure(1);
-                // should update the counter (=> player.treasures * 500?) and include the above line.
-			}
-			// @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
-			
-		}
-	
-		if (visitorSeesTreasure) {
-            visitor.changeDirection(treasure.body.position, visitorSpeed);
-		}
+            // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
+        }
     }
 
     gfxUpdate();

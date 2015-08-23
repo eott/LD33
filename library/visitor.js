@@ -153,6 +153,7 @@ Visitor.prototype.findNearestVisitor = function (visitors) {
  * @param {Array.<Treasure>} treasures - The treasure collection
  */
 Visitor.prototype.update = function (minotaur, treasures) {
+    //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
     this.game.physics.arcade.collide(this.sprite, decorationLayer);
 
