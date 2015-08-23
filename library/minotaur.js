@@ -109,26 +109,9 @@ Minotaur.prototype.grab = function (treasure) {
 
     // Run the grab function on the treasure
     treasure.grab();
+
+    this.treasures++;
 };
-
-    // Add text
-    text = this.game.add.text(treasure.body.position.x + 20, treasure.body.position.y, '+500G', style);
-    text.anchor.set(0.5);
-
-    // Animate text
-    var tween = this.game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
-
-    // Remove text after animation is done
-    tween.onComplete.add(function() {
-        text.destroy();
-    }, this);
-
-    // Remove the treasure object (currently just moves the treasure really far away...)
-    treasure.position.x = - -1000000;
-    treasure.position.y = - -1000000;
-
-    // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
-}
 
 /**
  * Updates the Minotaur each cycle.

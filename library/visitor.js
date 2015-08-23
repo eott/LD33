@@ -280,13 +280,15 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
 };
 
 /**
- * Sets the orientation of the visitor image.
- * Takes an orientation short cut as argument:
- * n, ne, e, ...
  *
- * @param {string} skyDir
  * @returns {number}
  */
 Visitor.prototype.splitGroup = function () {
+//    for ($v = 0; $v < this.groupSize(); $v++) {
+//        var visitor = Visitor.create(game, this);
+//        visitor.position = this.position;
+//        visitor.
+//    }
+    return 1;
 
 };
