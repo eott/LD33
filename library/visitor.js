@@ -26,23 +26,6 @@ Visitor = function (game, sprite) {
     this.rotationIndex = 1;
 };
 
-var maxGroupSize = 6;
-
-/**
- * Setter / getter for the group size.
- *
- * @param size
- * @returns {number}
- */
-Visitor.prototype.groupSize = function (size) {
-    if (size) {
-        this.groupsize = size;
-    }
-
-    return this.groupsize;
-};
-
-
 /**
  * Returns true if the Visitor is blocked on any side
  *
@@ -151,6 +134,33 @@ Visitor.prototype.findNearestVisitor = function (visitors) {
 };
 
 /**
+ * Joins a group with another visitor
+ *
+ * @method Visitor#meet
+ * @param {Visitor} visitor
+ */
+Visitor.prototype.meet = function (visitor) {
+    var maxGroupSize = 6;
+    if (this.groupsize < maxGroupSize){
+        this.groupsize += 1;
+
+        if (this.groupSize() > maxGroupSize) {
+            this.splitGroup();
+        }
+
+        // select a new image for the current view-direction
+        this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
+
+        // transfer the treasures
+        this.wallet += visitor.wallet;
+
+        var index = visitors.indexOf(visitor);
+        visitors.splice(index, 1);
+        visitor.sprite.destroy();
+    }
+};
+
+/**
  * Updates the Visitor each cycle. Contains the Visitor's KI-circuits.
  *
  * @method Visitor#update
@@ -194,18 +204,6 @@ Visitor.prototype.update = function (minotaur, treasures) {
         case (foundVisitor):
             var meetVisitor = Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 25;
             if (meetVisitor) {
-                this.groupsize += 1;
-
-                if (this.groupSize() > maxGroupSize) {
-                    this.splitGroup();
-                }
-
-                // select a new image for the current view-direction
-                this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
-
-                // transfer the treasures
-                this.wallet += foundVisitor.wallet;
-                foundVisitor.destroy();
             }
             break;
         case (blocked):
