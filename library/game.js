@@ -9,8 +9,16 @@ var player;
 // Meta globals
 var timeOfStart = Date.now();
 var lastRotations = {"player": 0};
+var levelName;
+
+// Defines how much gold is need to win/lose
+var winScores = {
+    "Tutorial": [2000, 2500],
+    "Level1": [6500, 5000]
+};
 
 function startGame() {
+    levelName = "Level1";
     hideMenu();
     initGame();
 }
@@ -158,7 +166,7 @@ function getRotationForVelocity(x, y, key) {
  * @returns {boolean}
  */
 function checkWinOrLose() {
-    if (player.wallet >= 5000) {
+    if (player.wallet >= winScores[levelName][0]) {
         // Player won! Show win screen and stop the game.
         var style = { font: "50px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
         this.text = this.game.add.text(this.game.width / 2 - 130, this.game.height / 2 - 50, 'YOU WIN! :)', style);
@@ -171,8 +179,8 @@ function checkWinOrLose() {
             visitorWallet += visitors[idx].wallet;
         }
 
-        if (visitorWallet >= 5000) {
-            // Player won! Show win screen and stop the game.
+        if (visitorWallet >= winScores[levelName][1]) {
+            // Player wlost! Show lose screen and stop the game.
             var style = { font: "50px Arial", fill: "red", stroke: "black", strokeThickness: 7, align: "center" };
             this.text = this.game.add.text(this.game.width / 2 - 140, this.game.height / 2 - 50, 'YOU LOSE! :(', style);
             this.text.fixedToCamera = true;
@@ -181,13 +189,4 @@ function checkWinOrLose() {
     }
 
     return false;
-}
-
-function evilStuff() {
-    somethingSinister("Mode: ULTRA-EVIL, Countdown: 5 seconds");
-    worldDestroyed = true;
-}
-
-function somethingSinister() {
-    // TODO: Implement doomsday device
 }

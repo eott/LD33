@@ -6,7 +6,7 @@ var walkables;
 
 function gfxPreload() {
     // game.load.spritesheet('explosion', 'assets/images/mobs/explosion_spritesheet.png', 64, 64);
-    game.load.tilemap('level', 'assets/maps/Level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level', 'assets/maps/' + levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('labyrinthSprites', 'assets/images/background/labyrinth_spritesheet.png');
 }
 

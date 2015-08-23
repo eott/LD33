@@ -8,3 +8,18 @@ function hideMenu() {
     menuTheme.pause();
     menuTheme = false; // Let the GC handle it
 }
+
+function showTutorial() {
+    levelName = "Tutorial";
+    hideMenu();
+    initGame();
+}
+
+function evilStuff() {
+    somethingSinister("Mode: ULTRA-EVIL, Countdown: 5 seconds");
+    worldDestroyed = true;
+}
+
+function somethingSinister() {
+    // TODO: Implement doomsday device
+}
