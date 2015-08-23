@@ -237,7 +237,7 @@ Visitor.create = function (game, gameObject) {
  * Takes an orientation short cut as argument:
  * n, ne, e, ...
  *
- * @param {string} skyDir
+ * @param {string} orientation
  * @returns {number}
  */
 Visitor.prototype.setSpriteOrientation = function (orientation) {
@@ -273,4 +273,14 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
     return this.rotationIndex;
 };
 
+/**
+ * Sets the orientation of the visitor image.
+ * Takes an orientation short cut as argument:
+ * n, ne, e, ...
+ *
+ * @param {string} skyDir
+ * @returns {number}
+ */
+Visitor.prototype.splitGroup = function () {
 
+};

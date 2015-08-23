@@ -9,8 +9,6 @@ var player;
 // Meta globals
 var timeOfStart = Date.now();
 
-var playerSpeed        = 400;
-var visitorSpeed       = 200;
 var iCanSeeYouDistance = 150; // Within this distance a visitor (e.g.) recognises the minotaur.
 var catchReach         = 50;  // Within this distance the minotaur (e.g.) picks up a treasure.
 
@@ -53,9 +51,6 @@ function create() {
     start = start.pop();
     player = Minotaur.create(game, start);
 
-    // further initialisations
-    player.treasures = 0;
-    
     // Camera and game world
     game.camera.follow(player.sprite);
     game.world.setBounds(0, 0, 1500, 1500);
@@ -72,7 +67,7 @@ function create() {
      */
     var treasureStart = findObjectsByType('treasure', map, 'Game objects');
     for(var idx in treasureStart){
-        var treasure = Treasure.create(game, treasureStart[idx],500);
+        var treasure = Treasure.create(game, treasureStart[idx], 500);
         treasures.push(treasure);
     }
 }
@@ -98,7 +93,7 @@ function update() {
     // Treasure behaviour
     for (var i = 0; i < treasures.length; i++) {
         var treasure = treasures[i];
-        var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < 50;
+        var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < catchReach;
 
         if (foundGold) {
             /*
