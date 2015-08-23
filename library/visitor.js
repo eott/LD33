@@ -172,22 +172,33 @@ Visitor.prototype.meet = function (visitor) {
 Visitor.prototype.update = function (minotaur, treasures) {
     // Within this distance a visitor (e.g.) recognises the minotaur.
     var iCanSeeYouDistance = 150;
+    var catchReach         = 5;
 
     //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
     this.game.physics.arcade.collide(this.sprite, decorationLayer);
 
-    var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < iCanSeeYouDistance;
     var isMoving = this.body.velocity.x || this.body.velocity.y;
-    var blocked = this.blocked();
-    var nearestTreasure = this.findNearestTreasure(treasures);
-    var foundTreasure = typeof nearestTreasure !== 'undefined';
-    var seesTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
-    var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 5;
+    var blocked  = this.blocked();
+
+    var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < iCanSeeYouDistance;
+    var meetMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < catchReach;
+
+    var nearestTreasure  = this.findNearestTreasure(treasures);
+    var foundTreasure    = typeof nearestTreasure !== 'undefined';
+    var seesTreasure     = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
+    var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < catchReach;
+
     var foundVisitor = this.findNearestVisitor(visitors);
-    var meetVisitor = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 5;
+    var meetVisitor  = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < catchReach;
 
     switch (true) {
+        case (meetMinotaur):
+            treasure = this.wallet;
+            minotaur.wallet += treasure;
+            this.wallet = 0;
+            this.flee(minotaur);
+            break;
         case (seesMinotaur):
             this.flee(minotaur);
             break;
