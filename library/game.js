@@ -7,7 +7,12 @@ var visitors = [];
 
 // Meta globals
 var timeOfStart = Date.now();
-var playerSpeed = 400;
+
+var playerSpeed        = 400;
+var visitorSpeed       = 200;
+var iCanSeeYouDistance = 150; // Within this distance a visitor (e.g.) recognises the minotaur.
+var catchReach         = 50;  // Within this distance the minotaur (e.g.) picks up a treasure.
+
 var lastRotations = {"player": 0};
 
 function preload() {
@@ -28,9 +33,11 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     game.canvas.oncontextmenu = function (e) {
         e.preventDefault();
-    }
+    };
 
-    // Player
+    /**
+     * Player
+     */
     var start = findObjectsByType('player_start', map, 'Game objects');
     start = start.pop();
 
@@ -51,17 +58,24 @@ function create() {
     player.body.width = 30;
     player.body.height = 30;
 
-    // Visitors
+    // further initialisations
+    player.treasures = 0;
+
+    /**
+     * Visitors
+     */
     var visitorStart = findObjectsByType('visitor_start', map, 'Game objects');
     for (var idx in visitorStart){
         var visitor = Visitor.create(game, visitorStart[idx]);
         visitors.push(visitor);
     }
 
-    // Treasures
+    /**
+     * Treasures
+     */
     var treasureStart = findObjectsByType('treasure', map, 'Game objects');
-    for (var i = 0; i < treasureStart.length; i++) {
-        var start     = treasureStart[i];
+    for (i = 0; i < treasureStart.length; i++) {
+        start     = treasureStart[i];
         var treasure  = game.add.sprite(start.x, start.y, 'game_objects');
         treasure.frame = 1;
         game.physics.arcade.enable(treasure);
@@ -123,26 +137,37 @@ function update() {
     }
 
     // Treasure behaviour
-    for (var i = 0; i < treasures.length; i++) {
+    for (i = 0; i < treasures.length; i++) {
         var treasure = treasures[i];
-        var foundGold = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < 50;
+        var visitor = visitors[0]; // just for testing
+        
+	    var visitorSeesTreasure  = Phaser.Point.distance(visitor.body.position, treasure.body.position, 0) < iCanSeeYouDistance;
+	    var visitorFoundTreasure = Phaser.Point.distance(visitor.body.position, treasure.body.position, 0) < catchReach;
+	    var playerFoundTreasure  = Phaser.Point.distance(player.body.position, treasure.body.position, 0) < catchReach;
 
-        if (foundGold) {
-            /*
-                ToDos:
-                - GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
-                - Animation / Sound etc.
-                - Maybe: Add dynamic gold amount from treasure object
-             */
+		if (playerFoundTreasure || visitorFoundTreasure) {
+			/*
+				ToDos:
+				- GoldCounter/Amount on Player/Visitor needs to go up by Gold Value X
+				- Animation / Sound etc.
+				- Maybe: Add dynamic gold amount from treasure object
+			 */
 
             var style = { font: "20px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
 
-            // Add text
-            text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, '+500G', style);
-            text.anchor.set(0.5);
+			// Add text
+            var info;
+            if (playerFoundTreasure) {
+			    info = '+500G';
+            } else if (visitorFoundTreasure) {
+				info = 'GOLD!';
+			}
+
+			text = game.add.text(treasure.body.position.x + 20, treasure.body.position.y, info, style);
+			text.anchor.set(0.5);
 
             // Animate text
-            var tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
+            tween = game.add.tween(text).to( { y: treasure.body.position.y - 10, alpha: 0 }, 2000, Phaser.Easing.Linear.Out, true);
 
             // Remove text after animation is done
             tween.onComplete.add(function() {
@@ -153,8 +178,20 @@ function update() {
             treasure.position.x = - -1000000;
             treasure.position.y = - -1000000;
 
-            // @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
-        }
+			if (visitorFoundTreasure) {
+                visitor.treasures += 1;
+			} else if (playerFoundTreasure) {
+				player.treasures += 1;
+                // @todo: call updateMinotaurTreasure(1);
+                // should update the counter (=> player.treasures * 500?) and include the above line.
+			}
+			// @todo: add treasure.destroy(); or .kill() to actually remove the elements from memory? both behave kind of weirdly...
+			
+		}
+	
+		if (visitorSeesTreasure) {
+            visitor.changeDirection(treasure.body.position, visitorSpeed);
+		}
     }
 
     gfxUpdate();
