@@ -87,6 +87,9 @@ function update() {
         visitors[idx].update(player, treasures);
     }
 
+    // Check for winning / losing conditions
+    checkWinOrLose();
+
     gfxUpdate();
     sfxUpdate();
 }
@@ -137,4 +140,36 @@ function getRotationForVelocity(x, y, key) {
     }
     lastRotations[key] = rot;
     return rot;
+}
+
+/**
+ * Checks if the player has won or lost, and shows the according screen.
+ * When neither is true, nothing happens and false is returned.
+ *
+ * @returns {boolean}
+ */
+function checkWinOrLose() {
+    if (player.wallet == 5000) {
+        // Player won! Show win screen and stop the game.
+        var style = { font: "50px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
+        this.text = this.game.add.text(this.game.width / 2 - 130, this.game.height / 2 - 50, 'YOU WIN! :)', style);
+        this.text.fixedToCamera = true;
+        this.game.gamePaused();
+    } else {
+        // Summarize all visitor wallets
+        var visitorWallet = 0;
+        for (idx in visitors) {
+            visitorWallet += visitors[idx].wallet;
+        }
+
+        if (visitorWallet == 5000) {
+            // Player won! Show win screen and stop the game.
+            var style = { font: "50px Arial", fill: "red", stroke: "black", strokeThickness: 7, align: "center" };
+            this.text = this.game.add.text(this.game.width / 2 - 140, this.game.height / 2 - 50, 'YOU LOSE! :(', style);
+            this.text.fixedToCamera = true;
+            this.game.gamePaused();
+        }
+    }
+
+    return false;
 }
