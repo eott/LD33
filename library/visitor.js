@@ -141,7 +141,7 @@ Visitor.prototype.findNearestVisitor = function (visitors) {
  */
 Visitor.prototype.meet = function (visitor) {
     var maxGroupSize = 6;
-    if (this.groupsize < maxGroupSize){
+    if (this.groupsize < maxGroupSize) {
         this.groupsize += 1;
 
         if (this.groupSize() > maxGroupSize) {
@@ -170,7 +170,7 @@ Visitor.prototype.meet = function (visitor) {
 Visitor.prototype.update = function (minotaur, treasures) {
     // Within this distance a visitor (e.g.) recognises the minotaur.
     var iCanSeeYouDistance = 150;
-    
+
     //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
     this.game.physics.arcade.collide(this.sprite, decorationLayer);
@@ -180,32 +180,23 @@ Visitor.prototype.update = function (minotaur, treasures) {
     var blocked = this.blocked();
     var nearestTreasure = this.findNearestTreasure(treasures);
     var foundTreasure = typeof nearestTreasure !== 'undefined';
-
-    var seesTreasure = false;
-    if (foundTreasure) {
-        seesTreasure = Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < iCanSeeYouDistance;
-    }
-
+    var seesTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < iCanSeeYouDistance;
+    var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
     var foundVisitor = this.findNearestVisitor(visitors);
+    var meetVisitor = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 25;
 
     switch (true) {
         case (seesMinotaur):
             this.flee(minotaur);
             break;
-        case (foundTreasure):
-            var standsOnTreasure = Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
-            if (standsOnTreasure) {
-                this.grab(nearestTreasure);
-                break;
-            }
+        case (standsOnTreasure):
+            this.grab(nearestTreasure);
+            break;
         case (seesTreasure):
             this.changeDirection(nearestTreasure.body.position);
             break;
-        case (foundVisitor):
-            var meetVisitor = Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 25;
-            if (meetVisitor) {
-                this.meet(foundVisitor);
-            }
+        case (meetVisitor):
+            this.meet(foundVisitor);
             break;
         case (blocked):
         case (!isMoving):
