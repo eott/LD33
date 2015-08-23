@@ -11,7 +11,7 @@ var timeOfStart = Date.now();
 var lastRotations = {"player": 0};
 
 function startGame() {
-    document.getElementById('menu').remove();
+    hideMenu();
     initGame();
 }
 
