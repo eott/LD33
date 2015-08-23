@@ -252,6 +252,7 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
             break;
         case ('e'):
         case (0):
+        case (360):
             this.rotationIndex = 3;
             break;
         case ('se'):
@@ -285,10 +286,23 @@ Visitor.prototype.setSpriteOrientation = function (orientation) {
  * Splits a group in single people.
  */
 Visitor.prototype.splitGroup = function () {
-    for ($v = 0; $v < this.groupSize(); $v++) {
+    size = this.groupSize();
+
+    for (var $v = 1; $v < size; $v++) {
         var visitor = Visitor.create(game, this);
+        visitor.wallet = Math.floor(this.wallet / size);
         visitor.position = this.position;
         visitor.changeDirection(45 * $v); // stray them in different directions
-        visitor.setOrientation(45 * $v);  // change image
+        visitor.setOrientation(45 * $v);  // prepare change image
+        // select a new image for the current view-direction
+        visitor.sprite.frame = -1 + visitor.groupsize + 10 * visitor.rotationIndex;
     }
+
+    // at last: modify this visitor:
+    this.groupSize(1);
+    this.wallet = Math.floor(this.wallet / size);
+    this.changeDirection(0); // stray them in different directions
+    this.setOrientation(0);  // prepare change image
+    // select a new image for the current view-direction
+    this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
 };
