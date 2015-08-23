@@ -26,23 +26,6 @@ Visitor = function (game, sprite) {
     this.rotationIndex = 1;
 };
 
-var maxGroupSize = 6;
-
-/**
- * Setter / getter for the group size.
- *
- * @param size
- * @returns {number}
- */
-Visitor.prototype.groupSize = function (size) {
-    if (size) {
-        this.groupsize = size;
-    }
-
-    return this.groupsize;
-};
-
-
 /**
  * Returns true if the Visitor is blocked on any side
  *
@@ -151,6 +134,33 @@ Visitor.prototype.findNearestVisitor = function (visitors) {
 };
 
 /**
+ * Joins a group with another visitor
+ *
+ * @method Visitor#meet
+ * @param {Visitor} visitor
+ */
+Visitor.prototype.meet = function (visitor) {
+    var maxGroupSize = 6;
+    if (this.groupsize < maxGroupSize) {
+        this.groupsize += 1;
+
+        if (this.groupSize() > maxGroupSize) {
+            this.splitGroup();
+        }
+
+        // select a new image for the current view-direction
+        this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
+
+        // transfer the treasures
+        this.wallet += visitor.wallet;
+
+        var index = visitors.indexOf(visitor);
+        visitors.splice(index, 1);
+        visitor.sprite.destroy();
+    }
+};
+
+/**
  * Updates the Visitor each cycle. Contains the Visitor's KI-circuits.
  *
  * @method Visitor#update
@@ -160,7 +170,7 @@ Visitor.prototype.findNearestVisitor = function (visitors) {
 Visitor.prototype.update = function (minotaur, treasures) {
     // Within this distance a visitor (e.g.) recognises the minotaur.
     var iCanSeeYouDistance = 150;
-    
+
     //Collision
     this.game.physics.arcade.collide(this.sprite, wallsLayer);
     this.game.physics.arcade.collide(this.sprite, decorationLayer);
@@ -170,43 +180,23 @@ Visitor.prototype.update = function (minotaur, treasures) {
     var blocked = this.blocked();
     var nearestTreasure = this.findNearestTreasure(treasures);
     var foundTreasure = typeof nearestTreasure !== 'undefined';
-
-    var seesTreasure = false;
-    if (foundTreasure) {
-        seesTreasure = Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < iCanSeeYouDistance;
-    }
-
+    var seesTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < iCanSeeYouDistance;
+    var standsOnTreasure = foundTreasure && Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
     var foundVisitor = this.findNearestVisitor(visitors);
+    var meetVisitor = foundVisitor && Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 25;
 
     switch (true) {
         case (seesMinotaur):
             this.flee(minotaur);
             break;
-        case (foundTreasure):
-            var standsOnTreasure = Phaser.Point.distance(this.body.position, nearestTreasure.body.position, 0) < 25;
-            if (standsOnTreasure) {
-                this.grab(nearestTreasure);
-                break;
-            }
+        case (standsOnTreasure):
+            this.grab(nearestTreasure);
+            break;
         case (seesTreasure):
             this.changeDirection(nearestTreasure.body.position);
             break;
-        case (foundVisitor):
-            var meetVisitor = Phaser.Point.distance(this.body.position, foundVisitor.body.position, 0) < 25;
-            if (meetVisitor) {
-                this.groupsize += 1;
-
-                if (this.groupSize() > maxGroupSize) {
-                    this.splitGroup();
-                } else {
-                    // select a new image for the current view-direction
-                    this.sprite.frame = -1 + this.groupsize + 10 * this.rotationIndex;
-
-                    // transfer the treasures
-                    this.wallet += foundVisitor.wallet;
-                    foundVisitor.destroy();
-                }
-            }
+        case (meetVisitor):
+            this.meet(foundVisitor);
             break;
         case (blocked):
         case (!isMoving):
