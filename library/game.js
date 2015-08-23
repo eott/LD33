@@ -13,6 +13,7 @@ var lastRotations = {"player": 0};
 
 function preload() {
     game.load.image('player', 'assets/images/player/player.png');
+    game.load.image('hunter', 'assets/images/objects/hunter.png');
     game.load.spritesheet('visitor_spritesheet', 'assets/images/objects/visitor_spritesheet.png', 128, 128);
     game.load.spritesheet('game_objects', 'assets/images/objects/game_objects.png', 64, 64);
 
