@@ -41,6 +41,7 @@ Visitor.prototype.flee = function (minotaur) {
  */
 Visitor.prototype.startWalking = function () {
     this.changeDirection(Math.random() * Math.PI * 2);
+
 }
 
 /**
@@ -52,6 +53,7 @@ Visitor.prototype.startWalking = function () {
  * @param {number} [acceleration] - The factor to accelerate the velocity
  */
 Visitor.prototype.changeDirection = function (targetOrAngle, acceleration) {
+    var visitorSpeed = 50;
     if (targetOrAngle instanceof Phaser.Point) {
         targetOrAngle = Phaser.Point.angle(targetOrAngle, this.body.position);
     }
@@ -101,6 +103,8 @@ Visitor.prototype.findNearestTreasure = function (treasures) {
  * @param {Array.<Treasure>} treasures - The treasure collection
  */
 Visitor.prototype.update = function (minotaur, treasures) {
+    this.game.physics.arcade.collide(this.sprite, wallsLayer);
+    this.game.physics.arcade.collide(this.sprite, decorationLayer);
     var seesMinotaur = Phaser.Point.distance(this.body.position, minotaur.body.position, 0) < 200;
     var isMoving = this.body.velocity.x || this.body.velocity.y;
     var blocked = this.blocked();
@@ -121,8 +125,8 @@ Visitor.prototype.update = function (minotaur, treasures) {
             break;
         case (blocked):
         case (!isMoving):
-        default:
             this.startWalking();
+        default:
     }
 }
 
