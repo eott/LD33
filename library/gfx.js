@@ -1,6 +1,8 @@
 var map;
+var floorLayer
 var wallsLayer;
 var decorationLayer;
+var walkables;
 
 function gfxPreload() {
     // game.load.spritesheet('explosion', 'assets/images/mobs/explosion_spritesheet.png', 64, 64);
@@ -16,7 +18,7 @@ function gfxCreate() {
     map.addTilesetImage('labyrinth_spritesheet', 'labyrinthSprites');
 
     // Create layers
-    var floorLayer = map.createLayer('Floor');
+    floorLayer = map.createLayer('Floor');
     wallsLayer = map.createLayer('Walls');
     decorationLayer = map.createLayer('Decoration');
 
@@ -29,6 +31,23 @@ function gfxCreate() {
 
     // Resize the game world to match the layer dimensions
     floorLayer.resizeWorld();
+
+    // Prepare pathfinding plugin
+    var grid = map.layers[0].data;
+    walkables = [];
+
+    for (var row in grid){
+        walkables[row] = [];
+        for (var col in grid[row]){
+            var tile = grid[row][col];
+
+            walkables[row][col] = tile.index > 0;
+        }
+    }
+
+    pathfinder = game.plugins.add(PathFinderPlugin);
+    pathfinder.setGrid(grid, walkables);
+
 }
 
 function gfxUpdate() {
