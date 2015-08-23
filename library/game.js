@@ -121,7 +121,8 @@ function update() {
     }
 
     // Rotate player towards movement
-    player.rotation = getRotationForVelocity(player.body.velocity.x, player.body.velocity.y, "player");
+    var rot = getRotationForVelocity(player.body.velocity.x, player.body.velocity.y, "player");
+    var tween = game.add.tween(player).to({rotation: rot}, 40, Phaser.Easing.Linear.Out, true);
 
     // Visitor Movement
     for (var i = 0; i < visitors.length; i++) {
