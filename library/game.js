@@ -36,7 +36,7 @@ function create() {
     player = Minotaur.create(game, start);
 
     // Camera and game world
-    game.camera.follow(player.sürite);
+    game.camera.follow(player.sprite);
     game.world.setBounds(0, 0, 1500, 1500);
 
     // Visitors
