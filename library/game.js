@@ -14,7 +14,7 @@ var levelName;
 // Defines how much gold is need to win/lose
 var winScores = {
     "Tutorial": [2000, 2500],
-    "Level1": [6500, 5000]
+    "Level1": [9000, 12000]
 };
 
 function startGame() {
@@ -67,7 +67,7 @@ function create() {
 
     // Camera and game world
     game.camera.follow(player.sprite);
-    game.world.setBounds(0, 0, 1500, 1500);
+    game.world.setBounds(0, 0, 2500, 2500);
 
     // Visitors
     var visitorStart = findObjectsByType('visitor_start', map, 'Game objects');
