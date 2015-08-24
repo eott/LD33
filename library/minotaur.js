@@ -209,6 +209,7 @@ Minotaur.prototype.update = function (treasures) {
     switch (true) {
         case (foundGold):
             this.grab(foundTreasure);
+            playAudio("pickup");
             break;
         default:
     }

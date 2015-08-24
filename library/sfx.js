@@ -5,12 +5,14 @@ var audioClips = {};
 function sfxPreload() {
     game.load.audio('music', 'assets/audio/music/song.ogg');
     game.load.audio('steps', 'assets/audio/effects/footsteps.ogg');
+    game.load.audio('pickup', 'assets/audio/effects/pickup.ogg');
 }
 
 function sfxCreate() {
     backgroundMusic = game.add.audio('music', 0.3, true);
     audioClips = {
-        'steps': game.add.audio('steps', 0.4)
+        'steps': game.add.audio('steps', 0.4),
+        'pickup': game.add.audio('pickup', 0.1)
     }
 
     audioClips['steps'].loop = true;
