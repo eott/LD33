@@ -171,7 +171,7 @@ function checkWinOrLose() {
         var style = { font: "50px Arial", fill: "yellow", stroke: "black", strokeThickness: 7, align: "center" };
         this.text = this.game.add.text(this.game.width / 2 - 130, this.game.height / 2 - 50, 'YOU WIN! :)', style);
         this.text.fixedToCamera = true;
-        this.game.gamePaused();
+        pauseAndReset();
     } else {
         // Summarize all visitor wallets
         var visitorWallet = 0;
@@ -184,9 +184,16 @@ function checkWinOrLose() {
             var style = { font: "50px Arial", fill: "red", stroke: "black", strokeThickness: 7, align: "center" };
             this.text = this.game.add.text(this.game.width / 2 - 140, this.game.height / 2 - 50, 'YOU LOSE! :(', style);
             this.text.fixedToCamera = true;
-            this.game.gamePaused();
+            pauseAndReset();
         }
     }
 
     return false;
+}
+
+function pauseAndReset() {
+    this.game.gamePaused();
+    window.setInterval(function() {
+        window.location.reload();
+    }, 3000);
 }
