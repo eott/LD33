@@ -56,11 +56,18 @@ var menu = (function(){
     }
 
     function toggleSound(){
-        muted != muted
-        if(!muted && !app){
-            menuTheme.play()
-        }else{
+        console.log('Toggle sound')
+
+        if(muted = !muted){
+            document.getElementById("mute").style.display = "none"
+            document.getElementById("unmute").style.display = "inline-block"
+            
             menuTheme.pause()
+        }else{
+            document.getElementById("mute").style.display = "inline-block"
+            document.getElementById("unmute").style.display = "none"
+
+            !app && menuTheme.play()
         }
 
         app && app.sfx.toggle()

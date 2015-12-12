@@ -10,29 +10,29 @@
         <header>
             <div class="credits">
                 <span class="title">Flying Plane</span>
-                <span class="copyright">&copy; 2015 - Anton Mastel, Patrick Florek, Etienne Ott, Sebastian Adamczyk</span>
+                <span class="copyright">&copy; 2015 - Anton Mastel, Etienne Ott, Patrick Florek, Sebastian Adamczyk</span>
             </div>
         </header>
 
-        <section>
+        <section class="muteButtons">
+            <div id="button">
+                <img id="mute" src="assets/images/icons/mute.png" width="64" height="64" alt="" onClick="menu.muteSound()"/>
+                <img id="unmute" src="assets/images/icons/unmute.png" width="64" height="64" alt="" onClick="menu.unmuteSound()"/>
+            </div>
+        </section>
+
+        <section class="game">
             <div id="gameView">
                 <h1 class="title">Flying Plane</h1>
                 <ul class="menuItems">
                     <li class="menuItem" onClick="menu.startGame();">Start Game</li>
                     <li class="menuItem" onClick="menu.showTutorial();">Tutorial</li>
                 </ul>
-                <div class="muteButtons">
-                    <img class="mute" src="assets/images/icons/mute.png" width="64" height="64" alt="" onClick="menu.muteSound()"/>
-                    <img class="unmute" src="assets/images/icons/unmute.png" width="64" height="64" alt="" onClick="menu.unmuteSound()"/>
-                </div>
             </div>
         </section>
 
         <footer>
             <span><strong>Credits:</strong></span>
-            <br>
-            <span>"mute", "unmute" - mikhog</span>
-            <a href="http://opengameart.org/content/play-pause-mute-and-unmute-buttons">Source</a> under <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>
             <br>
             <span>"running hard surface" - bevangoldswain</span>
             <a href="https://www.freesound.org/people/bevangoldswain/sounds/54779/">Source</a> under <a href="http://creativecommons.org/licenses/sampling+/1.0/">CCS 1.0</a>
