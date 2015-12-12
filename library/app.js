@@ -17,8 +17,6 @@ App.prototype.preload = function () {
 App.prototype.create = function () {
     console.log('Init App')
 
-
-
     // Init graphics and sound
     this.gfx.create()
     this.sfx.create()
