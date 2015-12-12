@@ -3,6 +3,7 @@ var menu = (function(){
     var menuTheme = new Audio('assets/audio/music/captain.mp3')
     menuTheme.loop = true
     menuTheme.play()
+    var muted = false
     var app
 
 // Tutorial stuff
@@ -27,7 +28,10 @@ var menu = (function(){
         while(gameViewElem.lastChild){
             gameViewElem.removeChild(gameViewElem.lastChild)
         }
-        app = new App()
+        menuTheme.pause()
+        app = new App(muted)
+        app.preload()
+        app.create()
     }
 
     function showTutorial() {
@@ -52,11 +56,21 @@ var menu = (function(){
     }
 
     function toggleSound(){
-        if(menuTheme.paused){
-            menuTheme.play()
-        }else{
+        console.log('Toggle sound')
+
+        if(muted = !muted){
+            document.getElementById("mute").style.display = "none"
+            document.getElementById("unmute").style.display = "inline-block"
+            
             menuTheme.pause()
+        }else{
+            document.getElementById("mute").style.display = "inline-block"
+            document.getElementById("unmute").style.display = "none"
+
+            !app && menuTheme.play()
         }
+
+        app && app.sfx.toggle()
     }
 
     return {
