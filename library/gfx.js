@@ -1,14 +1,20 @@
 var GFX = function (app) {
     this.app = app
     this.map
+
+    this.probabilities = {
+        ash:      0.1,
+        fire:     0.2,
+        forest:   0.5,
+        gras:     0.9,
+        mountain: 1
+    }
 }
 
 GFX.prototype.preload = function () {
-    this.app.game.load.image('ash', 'assets/images/objects/ash.png');
-    this.app.game.load.image('fire', 'assets/images/objects/fire.png');
-    this.app.game.load.image('forest', 'assets/images/objects/forest.png');
-    this.app.game.load.image('gras', 'assets/images/objects/gras.png');
-    this.app.game.load.image('mountain', 'assets/images/objects/mountain.png');
+    for (key in this.probabilities) {
+        this.app.game.load.image(key, 'assets/images/objects/' + key + '.png');
+    }
 }
 
 GFX.prototype.create = function () {
@@ -19,8 +25,13 @@ GFX.prototype.create = function () {
 
     for (var i = 0; i < 100; i++) {
         for (var j = 0; j < 100; j++) {
-            var tile = this.map.create(i * tilesize, j * tilesize, 'ash');
-            tile.body.immovable = true;
+            var rand = Math.random();
+            for (key in this.probabilities) {
+                if (rand < this.probabilities[key]) {
+                    var tile = this.map.create(i * tilesize, j * tilesize, key);
+                    break;
+                }
+            }
         }
     }
 
