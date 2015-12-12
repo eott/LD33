@@ -11,6 +11,9 @@ SFX.prototype.preload = function () {
     if(!this.muted){
         this.backgroundMusic.play()
     }
+
+    this.audioClips.pickup = new Audio('assets/audio/effects/pickup.mp3')
+    this.audioClips.planesound = new Audio('assets/audio/effects/planesound.mp3')
 }
 
 SFX.prototype.create = function () {
