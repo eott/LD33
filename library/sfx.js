@@ -8,7 +8,7 @@ var SFX = function (app, muted) {
 SFX.prototype.preload = function () {
     this.backgroundMusic = new Audio('assets/audio/music/song.ogg')
     this.backgroundMusic.loop = true
-    if(!this.muted){
+    if (!this.muted) {
         this.backgroundMusic.play()
     }
 
@@ -23,12 +23,19 @@ SFX.prototype.update = function () {
 }
 
 SFX.prototype.toggle = function () {
-    this.muted = !this.muted
 
-    if (!this.muted) {
-        this.backgroundMusic.play()
-    } else {
+    if (this.muted = !this.muted) {
+
         this.backgroundMusic.pause()
+
+        for (var clip in this.audioClips) {
+            this.pause(clip)
+        }
+
+    } else {
+
+        this.backgroundMusic.play()
+
     }
 }
 
