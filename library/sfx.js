@@ -54,7 +54,7 @@ SFX.prototype.play = function (name) {
 SFX.prototype.pause = function (name) {
     if (name == 'backgroundMusic') {
         this.backgroundMusic.pause()
-    } else if (audioClips[name]) {
+    } else if (this.audioClips[name]) {
         this.audioClips[name].pause()
     }
 }

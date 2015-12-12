@@ -8,8 +8,12 @@ Player.prototype.preload = function () {
 }
 
 Player.prototype.create = function () {
-    this.plane = this.app.game.add.sprite(0, 0, 'plane');
-    this.app.game.physics.arcade.enable(this.plane);
+    this.plane = this.app.game.add.sprite(0, 0, 'plane')
+    this.app.game.physics.arcade.enable(this.plane)
+    this.plane.checkWorldBounds = true
+    this.plane.events.onOutOfBounds.add(function(){console.log('collision'), this.plane})
+    this.plane.body.velocity.x = 1000
+    this.plane.body.velocity.y = 1000
 }
 
 Player.prototype.update = function () {
