@@ -12,7 +12,7 @@ SFX.prototype.preload = function () {
         this.backgroundMusic.play()
     }
 
-    this.audioClips.pickup = new Audio('assets/audio/effects/pickup.mp3')
+    this.audioClips.pickup = new Audio('assets/audio/effects/pickup.ogg')
     this.audioClips.planesound = new Audio('assets/audio/effects/planesound.mp3')
 }
 
