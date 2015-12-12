@@ -2,7 +2,7 @@ var Player = function (app) {
     this.app = app
     this.plane
     this.speed = 200
-    this.incr = 32
+    this.incr = 100
     this.dimension = new Phaser.Point(128, 128)
 }
 
@@ -38,7 +38,7 @@ Player.prototype.onOutOfBounds = function () {
 }
 
 Player.prototype.update = function () {
-    
+
     // Rotation for sprite
     this.plane.rotation = this.plane.body.angle + Math.PI / 2
 
