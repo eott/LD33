@@ -1,11 +1,16 @@
-var SFX = function (app) {
+var SFX = function (app, muted) {
     this.app = app
-    this.muted = false
+    this.muted = muted
     this.backgroundMusic
     this.audioClips = {}
 }
 
 SFX.prototype.preload = function () {
+    this.backgroundMusic = new Audio('assets/audio/music/song.ogg')
+    this.backgroundMusic.loop = true
+    if(!this.muted){
+        this.backgroundMusic.play()
+    }
 }
 
 SFX.prototype.create = function () {
@@ -14,16 +19,12 @@ SFX.prototype.create = function () {
 SFX.prototype.update = function () {
 }
 
-SFX.prototype.mute = function () {
+SFX.prototype.toggle = function () {
     this.muted = !this.muted
 
     if (!this.muted) {
-        document.getElementById("mute").style.display = "inline-block"
-        document.getElementById("unmute").style.display = "none"
         this.backgroundMusic.play()
     } else {
-        document.getElementById("mute").style.display = "none"
-        document.getElementById("unmute").style.display = "inline-block"
         this.backgroundMusic.pause()
     }
 }

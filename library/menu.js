@@ -3,6 +3,7 @@ var menu = (function(){
     var menuTheme = new Audio('assets/audio/music/captain.mp3')
     menuTheme.loop = true
     menuTheme.play()
+    var muted = false
     var app
 
 // Tutorial stuff
@@ -27,7 +28,8 @@ var menu = (function(){
         while(gameViewElem.lastChild){
             gameViewElem.removeChild(gameViewElem.lastChild)
         }
-        app = new App()
+        menuTheme.pause()
+        app = new App(muted)
         app.preload()
         app.create()
     }
@@ -54,11 +56,14 @@ var menu = (function(){
     }
 
     function toggleSound(){
-        if(menuTheme.paused){
+        muted != muted
+        if(!muted && !app){
             menuTheme.play()
         }else{
             menuTheme.pause()
         }
+
+        app && app.sfx.toggle()
     }
 
     return {
