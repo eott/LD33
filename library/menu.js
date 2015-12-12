@@ -29,7 +29,6 @@ var menu = (function(){
     function showTutorial() {
         levelName = "Tutorial"
         hideMenu()
-        initGame()
         document.getElementById('tutorialMenu').setAttribute('style', 'display: block')
         nextSlide()
     }
@@ -49,7 +48,6 @@ var menu = (function(){
     }
 
     function muteSound(){
-
     }
 
     function unmuteSound(){
@@ -57,6 +55,7 @@ var menu = (function(){
     }
 
     return {
-        startGame : startGame
+        startGame : startGame,
+        showTutorial : showTutorial
     }
 })()
