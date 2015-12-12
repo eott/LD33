@@ -22,7 +22,7 @@ var menu = (function(app){
     }
 
     function startGame(){
-
+        app.start();
     }
 
     function showTutorial() {
@@ -55,5 +55,7 @@ var menu = (function(app){
 
     }
 
-    return this;
+    return {
+        startGame : startGame
+    };
 })(app);

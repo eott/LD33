@@ -1,7 +1,7 @@
 var app = (function (sfx, gfx, player) {
 
 // Game related
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: init, update: update });
+    var game;
     var cursors;
     var buttonWasDown = false;
 
@@ -20,6 +20,8 @@ var app = (function (sfx, gfx, player) {
 
 
     function start() {
+        console.log('Starting app')
+        game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: init, update: update })
     }
 
     function init() {
