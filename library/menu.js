@@ -16,20 +16,23 @@ var menu = (function(){
         "Rumors speak of a dangerous foe, who wanders the labyrinth and poses a threat to all that meet him."
     ]
 
-    function hideMenu() {
+    function removeMenu() {
         document.getElementById('menu').remove()
         menuTheme.pause()
         menuTheme = false // Let the GC handle it
     }
 
     function startGame(){
-        hideMenu()
+        var gameViewElem = document.getElementById('gameView')
+        while(gameViewElem.lastChild){
+            gameViewElem.removeChild(gameViewElem.lastChild)
+        }
         app = new App()
     }
 
     function showTutorial() {
         levelName = "Tutorial"
-        hideMenu()
+        removeMenu()
         document.getElementById('tutorialMenu').setAttribute('style', 'display: block')
         nextSlide()
     }
