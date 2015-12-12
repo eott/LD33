@@ -66,11 +66,14 @@ section.game {
 }
 
 section.tutorial {
+    padding-top: 20px;
     margin: 0 auto;
     max-width: 800px;
 }
 
 #tutorialView {
+    background-color: black;
+    color: #ffffff;
     text-align: center;
 }
 
