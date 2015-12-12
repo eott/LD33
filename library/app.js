@@ -1,5 +1,4 @@
 var app = (function (sfx, gfx, player) {
-    var self = this;
 
 // Game related
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: init, update: update });
@@ -14,9 +13,9 @@ var app = (function (sfx, gfx, player) {
         game.load.image('player', 'assets/images/player/player.png');
         game.load.spritesheet('game_objects', 'assets/images/objects/game_objects.png', 64, 64);
 
-        gfx.load(self);
-        sfx.load(self);
-        player.load(self);
+        gfx.load(this);
+        sfx.load(this);
+        player.load(this);
     }
 
 

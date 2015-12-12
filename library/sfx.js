@@ -1,15 +1,14 @@
 var sfx = (function () {
-    var self = this;
     var app;
     var muted = false;
     var backgroundMusic;
     var audioClips = {};
 
     function load(app) {
-        self.app = app;
-        app.game.load.audio('music', 'assets/audio/music/song.ogg');
-        app.game.load.audio('steps', 'assets/audio/effects/footsteps.ogg');
-        app.game.load.audio('pickup', 'assets/audio/effects/pickup.ogg');
+        this.app = app;
+        this.app.game.load.audio('music', 'assets/audio/music/song.ogg');
+        this.app.game.load.audio('steps', 'assets/audio/effects/footsteps.ogg');
+        this.app.game.load.audio('pickup', 'assets/audio/effects/pickup.ogg');
     }
 
     function init() {

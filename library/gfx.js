@@ -1,5 +1,4 @@
 var gfx = (function () {
-    var self = this;
     var app;
     var map;
     var floorLayer
@@ -8,10 +7,10 @@ var gfx = (function () {
     var walkables;
 
     function load(app) {
-        self.app = app;
+        this.app = app;
         // game.load.spritesheet('explosion', 'assets/images/mobs/explosion_spritesheet.png', 64, 64);
-        app.game.load.tilemap('level', 'assets/maps/' + levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
-        app.load.image('labyrinthSprites', 'assets/images/background/labyrinth_spritesheet.png');
+        this.app.game.load.tilemap('level', 'assets/maps/' + levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
+        this.app.load.image('labyrinthSprites', 'assets/images/background/labyrinth_spritesheet.png');
     }
 
     function init() {
