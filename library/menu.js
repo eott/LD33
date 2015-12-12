@@ -23,6 +23,7 @@ var menu = (function(){
     }
 
     function startGame(){
+        hideMenu()
         app = new App()
     }
 
