@@ -52,7 +52,11 @@ var menu = (function(){
     }
 
     function toggleSound(){
-
+        if(menuTheme.paused){
+            menuTheme.play()
+        }else{
+            menuTheme.pause()
+        }
     }
 
     return {
