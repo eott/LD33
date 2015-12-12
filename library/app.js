@@ -20,7 +20,6 @@ var app = (function (sfx, gfx, player) {
 
 
     function start() {
-        levelName = "Level1";
     }
 
     function init() {

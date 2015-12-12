@@ -9,7 +9,7 @@ var gfx = (function () {
     function load(app) {
         this.app = app;
         // game.load.spritesheet('explosion', 'assets/images/mobs/explosion_spritesheet.png', 64, 64);
-        this.app.game.load.tilemap('level', 'assets/maps/' + levelName + '.json', null, Phaser.Tilemap.TILED_JSON);
+        this.app.game.load.tilemap('level', 'assets/maps/Level1.json', null, Phaser.Tilemap.TILED_JSON);
         this.app.load.image('labyrinthSprites', 'assets/images/background/labyrinth_spritesheet.png');
     }
 
