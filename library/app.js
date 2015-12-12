@@ -1,85 +1,41 @@
-var app = (function (sfx, gfx, player) {
-    var self = this;
+var App = function () {
+    this.cursors
+    this.sfx = new SFX(this)
+    this.gfx = new GFX(this)
+    this.player = new Player(this)
+    console.log('Starting App')
+    this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', this)
+}
 
-// Game related
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: init, update: update });
-    var cursors;
-    var buttonWasDown = false;
+App.prototype.preload = function () {
+    console.log('Loading App')
+    this.gfx.preload()
+    this.sfx.preload()
+    this.player.preload()
+}
 
-// Meta
-    var timeOfStart = Date.now();
-    var levelName;
+App.prototype.create = function () {
+    console.log('Init App')
+    // Init graphics and sound
+    this.gfx.create()
+    this.sfx.create()
+    this.player.create()
 
-    function preload() {
-        game.load.image('player', 'assets/images/player/player.png');
-        game.load.spritesheet('game_objects', 'assets/images/objects/game_objects.png', 64, 64);
+    // Init inputs
+    this.cursors = this.game.input.keyboard.addKeys({
+        'up'   : Phaser.Keyboard.UP,
+        'down' : Phaser.Keyboard.DOWN,
+        'left' : Phaser.Keyboard.LEFT,
+        'right': Phaser.Keyboard.RIGHT,
+        'w'    : Phaser.Keyboard.W,
+        's'    : Phaser.Keyboard.S,
+        'a'    : Phaser.Keyboard.A,
+        'd'    : Phaser.Keyboard.D
+    })
+}
 
-        gfx.load(self);
-        sfx.load(self);
-        player.load(self);
-    }
-
-
-    function start() {
-        levelName = "Level1";
-    }
-
-    function init() {
-        // Init graphics and sound
-        gfx.init();
-        sfx.init();
-        player.init();
-
-        // Init inputs
-        cursors = game.input.keyboard.addKeys({
-            'up'   : Phaser.Keyboard.UP,
-            'down' : Phaser.Keyboard.DOWN,
-            'left' : Phaser.Keyboard.LEFT,
-            'right': Phaser.Keyboard.RIGHT,
-            'w'    : Phaser.Keyboard.W,
-            's'    : Phaser.Keyboard.S,
-            'a'    : Phaser.Keyboard.A,
-            'd'    : Phaser.Keyboard.D
-        });
-
-        game.canvas.oncontextmenu = function (e) {
-            e.preventDefault();
-        };
-    }
-
-    function update() {
-        // Custom click event, because why the hell has Phaser these not by default?
-        if (
-            game.input.mousePointer.isDown
-                && !buttonWasDown
-            ) {
-            onMouseClick();
-        }
-        buttonWasDown = game.input.mousePointer.isDown;
-
-        gfx.update();
-        sfx.update();
-    }
-
-    function reset() {
-        timeOfStart = Date.now();
-    }
-
-    return {
-        game   : game,
-        preload: preload,
-        init   : init,
-        start  : start,
-        update : update,
-        reset  : reset,
-        player : player
-
-    }
-})(sfx, gfx, player);
-
-//+ Jonas Raoni Soares Silva
-//@ http://jsfromhell.com/array/shuffle [v1.0]
-function shuffle(o) { //v1.0
-    for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-    return o;
-};
+App.prototype.update = function () {
+    this.gfx.update()
+    this.sfx.update()
+    this.player.update()
+}
