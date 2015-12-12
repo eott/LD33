@@ -1,6 +1,6 @@
 var GFX = function (app) {
-    this.app = app;
-    this.map;
+    this.app = app
+    this.map
 }
 
 GFX.prototype.load = function () {
