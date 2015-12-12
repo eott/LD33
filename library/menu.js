@@ -1,6 +1,6 @@
 var menu = (function(app){
     // No game is initialized yet, do it all "naked"
-    var menuTheme = new Audio('assets/audio/music/menu_theme.mp3');
+    var menuTheme = new Audio('assets/audio/music/captain.mp3');
     menuTheme.loop = true;
     menuTheme.play();
 
@@ -45,15 +45,6 @@ var menu = (function(app){
             tutorialSlide--;
         }
         document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide];
-    }
-
-    function evilStuff() {
-        somethingSinister("Mode: ULTRA-EVIL, Countdown: 5 seconds");
-        worldDestroyed = true;
-    }
-
-    function somethingSinister() {
-        // TODO: Implement doomsday device
     }
 
     function muteSound(){

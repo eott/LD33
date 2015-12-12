@@ -16,6 +16,7 @@ var app = (function (sfx, gfx, player) {
 
         gfx.load(self);
         sfx.load(self);
+        player.load(self);
     }
 
 
@@ -27,6 +28,7 @@ var app = (function (sfx, gfx, player) {
         // Init graphics and sound
         gfx.init();
         sfx.init();
+        player.init();
 
         // Init inputs
         cursors = game.input.keyboard.addKeys({
@@ -43,17 +45,6 @@ var app = (function (sfx, gfx, player) {
         game.canvas.oncontextmenu = function (e) {
             e.preventDefault();
         };
-
-        /**
-         * Player
-         */
-        var start = findObjectsByType('player_start', map, 'Game objects');
-        start = start.pop();
-        player = Minotaur.create(game, start);
-
-        // Camera and game world
-        game.camera.follow(player.sprite);
-        game.world.setBounds(0, 0, 2500, 2500);
     }
 
     function update() {
@@ -72,10 +63,6 @@ var app = (function (sfx, gfx, player) {
 
     function reset() {
         timeOfStart = Date.now();
-        player.body.x = 0;
-        player.body.y = 0;
-        player.body.velocity.x = 0;
-        player.body.velocity.y = 0;
     }
 
     return {
