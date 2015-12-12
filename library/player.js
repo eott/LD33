@@ -38,35 +38,23 @@ Player.prototype.onOutOfBounds = function () {
 }
 
 Player.prototype.update = function () {
-
-    console.log(this.plane.body.angle);
-//    console.log(this.plane.body.velocity.x);
-//    console.log(this.plane.body.velocity.y);
-//    var angle = Math.atan2(this.plane.body.velocity.y, this.plane.body.velocity.x)
-//    console.log(angle);
-
+    
     // Rotation for sprite
     this.plane.rotation = this.plane.body.angle + Math.PI / 2
 
-//    this.plane.body.angle += Math.PI / 4
+    //Direction for velocity
+    var angle = Phaser.Point.angle(this.plane.body.velocity, new Phaser.Point(0, 0))
 
-    this.plane.body.velocity.x += 10
-    console.log(this.plane.body.angle);
+    if (this.app.cursors.left.isDown) {
+        angle -= Math.PI / this.incr
+    }
 
-//
-//    //Direction for velocity
-//    var angle = Phaser.Point.angle(this.plane.body.velocity, new Phaser.Point(0, 0))
-//
-//    if (this.app.cursors.left.isDown) {
-//        angle -= Math.PI / this.incr
-//    }
-//
-//    if (this.app.cursors.right.isDown) {
-//        angle += Math.PI / this.incr
-//    }
-//
-//    this.plane.body.velocity.y = Math.sin(angle) * this.speed
-//    this.plane.body.velocity.x = Math.cos(angle) * this.speed
+    if (this.app.cursors.right.isDown) {
+        angle += Math.PI / this.incr
+    }
+
+    this.plane.body.velocity.y = Math.sin(angle) * this.speed
+    this.plane.body.velocity.x = Math.cos(angle) * this.speed
 }
 
 Player.prototype.reset = function () {
