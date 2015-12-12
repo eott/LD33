@@ -1,6 +1,6 @@
 var GFX = function (app) {
     this.app = app
-    this.map
+    this.map = new Map(app)
 
     this.probabilities = {
         ash     : 0.1,
@@ -12,32 +12,12 @@ var GFX = function (app) {
 }
 
 GFX.prototype.preload = function () {
-    for (var key in this.probabilities) {
-        this.app.game.load.image(key, 'assets/images/objects/' + key + '.png')
-    }
+    // Initialize map
+    this.map.preload()
 }
 
 GFX.prototype.create = function () {
-    // Place boxes in the world
-    this.map = this.app.game.add.group()
-    this.map.enableBody = false
-    var tilesize = 16
-
-    for (var i = 0; i < 100; i++) {
-        for (var j = 0; j < 100; j++) {
-            var rand = Math.random()
-            for (key in this.probabilities) {
-                if (rand < this.probabilities[key]) {
-                    var tile = this.map.create(i * tilesize, j * tilesize, key)
-                    break
-                }
-            }
-        }
-    }
-
-    // - Teleport on boundaries
-    // - Dangerous tiles should have a certain padding away from the boundaries
-    // - Map? which shows on which tile the player is on?
+    this.map.create()
 }
 
 GFX.prototype.update = function () {
