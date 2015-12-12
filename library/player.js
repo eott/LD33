@@ -43,7 +43,7 @@ Player.prototype.update = function () {
     this.plane.rotation = this.plane.body.angle + Math.PI / 2
 
     //Direction for velocity
-    var angle = Phaser.Point.angle(this.plane.body.velocity, new Phaser.Point(0, 0))
+    var angle = this.plane.body.angle
 
     if (this.app.cursors.left.isDown) {
         angle -= Math.PI / this.incr
