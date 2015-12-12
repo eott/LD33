@@ -16,6 +16,9 @@ App.prototype.preload = function () {
 
 App.prototype.create = function () {
     console.log('Init App')
+
+
+
     // Init graphics and sound
     this.gfx.create()
     this.sfx.create()
@@ -23,14 +26,8 @@ App.prototype.create = function () {
 
     // Init inputs
     this.cursors = this.game.input.keyboard.addKeys({
-        'up'   : Phaser.Keyboard.UP,
-        'down' : Phaser.Keyboard.DOWN,
         'left' : Phaser.Keyboard.LEFT,
-        'right': Phaser.Keyboard.RIGHT,
-        'w'    : Phaser.Keyboard.W,
-        's'    : Phaser.Keyboard.S,
-        'a'    : Phaser.Keyboard.A,
-        'd'    : Phaser.Keyboard.D
+        'right': Phaser.Keyboard.RIGHT
     })
 }
 
