@@ -10,6 +10,9 @@ Player.prototype.preload = function () {
 Player.prototype.create = function () {
     this.plane = this.app.game.add.sprite(0, 0, 'plane');
     this.app.game.physics.arcade.enable(this.plane);
+    this.plane.body.velocity.x = 100
+    this.plane.body.velocity.y = 100
+
 }
 
 Player.prototype.update = function () {
