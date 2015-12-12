@@ -11,12 +11,12 @@ header {
     text-align: center;
 }
 
-img.mute,
-img.unmute {
+img#mute,
+img#unmute {
     cursor: pointer;
 }
 
-img.unmute {
+img#unmute {
     display: none;
 }
 
