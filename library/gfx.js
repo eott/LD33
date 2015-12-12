@@ -3,33 +3,33 @@ var GFX = function (app) {
     this.map
 
     this.probabilities = {
-        ash:      0.1,
-        fire:     0.2,
-        forest:   0.5,
-        gras:     0.9,
+        ash     : 0.1,
+        fire    : 0.2,
+        forest  : 0.5,
+        gras    : 0.9,
         mountain: 1
     }
 }
 
 GFX.prototype.preload = function () {
     for (key in this.probabilities) {
-        this.app.game.load.image(key, 'assets/images/objects/' + key + '.png');
+        this.app.game.load.image(key, 'assets/images/objects/' + key + '.png')
     }
 }
 
 GFX.prototype.create = function () {
     // Place boxes in the world
-    this.map = this.app.game.add.group();
-    this.map.enableBody = false;
-    var tilesize = 16;
+    this.map = this.app.game.add.group()
+    this.map.enableBody = false
+    var tilesize = 16
 
     for (var i = 0; i < 100; i++) {
         for (var j = 0; j < 100; j++) {
-            var rand = Math.random();
+            var rand = Math.random()
             for (key in this.probabilities) {
                 if (rand < this.probabilities[key]) {
-                    var tile = this.map.create(i * tilesize, j * tilesize, key);
-                    break;
+                    var tile = this.map.create(i * tilesize, j * tilesize, key)
+                    break
                 }
             }
         }
