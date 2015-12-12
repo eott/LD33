@@ -1,8 +1,8 @@
 var Player = function (app) {
     this.app = app
     this.plane
-    this.speed = 100
-    this.incr = 32
+    this.speed = 200
+    this.incr = 100
     this.dimension = new Phaser.Point(128, 128)
 }
 
