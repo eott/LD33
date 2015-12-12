@@ -1,11 +1,12 @@
-var menu = (function(app){
+var menu = (function(){
     // No game is initialized yet, do it all "naked"
-    var menuTheme = new Audio('assets/audio/music/captain.mp3');
-    menuTheme.loop = true;
-    menuTheme.play();
+    var menuTheme = new Audio('assets/audio/music/captain.mp3')
+    menuTheme.loop = true
+    menuTheme.play()
+    var app
 
 // Tutorial stuff
-    var tutorialSlide = -1;
+    var tutorialSlide = -1
     var tutorialText = [
         "Your goal is to acquire the treasue scattered across the maze. Find enough of it and you win. However...",
         "While you are out and about hunting for the treasure, there are strange creatures roaming the labyrinth as well.",
@@ -13,38 +14,38 @@ var menu = (function(app){
         "If these visitors have stolen some of the treasure, you can catch them and take it off them.",
         "As these creatures are fearfull, they band together. A group is more dangerous than individuals.",
         "Rumors speak of a dangerous foe, who wanders the labyrinth and poses a threat to all that meet him."
-    ];
+    ]
 
     function hideMenu() {
-        document.getElementById('menu').remove();
-        menuTheme.pause();
-        menuTheme = false; // Let the GC handle it
+        document.getElementById('menu').remove()
+        menuTheme.pause()
+        menuTheme = false // Let the GC handle it
     }
 
     function startGame(){
-        app.start();
+        app = new App()
     }
 
     function showTutorial() {
-        levelName = "Tutorial";
-        hideMenu();
-        initGame();
-        document.getElementById('tutorialMenu').setAttribute('style', 'display: block;');
-        nextSlide();
+        levelName = "Tutorial"
+        hideMenu()
+        initGame()
+        document.getElementById('tutorialMenu').setAttribute('style', 'display: block')
+        nextSlide()
     }
 
     function nextSlide() {
         if (tutorialSlide < tutorialText.length - 1) {
-            tutorialSlide++;
+            tutorialSlide++
         }
-        document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide];
+        document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide]
     }
 
     function previousSlide() {
         if (tutorialSlide > 0) {
-            tutorialSlide--;
+            tutorialSlide--
         }
-        document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide];
+        document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide]
     }
 
     function muteSound(){
@@ -57,5 +58,5 @@ var menu = (function(app){
 
     return {
         startGame : startGame
-    };
-})(app);
+    }
+})()

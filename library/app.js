@@ -1,25 +1,25 @@
-var APP = function () {
-    console.log('Starting app')
-    this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: this.load, create: this.init, update: this.update })
+var App = function () {
     this.cursors
     this.sfx = new SFX(this)
     this.gfx = new GFX(this)
     this.player = new Player(this)
+    console.log('Starting App')
+    this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', this)
 }
 
-APP.prototype.load = function () {
-    console.log('Loading app')
-    this.gfx.load()
-    this.sfx.load()
-    this.player.load()
+App.prototype.preload = function () {
+    console.log('Loading App')
+    this.gfx.preload()
+    this.sfx.preload()
+    this.player.preload()
 }
 
-APP.prototype.init = function () {
-    console.log('Init app')
+App.prototype.create = function () {
+    console.log('Init App')
     // Init graphics and sound
-    this.gfx.init()
-    this.sfx.init()
-    this.player.init()
+    this.gfx.create()
+    this.sfx.create()
+    this.player.create()
 
     // Init inputs
     this.cursors = this.game.input.keyboard.addKeys({
@@ -34,7 +34,7 @@ APP.prototype.init = function () {
     })
 }
 
-APP.prototype.update = function () {
+App.prototype.update = function () {
     this.gfx.update()
     this.sfx.update()
     this.player.update()

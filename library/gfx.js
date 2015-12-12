@@ -3,10 +3,10 @@ var GFX = function (app) {
     this.map
 }
 
-GFX.prototype.load = function () {
+GFX.prototype.preload = function () {
 }
 
-GFX.prototype.init = function () {
+GFX.prototype.create = function () {
 }
 
 GFX.prototype.update = function () {

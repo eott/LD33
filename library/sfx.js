@@ -5,10 +5,10 @@ var SFX = function (app) {
     this.audioClips = {}
 }
 
-SFX.prototype.load = function () {
+SFX.prototype.preload = function () {
 }
 
-SFX.prototype.init = function () {
+SFX.prototype.create = function () {
 }
 
 SFX.prototype.update = function () {
