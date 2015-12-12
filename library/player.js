@@ -1,7 +1,7 @@
 var Player = function (app) {
     this.app = app
     this.plane
-    this.speed = 100
+    this.speed = 200
     this.incr = 32
     this.dimension = new Phaser.Point(128, 128)
 }
@@ -17,9 +17,8 @@ Player.prototype.create = function () {
     this.plane.checkWorldBounds = true
     this.plane.events.onOutOfBounds.add(this.onOutOfBounds, this)
 
-    var angle = Phaser.Point.angle(new Phaser.Point(0, 0), new Phaser.Point(1 * this.speed, 1 * this.speed))
-    this.plane.body.velocity.y = Math.sin(angle) * this.speed
-    this.plane.body.velocity.x = Math.cos(angle) * this.speed
+    this.plane.body.velocity.x = 50
+    this.plane.body.velocity.y = -50
 }
 
 Player.prototype.onOutOfBounds = function () {
@@ -40,22 +39,34 @@ Player.prototype.onOutOfBounds = function () {
 
 Player.prototype.update = function () {
 
+    console.log(this.plane.body.angle);
+//    console.log(this.plane.body.velocity.x);
+//    console.log(this.plane.body.velocity.y);
+//    var angle = Math.atan2(this.plane.body.velocity.y, this.plane.body.velocity.x)
+//    console.log(angle);
+
     // Rotation for sprite
     this.plane.rotation = this.plane.body.angle + Math.PI / 2
 
-    //Direction for velocity
-    var angle = Phaser.Point.angle(this.plane.body.velocity, new Phaser.Point(0, 0))
+//    this.plane.body.angle += Math.PI / 4
 
-    if (this.app.cursors.left.isDown) {
-        angle -= Math.PI / this.incr
-    }
+    this.plane.body.velocity.x += 10
+    console.log(this.plane.body.angle);
 
-    if (this.app.cursors.right.isDown) {
-        angle += Math.PI / this.incr
-    }
-
-    this.plane.body.velocity.y = Math.sin(angle) * this.speed
-    this.plane.body.velocity.x = Math.cos(angle) * this.speed
+//
+//    //Direction for velocity
+//    var angle = Phaser.Point.angle(this.plane.body.velocity, new Phaser.Point(0, 0))
+//
+//    if (this.app.cursors.left.isDown) {
+//        angle -= Math.PI / this.incr
+//    }
+//
+//    if (this.app.cursors.right.isDown) {
+//        angle += Math.PI / this.incr
+//    }
+//
+//    this.plane.body.velocity.y = Math.sin(angle) * this.speed
+//    this.plane.body.velocity.x = Math.cos(angle) * this.speed
 }
 
 Player.prototype.reset = function () {
