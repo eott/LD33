@@ -33,6 +33,7 @@ section.muteButtons {
 }
 
 #button {
+    padding: 20px 0 20px 0;
     text-align: center;
 }
 
@@ -66,12 +67,13 @@ section.game {
 }
 
 section.tutorial {
-    padding-top: 20px;
+    padding: 20px 0 20px 0;
     margin: 0 auto;
     max-width: 800px;
 }
 
 #tutorialView {
+    padding: 20px 0 20px 0;
     background-color: black;
     color: #ffffff;
     text-align: center;

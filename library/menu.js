@@ -24,21 +24,28 @@ var menu = (function(){
     }
 
     function startGame(){
-        var gameViewElem = document.getElementById('gameView')
+        var gameViewElem    = document.getElementById('gameView')
+        var tutorialElement = document.getElementById('help')
+
+        if (tutorialElement.className === "hide") {
+            tutorialElement.setAttribute('class', 'show')
+        }
+
         while(gameViewElem.lastChild){
             gameViewElem.removeChild(gameViewElem.lastChild)
         }
+
         menuTheme.pause()
         app = new App(muted)
     }
 
     function showTutorial() {
-        var element = document.getElementById('tutorialView')
+        var tutorialElement = document.getElementById('tutorialView')
 
-        if (element.className === "hide") {
-            element.setAttribute('class', 'show')
+        if (tutorialElement.className === "hide") {
+            tutorialElement.setAttribute('class', 'show')
         } else {
-            element.setAttribute('class', 'hide')
+            tutorialElement.setAttribute('class', 'hide')
         }
     }
 
