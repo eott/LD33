@@ -12,7 +12,7 @@ var GFX = function (app) {
 }
 
 GFX.prototype.preload = function () {
-    for (key in this.probabilities) {
+    for (var key in this.probabilities) {
         this.app.game.load.image(key, 'assets/images/objects/' + key + '.png')
     }
 }
