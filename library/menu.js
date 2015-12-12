@@ -33,10 +33,13 @@ var menu = (function(){
     }
 
     function showTutorial() {
-        levelName = "Tutorial"
-        removeMenu()
-        document.getElementById('tutorialMenu').setAttribute('style', 'display: block')
-        nextSlide()
+        var element = document.getElementById('tutorialView')
+
+        if (element.className === "hide") {
+            element.setAttribute('class', 'show')
+        } else {
+            element.setAttribute('class', 'hide')
+        }
     }
 
     function nextSlide() {
