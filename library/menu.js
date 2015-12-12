@@ -51,15 +51,14 @@ var menu = (function(){
         document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide]
     }
 
-    function muteSound(){
-    }
-
-    function unmuteSound(){
+    function toggleSound(){
 
     }
 
     return {
         startGame : startGame,
-        showTutorial : showTutorial
+        showTutorial : showTutorial,
+        muteSound: toggleSound,
+        unmuteSound: toggleSound
     }
 })()
