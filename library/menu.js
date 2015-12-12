@@ -47,15 +47,6 @@ var menu = (function(app){
         document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide];
     }
 
-    function evilStuff() {
-        somethingSinister("Mode: ULTRA-EVIL, Countdown: 5 seconds");
-        worldDestroyed = true;
-    }
-
-    function somethingSinister() {
-        // TODO: Implement doomsday device
-    }
-
     function muteSound(){
 
     }
