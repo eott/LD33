@@ -12,6 +12,7 @@ Player.prototype.preload = function () {
 
 Player.prototype.create = function () {
     this.plane = this.app.game.add.sprite(300, 300, 'plane')
+    this.plane.anchor = new Phaser.Point(0.5, 0.5)
     this.app.game.physics.arcade.enable(this.plane)
     this.plane.checkWorldBounds = true
     this.plane.events.onOutOfBounds.add(this.onOutOfBounds, this)
