@@ -6,23 +6,6 @@ var menu = (function () {
     var muted = false
     var app
 
-// Tutorial stuff
-    var tutorialSlide = -1
-    var tutorialText = [
-        "Your goal is to acquire the treasue scattered across the maze. Find enough of it and you win. However...",
-        "While you are out and about hunting for the treasure, there are strange creatures roaming the labyrinth as well.",
-        "If you are not careful, they steal all your treasure before you can collect it.",
-        "If these visitors have stolen some of the treasure, you can catch them and take it off them.",
-        "As these creatures are fearfull, they band together. A group is more dangerous than individuals.",
-        "Rumors speak of a dangerous foe, who wanders the labyrinth and poses a threat to all that meet him."
-    ]
-
-    function removeMenu() {
-        document.getElementById('menu').remove()
-        menuTheme.pause()
-        menuTheme = false // Let the GC handle it
-    }
-
     function startGame() {
         var gameViewElem = document.getElementById('gameView')
         var tutorialElement = document.getElementById('help')
@@ -47,20 +30,6 @@ var menu = (function () {
         } else {
             tutorialElement.setAttribute('class', 'hide')
         }
-    }
-
-    function nextSlide() {
-        if (tutorialSlide < tutorialText.length - 1) {
-            tutorialSlide++
-        }
-        document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide]
-    }
-
-    function previousSlide() {
-        if (tutorialSlide > 0) {
-            tutorialSlide--
-        }
-        document.getElementById('tutorialText').innerHTML = tutorialText[tutorialSlide]
     }
 
     function toggleSound() {
