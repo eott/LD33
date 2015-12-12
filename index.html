@@ -10,21 +10,24 @@
         <header>
             <div class="credits">
                 <span class="title">Flying Plane</span>
-                <span class="copyright">&copy; 2015 - Anton Mastel, Patrick Florek, Etienne Ott, Sebastian Adamczyk</span>
+                <span class="copyright">&copy; 2015 - Anton Mastel, Etienne Ott, Patrick Florek, Sebastian Adamczyk</span>
             </div>
         </header>
 
-        <section>
+        <section class="muteButtons">
+            <div id="button">
+                <img id="mute" src="assets/images/icons/mute.png" width="64" height="64" alt="" onClick="menu.muteSound()"/>
+                <img id="unmute" src="assets/images/icons/unmute.png" width="64" height="64" alt="" onClick="menu.unmuteSound()"/>
+            </div>
+        </section>
+
+        <section class="game">
             <div id="gameView">
                 <h1 class="title">Flying Plane</h1>
                 <ul class="menuItems">
                     <li class="menuItem" onClick="menu.startGame();">Start Game</li>
                     <li class="menuItem" onClick="menu.showTutorial();">Tutorial</li>
                 </ul>
-                <div class="muteButtons">
-                    <img id="mute" src="assets/images/icons/mute.png" width="64" height="64" alt="" onClick="menu.muteSound()"/>
-                    <img id="unmute" src="assets/images/icons/unmute.png" width="64" height="64" alt="" onClick="menu.unmuteSound()"/>
-                </div>
             </div>
         </section>
 

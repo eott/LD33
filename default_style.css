@@ -26,7 +26,16 @@ img#unmute {
 
 /* BEGIN CONTENT */
 /*--------------------------------------------------------------------------------------------------------------------*/
-section {
+section.muteButtons {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+#button {
+    text-align: center;
+}
+
+section.game {
     margin: 0 auto;
     max-width: 800px;
     height: 600px;
@@ -43,6 +52,7 @@ section {
 
 #gameView .title {
     font-size: 80px;
+    margin: 0;
 }
 
 #gameView .menuItems {
@@ -52,6 +62,16 @@ section {
 
 #gameView .menuItem {
     cursor: pointer;
+}
+
+section.tutorial{
+    margin: 0 auto;
+    max-width: 800px;
+    height: 200px;
+}
+
+#tutorialView {
+    text-align: center;
 }
 
 /* END CONTENT*/
