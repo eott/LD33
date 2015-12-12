@@ -1,29 +1,21 @@
-var player = (function(){
-    var self = this;
-    var app;
+var Player = function (app) {
+    this.app = app
 
-    function load(app){
+    this.load = function () {
         self.app = app;
     }
 
-    function init(){
+    this.init = function () {
         // Camera and game world
         app.game.camera.follow(player.sprite);
         app.game.world.setBounds(0, 0, 2500, 2500);
     }
 
-    function update (){
+    this.update = function () {
 
     }
 
-    function reset (){
+    this.reset = function () {
 
     }
-
-    return {
-        load: load,
-        init: init,
-        update: update,
-        reset: reset
-    }
-})();
+}
