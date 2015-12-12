@@ -1,6 +1,6 @@
-var App = function () {
+var App = function (muted) {
     this.cursors
-    this.sfx = new SFX(this)
+    this.sfx = new SFX(this, muted)
     this.gfx = new GFX(this)
     this.player = new Player(this)
     console.log('Starting App')
