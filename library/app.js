@@ -1,4 +1,4 @@
-var app = (function (sfx, gfx, menu, player) {
+var app = (function (sfx, gfx, player) {
     var self = this;
 
 // Game related
@@ -21,7 +21,6 @@ var app = (function (sfx, gfx, menu, player) {
 
     function start() {
         levelName = "Level1";
-        menu.hide();
     }
 
     function init() {
@@ -89,7 +88,7 @@ var app = (function (sfx, gfx, menu, player) {
         player : player
 
     }
-})(sfx, gfx, menu, player);
+})(sfx, gfx, player);
 
 //+ Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/array/shuffle [v1.0]
