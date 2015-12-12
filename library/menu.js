@@ -30,8 +30,6 @@ var menu = (function(){
         }
         menuTheme.pause()
         app = new App(muted)
-        app.preload()
-        app.create()
     }
 
     function showTutorial() {
@@ -61,7 +59,7 @@ var menu = (function(){
         if(muted = !muted){
             document.getElementById("mute").style.display = "none"
             document.getElementById("unmute").style.display = "inline-block"
-            
+
             menuTheme.pause()
         }else{
             document.getElementById("mute").style.display = "inline-block"

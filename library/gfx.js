@@ -3,11 +3,11 @@ var GFX = function (app) {
     this.map
 
     this.probabilities = {
-        ash:      0.1,
+        ash:      0,
         fire:     0.2,
-        forest:   0.5,
-        gras:     0.9,
-        mountain: 1
+        forest:   0.6,
+        gras:     1,
+        mountain: 0
     }
 }
 
@@ -28,7 +28,7 @@ GFX.prototype.create = function () {
             var rand = Math.random();
             for (key in this.probabilities) {
                 if (rand < this.probabilities[key]) {
-                    var tile = this.map.create(i * tilesize, j * tilesize, key);
+                    var tile = this.map.create(i * tilesize, j * tilesize, key, 100);
                     break;
                 }
             }
