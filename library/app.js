@@ -1,4 +1,5 @@
 var app = (function (sfx, gfx, menu, player) {
+    var self = this;
 
 // Game related
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', { preload: preload, create: init, update: update });
@@ -13,8 +14,8 @@ var app = (function (sfx, gfx, menu, player) {
         game.load.image('player', 'assets/images/player/player.png');
         game.load.spritesheet('game_objects', 'assets/images/objects/game_objects.png', 64, 64);
 
-        gfx.load();
-        sfx.load();
+        gfx.load(self);
+        sfx.load(self);
     }
 
 
@@ -84,7 +85,8 @@ var app = (function (sfx, gfx, menu, player) {
         init   : init,
         start  : start,
         update : update,
-        reset  : reset
+        reset  : reset,
+        player : player
 
     }
 })(sfx, gfx, menu, player);
