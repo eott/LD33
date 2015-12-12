@@ -13,6 +13,7 @@ Player.prototype.create = function () {
     this.plane.checkWorldBounds = true
 
 
+
     this.plane.events.onOutOfBounds.add(this.onOutOfBounds, this)
 
 
@@ -38,6 +39,22 @@ Player.prototype.onOutOfBounds = function(){
 }
 
 Player.prototype.update = function () {
+
+    this.plane.rotation = this.plane.body.angle + Math.PI/2;
+
+    console.log(this.plane.rotation)
+
+    console.log(Phaser.Point.angle(new Phaser.Point(0, 0), this.plane.body.velocity))
+
+    if (this.app.cursors.left.isDown)
+    {
+        this.plane.body.velocity.y
+    }
+
+    if (this.app.cursors.right.isDown)
+    {
+        this.plane.body.velocity.y
+    }
 
 }
 
