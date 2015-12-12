@@ -28,6 +28,8 @@ var menu = (function(){
             gameViewElem.removeChild(gameViewElem.lastChild)
         }
         app = new App()
+        app.preload()
+        app.create()
     }
 
     function showTutorial() {
