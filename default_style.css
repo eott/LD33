@@ -2,6 +2,7 @@ body {
     background-color: #E6EAC0;
     font-family: 'Amatic SC', sanserif;
     font-size: 25px;
+    margin: 0;
 }
 
 /* BEGIN HEADER */
@@ -64,14 +65,17 @@ section.game {
     cursor: pointer;
 }
 
-section.tutorial{
+section.tutorial {
     margin: 0 auto;
     max-width: 800px;
-    height: 200px;
 }
 
 #tutorialView {
     text-align: center;
+}
+
+.hide {
+    display: none;
 }
 
 /* END CONTENT*/
