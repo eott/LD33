@@ -17,21 +17,24 @@ Player.prototype.create = function () {
 
 
 
-    this.plane.body.velocity.x = 1000
-    this.plane.body.velocity.y = 1000
+    this.plane.body.velocity.x = -1000
+    this.plane.body.velocity.y = -1000
 }
 
 Player.prototype.onOutOfBounds = function(){
     console.log('collision')
-    console.log(this.app.game.height)
-    console.log(this.plane.position.y)
 
-    this.plane.position.y = this.app.game.height - this.plane.position.y
-    this.plane.position.x = this.app.game.width - this.plane.position.x
+    if (this.plane.position.y >= this.app.game.height) {
+        this.plane.position.y = 0
+    } else if (this.plane.position.y <= 0) {
+        this.plane.position.y = this.app.game.height
+    }
 
-    console.log(this.app.game.height)
-    console.log(this.plane.position.y)
-
+    if (this.plane.position.x >= this.app.game.width) {
+        this.plane.position.x = 0
+    } else if (this.plane.position.x <= 0) {
+        this.plane.position.x = this.app.game.width
+    }
 }
 
 Player.prototype.update = function () {
