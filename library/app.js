@@ -4,7 +4,7 @@ var App = function (muted) {
     this.gfx = new GFX(this)
     this.player = new Player(this)
     console.log('Starting App')
-    this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameView', this)
+    this.game = new Phaser.Game(800, 608, Phaser.AUTO, 'gameView', this)
 }
 
 App.prototype.preload = function () {

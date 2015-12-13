@@ -1,9 +1,9 @@
 var Player = function (app) {
     this.app = app
     this.plane
-    this.speed = 200
+    this.speed = 140
     this.incr = 100
-    this.dimension = new Phaser.Point(128, 128)
+    this.dimension = new Phaser.Point(64, 64)
 }
 
 Player.prototype.preload = function () {
@@ -19,6 +19,9 @@ Player.prototype.create = function () {
 
     this.plane.body.velocity.x = 50
     this.plane.body.velocity.y = -50
+
+    this.plane.animations.add('s')
+    this.plane.animations.play('s', 20, true)
 }
 
 Player.prototype.onOutOfBounds = function () {
