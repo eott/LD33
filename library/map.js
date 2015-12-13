@@ -28,25 +28,14 @@ Map.prototype.preload = function () {
 }
 
 Map.prototype.create = function () {
-    var tilesize = 16,
-        maxMapSizeX = 50,
-        maxMapSizeY = 38
+    var tiles = this.getTileTypes(50, 38, 16)
 
-    for (var i = 0; i < maxMapSizeX; i++) {
-        for (var j = 0; j < maxMapSizeY; j++) {
-            var rand = Math.random()
-            var previousProbability = 0;
-
-            for (key in this.probabilities) {
-                if (rand < (previousProbability += this.probabilities[key])) {
-                    var tile = this[key].create(i * tilesize, j * tilesize, key)
-                    if (key == 'fire') {
-                        tile.animations.add('s');
-                        tile.animations.play('s', 3, true);
-                    }
-                    break
-                }
-            }
+    for (var i in tiles) {
+        var tile = tiles[i]
+        var sprite = this[tile.type].create(tile.x, tile.y, tile.type)
+        if (tile.type == 'fire') {
+            sprite.animations.add('s');
+            sprite.animations.play('s', 3, true);
         }
     }
 
@@ -57,4 +46,28 @@ Map.prototype.create = function () {
 
 Map.prototype.update = function () {
 
+}
+
+Map.prototype.getTileTypes = function (sizeX, sizeY, tilesize) {
+    var tiles = []
+
+    for (var i = 0; i < sizeX; i++) {
+        for (var j = 0; j < sizeY; j++) {
+            var rand = Math.random()
+            var previousProbability = 0;
+
+            for (key in this.probabilities) {
+                if (rand < (previousProbability += this.probabilities[key])) {
+                    tiles.push({
+                        x: i * tilesize,
+                        y: j * tilesize,
+                        type: key
+                    })
+                    break
+                }
+            }
+        }
+    }
+
+    return tiles
 }
