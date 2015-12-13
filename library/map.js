@@ -1,6 +1,5 @@
 var Map = function (app) {
     this.app = app
-    this.map // <- still needed ?
 
     this.probabilities = {
         ash     : 0.01,
@@ -20,13 +19,11 @@ Map.prototype.preload = function () {
 
     for (key in this.probabilities) {
         this.app.game.load.image(key, 'assets/images/objects/' + key + '.png')
+        this[key].enableBody = false
     }
 }
 
 Map.prototype.create = function () {
-    // Place boxes in the world
-    this.map = this.app.game.add.group()
-    this.map.enableBody = false
     var tilesize = 16,
         maxMapSizeX = 50,
         maxMapSizeY = 38
@@ -38,7 +35,7 @@ Map.prototype.create = function () {
 
             for (key in this.probabilities) {
                 if (rand < (previousProbability += this.probabilities[key])) {
-                    var tile = this.map.create(i * tilesize, j * tilesize, key)
+                    var tile = this[key].create(i * tilesize, j * tilesize, key)
                     break
                 }
             }
