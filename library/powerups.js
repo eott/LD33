@@ -12,12 +12,8 @@ Powerups.prototype.preload = function () {
 }
 
 Powerups.prototype.create = function () {
-    var sprite
     while (this.powerups.length < this.maxPowerups) {
-        sprite = this.app.game.add.sprite(Math.random() * this.app.game.width, Math.random() * this.app.game.height, this.types[Math.floor(Math.random() * this.types.length)])
-        this.app.game.physics.arcade.enable(sprite)
-        sprite.app = this.app
-        this.powerups.push(sprite)
+        this.spawn()
     }
 }
 
@@ -26,6 +22,10 @@ Powerups.prototype.update = function () {
         if(this.app.game.physics.arcade.collide(this.app.player.plane, this.powerups[i])) {
             this.handleCollision(i)
         }
+    }
+
+    while (this.powerups.length < this.maxPowerups) {
+        this.spawn()
     }
 }
 
@@ -41,4 +41,10 @@ Powerups.prototype.handleCollision = function (index) {
     this.powerups.splice(index, 1)
 
     // Apply powerup bonusses
+}
+
+Powerups.prototype.spawn = function () {
+    var sprite = this.app.game.add.sprite(Math.random() * this.app.game.width, Math.random() * this.app.game.height, this.types[Math.floor(Math.random() * this.types.length)])
+    this.app.game.physics.arcade.enable(sprite)
+    this.powerups.push(sprite)
 }
