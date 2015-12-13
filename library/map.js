@@ -26,7 +26,8 @@ Map.prototype.preload = function () {
 }
 
 Map.prototype.create = function () {
-    this.tiles = this.generateTiles(50, 38, 16)
+    // Width: 50 tiles, Height: 38 tiles, Tilesize: 16px
+    this.generateTiles(50, 38, 16)
 
     for (var i = 0; i < this.tiles.length; i++) {
         for (var j = 0; j < this.tiles[i].length; j++) {
@@ -53,13 +54,13 @@ Map.prototype.update = function () {
 }
 
 Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
-    var tiles = []
+    this.tiles = []
 
     // Init everything as forest
     for (var i = 0; i < sizeX; i++) {
-        tiles[i] = []
+        this.tiles[i] = []
         for (var j = 0; j < sizeY; j++) {
-            tiles[i][j] = {
+            this.tiles[i][j] = {
                 x: i * tilesize,
                 y: j * tilesize,
                 type: 'forest'
@@ -77,8 +78,11 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
             dY = 0
 
         for (var i = 0; i < 20; i++) {
-            if (tiles[rX + dX] != undefined && tiles[rX + dX][rY + dY] != undefined) {
-                tiles[rX + dX][rY + dY].type = 'mountain'
+            if (
+                this.tiles[rX + dX] != undefined
+                && this.tiles[rX + dX][rY + dY] != undefined
+            ) {
+                this.tiles[rX + dX][rY + dY].type = 'mountain'
             }
             dX += Math.floor(Math.random() * 3) - 1
             dY += Math.floor(Math.random() * 3) - 1
@@ -88,18 +92,11 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
     // Clear all forest around mountains and change them to gras
     for (var i = 0; i < sizeX; i++) {
         for (var j = 0; j < sizeY; j++) {
-            // Iterate over Moore neighborhood
-            for (var dX = -1; dX < 2; dX++) {
-                for (var dY = -1; dY < 2; dY++) {
-                    if (
-                        tiles[i + dX] != undefined
-                        && tiles[i + dX][j + dY] != undefined
-                        && tiles[i + dX][j + dY].type == 'mountain'
-                        && tiles[i][j].type == 'forest'
-                    ) {
-                        tiles[i][j].type = 'gras'
-                    }
-                }
+            if (
+                this.tiles[i][j].type == 'forest'
+                && this.getMooreNeighborhood(i, j, 'mountain').length > 0
+            ) {
+                this.tiles[i][j].type = 'gras'
             }
         }
     }
@@ -107,8 +104,8 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
     // Add some random clearings
     for (var i = 0; i < sizeX; i++) {
         for (var j = 0; j < sizeY; j++) {
-            if (tiles[i][j].type == 'forest' && Math.random() < 0.07) {
-                tiles[i][j].type = 'gras'
+            if (this.tiles[i][j].type == 'forest' && Math.random() < 0.07) {
+                this.tiles[i][j].type = 'gras'
             }
         }
     }
@@ -116,13 +113,11 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
     // Add some random starting fires
     for (var i = 0; i < sizeX; i++) {
         for (var j = 0; j < sizeY; j++) {
-            if (tiles[i][j].type == 'forest' && Math.random() < 0.01) {
-                tiles[i][j].type = 'fire'
+            if (this.tiles[i][j].type == 'forest' && Math.random() < 0.01) {
+                this.tiles[i][j].type = 'fire'
             }
         }
     }
-
-    return tiles
 }
 
 Map.prototype.getMooreNeighborhood = function (x, y, type) {
@@ -148,7 +143,7 @@ Map.prototype.getMooreNeighborhood = function (x, y, type) {
     return found
 }
 
-Map.prototype.applyOnMooreNeighborhoord = function (x, y, type, callback) {
+Map.prototype.applyOnMooreNeighborhood = function (x, y, type, callback) {
     var nbh = this.getMooreNeighborhood(x, y, type)
 
     for (var i in nbh) {
