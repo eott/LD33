@@ -1,5 +1,6 @@
 var Map = function (app) {
     this.app = app
+    this.frameCounter = 0
 
     this.types = [
         'fire',
@@ -50,7 +51,19 @@ Map.prototype.create = function () {
 }
 
 Map.prototype.update = function () {
-
+    // The map doesn't need to update every frame
+    if (this.frameCounter++ % 15 == 0) {
+        // Spread fire
+        this.fire.forEach(function (item) {
+            this.applyOnMooreNeighborhood(item.position.x / 16, item.position.y / 16, 'forest', function (found) {
+                if (Math.random() < 0.003) {
+                    found.sprite.loadTexture('fire', 0)
+                    this.fire.add(found.sprite)
+                    found.type = 'fire'
+                }
+            }.bind(this));
+        }, this)
+    }
 }
 
 Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
