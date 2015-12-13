@@ -157,7 +157,7 @@ Map.prototype.getMooreNeighborhood = function (x, y, type, radius) {
     var found = []
 
     for (var dX = -radius; dX <= radius; dX++) {
-        for (var dY = -radius; dY < radius; dY++) {
+        for (var dY = -radius; dY <= radius; dY++) {
             if (
                 this.tiles[x + dX] != undefined
                 && this.tiles[x + dX][y + dY] != undefined
