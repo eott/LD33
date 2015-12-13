@@ -1,19 +1,19 @@
-var PowerupDistributor = function (app) {
+var PowerupDistibutor = function (app) {
     this.app = app
     this.powerups = {}
 }
 
-PowerupDistributor.prototype.preload = function () {
+Powerup.prototype.preload = function () {
     for (var value of ['ballon', 'speed', 'spray'])
     {
         this.app.game.load.spritesheet(value, 'assets/images/objects/' + value + '.png', 32, 32)
     }
 }
 
-PowerupDistributor.prototype.create = function () {
+Powerup.prototype.create = function () {
 
 }
 
-PowerupDistributor.prototype.update = function () {
+Powerup.prototype.update = function () {
 
 }
