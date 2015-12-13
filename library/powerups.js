@@ -2,7 +2,7 @@ var Powerups = function (app) {
     this.app = app
     this.powerups = []
     this.maxPowerups = 5
-    this.types = ['ballon', 'speed', 'spray']
+    this.types = ['balloon', 'speed', 'spray']
 }
 
 Powerups.prototype.preload = function () {
