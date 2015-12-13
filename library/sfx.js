@@ -8,12 +8,13 @@ var SFX = function (app, muted) {
 SFX.prototype.preload = function () {
     this.backgroundMusic = new Audio('assets/audio/music/song.ogg')
     this.backgroundMusic.loop = true
-    if (!this.muted) {
-        this.backgroundMusic.play()
-    }
 
     this.audioClips.pickup = new Audio('assets/audio/effects/pickup.ogg')
-    this.audioClips.planesound = new Audio('assets/audio/effects/planesound.mp3')
+    this.audioClips.planesound = new Audio('assets/audio/effects/engine_hum.wav')
+    this.audioClips.planesound.loop = true
+
+    //this.play('planesound')
+    this.play('backgroundMusic')
 }
 
 SFX.prototype.create = function () {
