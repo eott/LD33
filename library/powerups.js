@@ -36,7 +36,6 @@ Powerups.prototype.update = function () {
 Powerups.prototype.handleCollision = function (index) {
     console.log('Powerup collected')
     var sprite = this.powerups[index]
-    var key = sprite.key
 
     // Fancy collection animation
     this.app.sfx.play('pickup')
@@ -48,7 +47,7 @@ Powerups.prototype.handleCollision = function (index) {
 
     if(sprite.key = 'balloon') {
     }
-    
+
     if(sprite.key = 'spray') {
     }
 
