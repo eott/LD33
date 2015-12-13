@@ -1,41 +1,42 @@
 var Map = function (app) {
     this.app = app
 
-    this.probabilities = {
-        ash     : 0.01,
-        fire    : 0.1,
-        forest  : 0.42,
-        gras    : 0.44,
-        mountain: 0.03
-    }
+    this.types = [
+        'fire',
+        'forest',
+        'mountain',
+        'ash',
+        'gras'
+    ]
 }
 
 Map.prototype.preload = function () {
-    this.gras = this.app.game.add.group()
-    this.forest = this.app.game.add.group()
-    this.mountain = this.app.game.add.group()
-    this.ash = this.app.game.add.group()
-    this.fire = this.app.game.add.group()
+    for (key in this.types) {
+        type = this.types[key]
 
-    for (key in this.probabilities) {
-        if (key == 'fire') {
-            this.app.game.load.spritesheet(key, 'assets/images/objects/' + key + '.png', 16, 16)
+        this[type] = this.app.game.add.group()
+        this[type].enableBody = false
+
+        if (type == 'fire') {
+            this.app.game.load.spritesheet(type, 'assets/images/objects/' + type + '.png', 16, 16)
         } else {
-            this.app.game.load.image(key, 'assets/images/objects/' + key + '.png')
+            this.app.game.load.image(type, 'assets/images/objects/' + type + '.png')
         }
-        this[key].enableBody = false
     }
 }
 
 Map.prototype.create = function () {
-    var tiles = this.getTileTypes(50, 38, 16)
+    this.tiles = this.generateTiles(50, 38, 16)
 
-    for (var i in tiles) {
-        var tile = tiles[i]
-        var sprite = this[tile.type].create(tile.x, tile.y, tile.type)
-        if (tile.type == 'fire') {
-            sprite.animations.add('s');
-            sprite.animations.play('s', 3, true);
+    for (var i = 0; i < this.tiles.length; i++) {
+        for (var j = 0; j < this.tiles[i].length; j++) {
+            var tile = this.tiles[i][j],
+                sprite = this[tile.type].create(tile.x, tile.y, tile.type)
+
+            if (tile.type == 'fire') {
+                sprite.animations.add('s');
+                sprite.animations.play('s', 3, true);
+            }
         }
     }
 
@@ -48,7 +49,7 @@ Map.prototype.update = function () {
 
 }
 
-Map.prototype.getTileTypes = function (sizeX, sizeY, tilesize) {
+Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
     var tiles = []
 
     // Init everything as forest
@@ -118,13 +119,5 @@ Map.prototype.getTileTypes = function (sizeX, sizeY, tilesize) {
         }
     }
 
-    // Put everything in a flat array for easier iteration
-    var ret = []
-    for (var i = 0; i < sizeX; i++) {
-        for (var j = 0; j < sizeY; j++) {
-            ret.push(tiles[i][j])
-        }
-    }
-
-    return ret
+    return tiles
 }
