@@ -67,6 +67,6 @@ Player.prototype.reset = function () {
 
 }
 
-Player.prototype.modifiedSpeed(){
+Player.prototype.modifiedSpeed = function(){
     return this.speed + this.speedModifier / this.incr
 }
