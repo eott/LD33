@@ -58,6 +58,8 @@ Player.prototype.update = function () {
 
     this.plane.body.velocity.y = Math.sin(angle) * this.speed
     this.plane.body.velocity.x = Math.cos(angle) * this.speed
+
+    this.app.gfx.map.extinguishAround(this.plane.position.x, this.plane.position.y, 1)
 }
 
 Player.prototype.reset = function () {
