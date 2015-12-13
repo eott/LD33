@@ -17,7 +17,7 @@ Map.prototype.preload = function () {
     this.ash = this.app.game.add.group()
     this.fire = this.app.game.add.group()
 
-    for (key in this.probabilities) {
+    for (var key in this.probabilities) {
         if (key == 'fire') {
             this.app.game.load.spritesheet(key, 'assets/images/objects/' + key + '.png', 16, 16)
         } else {
