@@ -33,6 +33,9 @@ Map.prototype.create = function () {
             var tile = this.tiles[i][j],
                 sprite = this[tile.type].create(tile.x, tile.y, tile.type)
 
+            // Set the sprite, so we later have access
+            tile.sprite = sprite
+
             if (tile.type == 'fire') {
                 sprite.animations.add('s');
                 sprite.animations.play('s', 3, true);
@@ -120,4 +123,35 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
     }
 
     return tiles
+}
+
+Map.prototype.getMooreNeighborhood = function (x, y, type) {
+    type = type || 'all'
+
+    var found = []
+
+    for (var dX = -1; dX < 2; dX++) {
+        for (var dY = -1; dY < 2; dY++) {
+            if (
+                this.tiles[x + dX] != undefined
+                && this.tiles[x + dX][y + dY] != undefined
+                && (
+                    type == 'all'
+                    || this.tiles[x + dX][y + dY].type == type
+                )
+            ) {
+                found.push(this.tiles[x + dX][y + dY])
+            }
+        }
+    }
+
+    return found
+}
+
+Map.prototype.applyOnMooreNeighborhoord = function (x, y, type, callback) {
+    var nbh = this.getMooreNeighborhood(x, y, type)
+
+    for (var i in nbh) {
+        callback(nbh[i])
+    }
 }
