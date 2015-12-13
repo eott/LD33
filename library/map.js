@@ -55,7 +55,7 @@ Map.prototype.update = function () {
     if (this.frameCounter++ % 15 == 0) {
         // Spread fire
         this.fire.forEach(function (item) {
-            this.applyOnMooreNeighborhood(item.position.x / 16, item.position.y / 16, 'forest', function (found) {
+            this.applyOnMooreNeighborhood(item.position.x / 16, item.position.y / 16, 'forest', 1, function (found) {
                 if (Math.random() < 0.003) {
                     found.sprite.loadTexture('fire', 0)
                     this.fire.add(found.sprite)
@@ -107,7 +107,7 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
         for (var j = 0; j < sizeY; j++) {
             if (
                 this.tiles[i][j].type == 'forest'
-                && this.getMooreNeighborhood(i, j, 'mountain').length > 0
+                && this.getMooreNeighborhood(i, j, 'mountain', 1).length > 0
             ) {
                 this.tiles[i][j].type = 'gras'
             }
@@ -133,13 +133,14 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
     }
 }
 
-Map.prototype.getMooreNeighborhood = function (x, y, type) {
+Map.prototype.getMooreNeighborhood = function (x, y, type, radius) {
     type = type || 'all'
+    radius = radius || 1
 
     var found = []
 
-    for (var dX = -1; dX < 2; dX++) {
-        for (var dY = -1; dY < 2; dY++) {
+    for (var dX = -radius; dX <= radius; dX++) {
+        for (var dY = -radius; dY < radius; dY++) {
             if (
                 this.tiles[x + dX] != undefined
                 && this.tiles[x + dX][y + dY] != undefined
@@ -156,10 +157,23 @@ Map.prototype.getMooreNeighborhood = function (x, y, type) {
     return found
 }
 
-Map.prototype.applyOnMooreNeighborhood = function (x, y, type, callback) {
-    var nbh = this.getMooreNeighborhood(x, y, type)
+Map.prototype.applyOnMooreNeighborhood = function (x, y, type, radius, callback) {
+    var nbh = this.getMooreNeighborhood(x, y, type, radius)
 
     for (var i in nbh) {
         callback(nbh[i])
     }
+}
+
+Map.prototype.extinguishAround = function (x, y, radius) {
+    // Clamp to a tile
+    var tX = Math.min(800, Math.max(0, Math.round(x / 16))),
+        tY = Math.min(800, Math.max(0, Math.round(y / 16)))
+
+    this.applyOnMooreNeighborhood(tX, tY, 'fire', radius, function (found) {
+        found.sprite.loadTexture('ash', 0)
+        this.fire.remove(found.sprite)
+        this.ash.add(found.sprite)
+        found.type = 'ash'
+    }.bind(this))
 }
