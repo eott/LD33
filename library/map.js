@@ -81,6 +81,25 @@ Map.prototype.getTileTypes = function (sizeX, sizeY, tilesize) {
         }
     }
 
+    // Clear all forest around mountains and change them to gras
+    for (var i = 0; i < sizeX; i++) {
+        for (var j = 0; j < sizeY; j++) {
+            // Iterate over Moore neighborhood
+            for (var dX = -1; dX < 2; dX++) {
+                for (var dY = -1; dY < 2; dY++) {
+                    if (
+                        tiles[i + dX] != undefined
+                        && tiles[i + dX][j + dY] != undefined
+                        && tiles[i + dX][j + dY].type == 'mountain'
+                        && tiles[i][j].type == 'forest'
+                    ) {
+                        tiles[i][j].type = 'gras'
+                    }
+                }
+            }
+        }
+    }
+
     // Put everything in a flat array for easier iteration
     var ret = []
     for (var i = 0; i < sizeX; i++) {
