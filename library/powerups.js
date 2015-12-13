@@ -59,5 +59,6 @@ Powerups.prototype.handleCollision = function (index) {
 Powerups.prototype.spawn = function () {
     var sprite = this.app.game.add.sprite(Math.random() * this.app.game.width, Math.random() * this.app.game.height, this.types[Math.floor(Math.random() * this.types.length)])
     this.app.game.physics.arcade.enable(sprite)
+    sprite.body.mass = 0
     this.powerups.push(sprite)
 }

@@ -22,7 +22,7 @@ Player.prototype.create = function () {
     this.plane.body.velocity.x = this.modifiedSpeed()
     this.plane.body.velocity.y = this.modifiedSpeed()
 
-    this.plane.body.bounce = new Phaser.Point(0, 1)
+    this.plane.body.bounce = new Phaser.Point(0, 0)
 
     this.plane.animations.add('s')
     this.plane.animations.play('s', 20, true)
