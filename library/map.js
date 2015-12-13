@@ -100,6 +100,24 @@ Map.prototype.getTileTypes = function (sizeX, sizeY, tilesize) {
         }
     }
 
+    // Add some random clearings
+    for (var i = 0; i < sizeX; i++) {
+        for (var j = 0; j < sizeY; j++) {
+            if (tiles[i][j].type == 'forest' && Math.random() < 0.07) {
+                tiles[i][j].type = 'gras'
+            }
+        }
+    }
+
+    // Add some random starting fires
+    for (var i = 0; i < sizeX; i++) {
+        for (var j = 0; j < sizeY; j++) {
+            if (tiles[i][j].type == 'forest' && Math.random() < 0.01) {
+                tiles[i][j].type = 'fire'
+            }
+        }
+    }
+
     // Put everything in a flat array for easier iteration
     var ret = []
     for (var i = 0; i < sizeX; i++) {
