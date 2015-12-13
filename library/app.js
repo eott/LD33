@@ -3,7 +3,7 @@ var App = function (muted) {
     this.sfx = new SFX(this, muted)
     this.gfx = new GFX(this)
     this.player = new Player(this)
-    this.powerups = new PowerupDistibutor(this)
+    this.powerups = new PowerupDistributor(this)
     console.log('Starting App')
     this.game = new Phaser.Game(800, 608, Phaser.AUTO, 'gameView', this)
 }
