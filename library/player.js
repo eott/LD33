@@ -18,8 +18,8 @@ Player.prototype.create = function () {
     this.plane.checkWorldBounds = true
     this.plane.events.onOutOfBounds.add(this.onOutOfBounds, this)
 
-    this.plane.body.velocity.x = modifiedSpeed()
-    this.plane.body.velocity.y = modifiedSpeed()
+    this.plane.body.velocity.x = this.modifiedSpeed()
+    this.plane.body.velocity.y = this.modifiedSpeed()
 
     this.plane.animations.add('s')
     this.plane.animations.play('s', 20, true)
