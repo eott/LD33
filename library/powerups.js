@@ -3,6 +3,7 @@ var Powerups = function (app) {
     this.powerups = []
     this.maxPowerups = 5
     this.types = ['balloon', 'speed', 'spray']
+    this.counter = 0
 }
 
 Powerups.prototype.preload = function () {
@@ -24,9 +25,12 @@ Powerups.prototype.update = function () {
         }
     }
 
-    while (this.powerups.length < this.maxPowerups) {
+    while (this.powerups.length < this.maxPowerups && !this.counter) {
         this.spawn()
+        counter += 100
     }
+
+    counter--
 }
 
 Powerups.prototype.handleCollision = function (index) {
@@ -35,6 +39,7 @@ Powerups.prototype.handleCollision = function (index) {
     var key = sprite.key
 
     // Fancy collection animation
+    this.app.sfx.play('pickup')
 
     // Remove sprite
     sprite.kill()
