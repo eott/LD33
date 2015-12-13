@@ -21,4 +21,5 @@ GFX.prototype.create = function () {
 }
 
 GFX.prototype.update = function () {
+    this.map.update()
 }

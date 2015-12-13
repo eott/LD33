@@ -18,7 +18,11 @@ Map.prototype.preload = function () {
     this.fire = this.app.game.add.group()
 
     for (key in this.probabilities) {
-        this.app.game.load.image(key, 'assets/images/objects/' + key + '.png')
+        if (key == 'fire') {
+            this.app.game.load.spritesheet(key, 'assets/images/objects/' + key + '.png', 16, 16)
+        } else {
+            this.app.game.load.image(key, 'assets/images/objects/' + key + '.png')
+        }
         this[key].enableBody = false
     }
 }
@@ -36,6 +40,10 @@ Map.prototype.create = function () {
             for (key in this.probabilities) {
                 if (rand < (previousProbability += this.probabilities[key])) {
                     var tile = this[key].create(i * tilesize, j * tilesize, key)
+                    if (key == 'fire') {
+                        tile.animations.add('s');
+                        tile.animations.play('s', 3, true);
+                    }
                     break
                 }
             }
@@ -48,4 +56,5 @@ Map.prototype.create = function () {
 }
 
 Map.prototype.update = function () {
+
 }
