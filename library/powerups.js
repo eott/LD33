@@ -27,10 +27,10 @@ Powerups.prototype.update = function () {
 
     while (this.powerups.length < this.maxPowerups && !this.counter) {
         this.spawn()
-        counter += 100
+        this.counter += 100
     }
 
-    counter--
+    this.counter--
 }
 
 Powerups.prototype.handleCollision = function (index) {
