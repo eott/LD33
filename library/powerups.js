@@ -25,9 +25,9 @@ Powerups.prototype.update = function () {
         }
     }
 
-    while (this.powerups.length < this.maxPowerups && !this.counter) {
+    while (this.powerups.length < this.maxPowerups && this.counter <= 0) {
         this.spawn()
-        this.counter += 20
+        this.counter += 5
     }
 
     this.counter--
@@ -46,11 +46,9 @@ Powerups.prototype.handleCollision = function (index) {
     }
 
     if(sprite.key = 'balloon') {
-        this.app.player.speedModifier = 0
     }
 
     if(sprite.key = 'spray') {
-        this.app.player.speedModifier = 0
     }
 
     // Remove sprite
