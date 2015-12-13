@@ -3,6 +3,7 @@ var Player = function (app) {
     this.plane
     this.speed = 140
     this.incr = 100
+    this.frameCounter = 0
     this.dimension = new Phaser.Point(64, 64)
     this.speedModifier = 0
 }
@@ -60,7 +61,10 @@ Player.prototype.update = function () {
     this.plane.body.velocity.y = Math.sin(angle) * this.modifiedSpeed()
     this.plane.body.velocity.x = Math.cos(angle) * this.modifiedSpeed()
 
-    this.app.gfx.map.extinguishAround(this.plane.position.x, this.plane.position.y, 1)
+    // This method is costly, so we want to fire it only every so often
+    if (this.frameCounter++ % 5 == 0) {
+        this.app.gfx.map.extinguishAround(this.plane.position.x, this.plane.position.y, 1)
+    }
 }
 
 Player.prototype.reset = function () {
