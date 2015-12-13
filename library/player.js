@@ -64,6 +64,7 @@ Player.prototype.update = function () {
     // This method is costly, so we want to fire it only every so often
     if (this.frameCounter++ % 5 == 0) {
         this.app.gfx.map.extinguishAround(this.plane.position.x, this.plane.position.y, 1)
+        this.speedModifier && this.speedModifier--
     }
 }
 
