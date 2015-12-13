@@ -4,6 +4,7 @@ var Player = function (app) {
     this.speed = 140
     this.incr = 100
     this.dimension = new Phaser.Point(64, 64)
+    this.speedModifier = 0
 }
 
 Player.prototype.preload = function () {
@@ -17,8 +18,8 @@ Player.prototype.create = function () {
     this.plane.checkWorldBounds = true
     this.plane.events.onOutOfBounds.add(this.onOutOfBounds, this)
 
-    this.plane.body.velocity.x = 50
-    this.plane.body.velocity.y = -50
+    this.plane.body.velocity.x = modifiedSpeed()
+    this.plane.body.velocity.y = modifiedSpeed()
 
     this.plane.animations.add('s')
     this.plane.animations.play('s', 20, true)
@@ -56,12 +57,16 @@ Player.prototype.update = function () {
         angle += Math.PI / this.incr
     }
 
-    this.plane.body.velocity.y = Math.sin(angle) * this.speed
-    this.plane.body.velocity.x = Math.cos(angle) * this.speed
+    this.plane.body.velocity.y = Math.sin(angle) * this.modifiedSpeed()
+    this.plane.body.velocity.x = Math.cos(angle) * this.modifiedSpeed()
 
     this.app.gfx.map.extinguishAround(this.plane.position.x, this.plane.position.y, 1)
 }
 
 Player.prototype.reset = function () {
 
+}
+
+Player.prototype.modifiedSpeed(){
+    return this.speed + this.speedModifier / this.incr
 }

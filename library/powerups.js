@@ -41,11 +41,20 @@ Powerups.prototype.handleCollision = function (index) {
     // Fancy collection animation
     this.app.sfx.play('pickup')
 
+    // Apply powerup bonusses
+    if(sprite.key = 'speed') {
+        this.app.player.speedModifier += 100
+    }
+
+    if(sprite.key = 'balloon') {
+    }
+    
+    if(sprite.key = 'spray') {
+    }
+
     // Remove sprite
     sprite.kill()
     this.powerups.splice(index, 1)
-
-    // Apply powerup bonusses
 }
 
 Powerups.prototype.spawn = function () {
