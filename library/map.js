@@ -164,3 +164,15 @@ Map.prototype.applyOnMooreNeighborhood = function (x, y, type, radius, callback)
         callback(nbh[i])
     }
 }
+
+Map.prototype.extinguishAround = function (x, y, radius) {
+    // Clamp to a tile
+    var tX = Math.min(800, Math.max(0, Math.round(x / 16))),
+        tY = Math.min(800, Math.max(0, Math.round(y / 16)))
+
+    this.applyOnMooreNeighborhood(tX, tY, 'all', radius, function (found) {
+        found.sprite.loadTexture('ash', 0)
+        this.fire.remove(found.sprite)
+        found.type = 'ash'
+    })
+}
