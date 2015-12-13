@@ -58,8 +58,23 @@ Map.prototype.update = function () {
             this.applyOnMooreNeighborhood(item.position.x / 16, item.position.y / 16, 'forest', 1, function (found) {
                 if (Math.random() < 0.003) {
                     found.sprite.loadTexture('fire', 0)
+                    this.forest.remove(found.sprite)
                     this.fire.add(found.sprite)
                     found.type = 'fire'
+                }
+            }.bind(this));
+        }, this)
+
+        // Regenerate forest from ash
+        this.ash.forEach(function (item) {
+            // A Moore neighborhood with radius 0 kinda makes sense, because we don't have a map from
+            // sprites to their "parent" tile
+            this.applyOnMooreNeighborhood(item.position.x / 16, item.position.y / 16, 'ash', 0, function (found) {
+                if (Math.random() < 0.003) {
+                    found.sprite.loadTexture('forest', 0)
+                    this.ash.remove(found.sprite)
+                    this.forest.add(found.sprite)
+                    found.type = 'forest'
                 }
             }.bind(this));
         }, this)
