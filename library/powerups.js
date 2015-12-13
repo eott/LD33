@@ -27,7 +27,7 @@ Powerups.prototype.update = function () {
 
     while (this.powerups.length < this.maxPowerups && this.counter <= 0) {
         this.spawn()
-        this.counter += 5
+        this.counter += 50
     }
 
     this.counter--
@@ -41,14 +41,14 @@ Powerups.prototype.handleCollision = function (index) {
     this.app.sfx.play('pickup')
 
     // Apply powerup bonusses
-    if(sprite.key = 'speed') {
+    if(sprite.key == 'speed') {
         this.app.player.speedModifier += 50
     }
 
-    if(sprite.key = 'balloon') {
+    if(sprite.key == 'balloon') {
     }
 
-    if(sprite.key = 'spray') {
+    if(sprite.key == 'spray') {
     }
 
     // Remove sprite
