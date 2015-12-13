@@ -1,6 +1,6 @@
 var menu = (function () {
     // No game is initialized yet, do it all "naked"
-    var menuTheme = new Audio('assets/audio/music/captain.mp3')
+    var menuTheme = new Audio('assets/audio/music/menu_theme.ogg')
     menuTheme.loop = true
     menuTheme.play()
     var muted = false
