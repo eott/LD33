@@ -12,7 +12,7 @@ var Map = function (app) {
 }
 
 Map.prototype.preload = function () {
-    for (key in this.types) {
+    for (var key in this.types) {
         type = this.types[key]
 
         this[type] = this.app.game.add.group()
