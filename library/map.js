@@ -27,12 +27,12 @@ Map.prototype.create = function () {
     // Place boxes in the world
     this.map = this.app.game.add.group()
     this.map.enableBody = false
-    var tilesize = 16
-    var maxMapSize = 100
-//    var tiles = []
+    var tilesize = 16,
+        maxMapSizeX = 50,
+        maxMapSizeY = 38
 
-    for (var i = 0; i < maxMapSize; i++) {
-        for (var j = 0; j < maxMapSize; j++) {
+    for (var i = 0; i < maxMapSizeX; i++) {
+        for (var j = 0; j < maxMapSizeY; j++) {
             var rand = Math.random()
             var previousProbability = 0;
 
