@@ -60,6 +60,8 @@ Map.prototype.update = function () {
                     found.sprite.loadTexture('fire', 0)
                     this.forest.remove(found.sprite)
                     this.fire.add(found.sprite)
+                    found.sprite.animations.add('s');
+                    found.sprite.animations.play('s', 3, true);
                     found.type = 'fire'
                 }
             }.bind(this));
@@ -187,6 +189,7 @@ Map.prototype.extinguishAround = function (x, y, radius) {
 
     this.applyOnMooreNeighborhood(tX, tY, 'fire', radius, function (found) {
         found.sprite.loadTexture('ash', 0)
+        found.sprite.animations.stop('s')
         this.fire.remove(found.sprite)
         this.ash.add(found.sprite)
         found.type = 'ash'
