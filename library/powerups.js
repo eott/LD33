@@ -1,7 +1,7 @@
 var Powerups = function (app) {
     this.app = app
     this.powerups = []
-    this.maxPowerups = 5
+    this.maxPowerups = 2
     this.types = [/*'balloon',*/ 'speed', 'spray']
     this.counter = 0
 }

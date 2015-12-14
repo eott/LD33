@@ -56,7 +56,7 @@ Map.prototype.update = function () {
         // Spread fire
         this.fire.forEach(function (item) {
             this.applyOnMooreNeighborhood(item.position.x / 16, item.position.y / 16, 'forest', 1, function (found) {
-                if (Math.random() < 0.003) {
+                if (Math.random() < 0.006) {
                     found.sprite.loadTexture('fire', 0)
                     this.forest.remove(found.sprite)
                     this.fire.add(found.sprite)
@@ -72,7 +72,7 @@ Map.prototype.update = function () {
             // A Moore neighborhood with radius 0 kinda makes sense, because we don't have a map from
             // sprites to their "parent" tile
             this.applyOnMooreNeighborhood(item.position.x / 16, item.position.y / 16, 'ash', 0, function (found) {
-                if (Math.random() < 0.003) {
+                if (Math.random() < 0.006) {
                     found.sprite.loadTexture('forest', 0)
                     this.ash.remove(found.sprite)
                     this.forest.add(found.sprite)
@@ -143,7 +143,7 @@ Map.prototype.generateTiles = function (sizeX, sizeY, tilesize) {
     // Add some random starting fires
     for (var i = 0; i < sizeX; i++) {
         for (var j = 0; j < sizeY; j++) {
-            if (this.tiles[i][j].type == 'forest' && Math.random() < 0.01) {
+            if (this.tiles[i][j].type == 'forest' && Math.random() < 0.015) {
                 this.tiles[i][j].type = 'fire'
             }
         }
