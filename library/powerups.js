@@ -2,7 +2,7 @@ var Powerups = function (app) {
     this.app = app
     this.powerups = []
     this.maxPowerups = 5
-    this.types = ['balloon', 'speed', 'spray']
+    this.types = [/*'balloon',*/ 'speed', 'spray']
     this.counter = 0
 }
 
@@ -44,8 +44,8 @@ Powerups.prototype.handleCollision = function (index) {
         this.app.player.speedModifier += 50
     }
 
-    if(sprite.key == 'balloon') {
-    }
+    // if(sprite.key == 'balloon') {
+    // }
 
     if(sprite.key == 'spray') {
     }
