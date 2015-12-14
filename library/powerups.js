@@ -1,8 +1,8 @@
 var Powerups = function (app) {
     this.app = app
     this.powerups = []
-    this.maxPowerups = 5
-    this.types = ['balloon', 'speed', 'spray']
+    this.maxPowerups = 2
+    this.types = [/*'balloon',*/ 'speed', 'spray']
     this.counter = 0
 }
 
@@ -34,7 +34,6 @@ Powerups.prototype.update = function () {
 }
 
 Powerups.prototype.handleCollision = function (index) {
-    console.log('Powerup collected')
     var sprite = this.powerups[index]
 
     // Fancy collection animation
@@ -45,10 +44,11 @@ Powerups.prototype.handleCollision = function (index) {
         this.app.player.speedModifier += 50
     }
 
-    if(sprite.key == 'balloon') {
-    }
+    // if(sprite.key == 'balloon') {
+    // }
 
     if(sprite.key == 'spray') {
+        this.app.player.rangeModifierCooldown = 30
     }
 
     // Remove sprite

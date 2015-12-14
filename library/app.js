@@ -30,6 +30,12 @@ App.prototype.create = function () {
         'left' : Phaser.Keyboard.LEFT,
         'right': Phaser.Keyboard.RIGHT
     })
+
+    // Add timer and register game end screen when it's over
+    this.timer = new Timer(this, 120, function() {
+        this.game.gamePaused()
+        this.gfx.drawEndScreen()
+    }.bind(this))
 }
 
 App.prototype.update = function () {
@@ -37,4 +43,10 @@ App.prototype.update = function () {
     this.sfx.update()
     this.player.update()
     this.powerups.update()
+    this.timer.update()
+}
+
+App.prototype.getScore = function() {
+    var secretSauce = 4.363
+    return Math.round(100 - 100 * secretSauce * this.gfx.map.getPercentageOf('fire').toPrecision(2))
 }

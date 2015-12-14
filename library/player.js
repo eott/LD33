@@ -6,6 +6,7 @@ var Player = function (app) {
     this.frameCounter = 0
     this.dimension = new Phaser.Point(64, 64)
     this.speedModifier = 0
+    this.rangeModifierCooldown = 0
 }
 
 Player.prototype.preload = function () {
@@ -29,8 +30,6 @@ Player.prototype.create = function () {
 }
 
 Player.prototype.onOutOfBounds = function () {
-    console.log('collision')
-
     if (this.plane.position.y >= this.app.game.height) {
         this.plane.position.y = 0
     } else if (this.plane.position.y <= 0) {
@@ -65,8 +64,9 @@ Player.prototype.update = function () {
 
     // This method is costly, so we want to fire it only every so often
     if (this.frameCounter++ % 5 == 0) {
-        this.app.gfx.map.extinguishAround(this.plane.position.x, this.plane.position.y, 1)
+        this.app.gfx.map.extinguishAround(this.plane.position.x, this.plane.position.y, this.modifiedRange())
         this.speedModifier && this.speedModifier--
+        this.rangeModifierCooldown && this.rangeModifierCooldown--
     }
 }
 
@@ -74,6 +74,10 @@ Player.prototype.reset = function () {
 
 }
 
-Player.prototype.modifiedSpeed = function(){
+Player.prototype.modifiedSpeed = function() {
     return this.speed + this.speedModifier
+}
+
+Player.prototype.modifiedRange = function() {
+    return 1 + Math.min(1, this.rangeModifierCooldown)
 }
