@@ -30,6 +30,8 @@ App.prototype.create = function () {
         'left' : Phaser.Keyboard.LEFT,
         'right': Phaser.Keyboard.RIGHT
     })
+
+    this.timer = new Timer(this, 120)
 }
 
 App.prototype.update = function () {
@@ -37,4 +39,5 @@ App.prototype.update = function () {
     this.sfx.update()
     this.player.update()
     this.powerups.update()
+    this.timer.update()
 }
