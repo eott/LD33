@@ -34,7 +34,6 @@ Powerups.prototype.update = function () {
 }
 
 Powerups.prototype.handleCollision = function (index) {
-    console.log('Powerup collected')
     var sprite = this.powerups[index]
 
     // Fancy collection animation

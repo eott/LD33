@@ -29,8 +29,6 @@ Player.prototype.create = function () {
 }
 
 Player.prototype.onOutOfBounds = function () {
-    console.log('collision')
-
     if (this.plane.position.y >= this.app.game.height) {
         this.plane.position.y = 0
     } else if (this.plane.position.y <= 0) {
