@@ -1,12 +1,16 @@
-var Timer = function(app, timespan) {
+var Timer = function(app, timespan, whenDone) {
     this.app = app
     this.timespan = timespan * 1000 // We count milliseconds
     this.startTime = new Date().getTime()
     this.remainingTime = this.timespan
+    this.whenDone = whenDone
 }
 
 Timer.prototype.update = function() {
     this.remainingTime = this.timespan - new Date().getTime() + this.startTime
+    if (this.remainingTime <= 0) {
+        this.whenDone()
+    }
 }
 
 Timer.prototype.getTimeString = function() {

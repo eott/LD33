@@ -28,3 +28,12 @@ GFX.prototype.update = function () {
         this.timerText.text = this.app.timer.getTimeString()
     }
 }
+
+GFX.prototype.drawEndScreen = function () {
+    this.app.game.add.text(
+        this.app.game.width / 2 - 120,
+        100,
+        this.app.getScore() + '% / 100%',
+        {font: "50px Bangers", fill: "white", stroke: "black", strokeThickness: 7, align: "center"}
+    )
+}

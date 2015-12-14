@@ -195,3 +195,7 @@ Map.prototype.extinguishAround = function (x, y, radius) {
         found.type = 'ash'
     }.bind(this))
 }
+
+Map.prototype.getPercentageOf = function (type) {
+    return this[type].length / (this.tiles.length * this.tiles[0].length)
+}
