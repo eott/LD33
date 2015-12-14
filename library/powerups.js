@@ -48,6 +48,7 @@ Powerups.prototype.handleCollision = function (index) {
     // }
 
     if(sprite.key == 'spray') {
+        this.app.player.rangeModifierCooldown = 30
     }
 
     // Remove sprite
